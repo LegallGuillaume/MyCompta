@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Dashbord Perso</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin-2.css" rel="stylesheet">
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/chart.js/Chart.min.js"></script>
+  {% block script%} {% endblock%}
+</head>
+
+<body id="page-top" style="background-color: {{color.col4}};">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper" >
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content" style="background-color: {{color.col4}};">
+
+        <!-- Topbar -->
+        <nav class="navbar fixed-top navbar-expand-md bg-dark"
+        style="background-image: linear-gradient(to left,{{color.col2}}, {{color.col2}}); box-shadow: 1px 1px 1px {{color.col1}};">
+            <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item {% if Page_title == "Accueil"%}active font-weight-bold{% endif%}">
+                      <a class="nav-link" href="/" style="color: {{color.col5}}; text-shadow: 1px 1px 2px {{color.col1}};"
+                      >Accueil {% if Page_title == "Accueil"%}(actuel){% endif%}</a>
+                    </li>
+                    <li class="nav-item {% if Page_title == "Factures"%}active font-weight-bold{% endif%}">
+                      <a class="nav-link" href="/factures" style="color: {{color.col5}}; text-shadow: 1px 1px 2px {{color.col1}};"
+                      >Factures {% if Page_title == "Factures"%}(actuel){% endif%}</a>
+                    </li>
+                    <li class="nav-item {% if Page_title == "Clients"%}active font-weight-bold{% endif%}">
+                      <a class="nav-link" href="/clients" style="color: {{color.col5}}; text-shadow: 1px 1px 2px {{color.col1}};"
+                      >Clients {% if Page_title == "Clients"%}(actuel){% endif%}</a>
+                    </li>
+                    <li class="nav-item {% if Page_title == "Assurance"%}active font-weight-bold{% endif%}">
+                      <a class="nav-link" href="/assurance" style="color: {{color.col5}}; text-shadow: 1px 1px 2px {{color.col1}};"
+                      >Assurance {% if Page_title == "Assurance"%}(actuel){% endif%}</a>
+                    </li>
+                    <li class="nav-item {% if Page_title == "Coffre"%}active font-weight-bold{% endif%}">
+                      <a class="nav-link" href="/coffre" style="color: {{color.col5}}; text-shadow: 1px 1px 2px {{color.col1}};"
+                      >Coffre {% if Page_title == "Coffre"%}(actuel){% endif%}</a>
+                    </li>
+                    <li class="nav-item {% if Page_title == "Dépences"%}active font-weight-bold{% endif%}">
+                      <a class="nav-link" href="/withdraw" style="color: {{color.col5}}; text-shadow: 1px 1px 2px {{color.col1}};"
+                      >Dépences {% if Page_title == "Dépences"%}(actuel){% endif%}</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="mx-auto order-0">
+                <a class="navbar-brand mx-auto" href="/home" style="color: {{color.col5}}; text-shadow: 1px 1px 2px {{color.col1}};"
+                >Dashboard</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown no-arrow {% if Page_title == "Profile"%}active{% endif%}">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="mr-2 d-none d-lg-inline"  style="color: {{color.col5}}; text-shadow: 1px 1px 2px {{color.col1}};"
+                            >{{profile.name}} {{profile.prenom}}</span>
+                            <img class="img-profile rounded-circle" style="height: 30px; width: 40px;" src="https://s1.qwant.com/thumbr/0x380/3/6/50a8808e22e07fb92318b7c13635bdfbafb16749e9213d41ec2da7ac367641/ford-mustang-shelby-gt-500--1967-eleanor-gone-in-60-sec-muscle-car-beautiful-car.jpg?u=https%3A%2F%2Fw-dog.net%2Fwallpapers%2F0%2F11%2F314364394631165%2Fford-mustang-shelby-gt-500--1967-eleanor-gone-in-60-sec-muscle-car-beautiful-car.jpg&q=0&b=1&p=0&a=1">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="/logout">
+                              <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Se déconnecter
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          {% for messages in get_flashed_messages(with_categories=true) %}
+            <div class="alert alert-{{ messages[0] }} alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                {{ messages[1] }}
+            </div>
+          {% endfor %}
+
+          
+          {%block body%}
+
+          {%endblock%}
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+      <!-- Footer -->
+      <footer class="sticky-footer" style="background-color: {{color.col4}};">
+        <div class="container my-auto" >
+          <div class="copyright text-center my-auto">
+            <span style="color: {{color.col1}};">Copyright &copy; Le Gall Guillaume 2020 - SB Admin 2</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin-2.js"></script>
+
+  <!-- Page level plugins  -->
+
+  <!-- Page level custom scripts -->
+
+</body>
+
+</html>

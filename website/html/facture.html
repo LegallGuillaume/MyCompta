@@ -1,0 +1,319 @@
+{% extends "body.html" %}
+
+{% block script%}
+<script>
+    function reload_page()
+    {
+        document.location.reload(true);
+    }
+
+    $(document).ready(function()
+    {
+        $('#btn_new_facture').click(function(e)
+        {
+            $('#newFacture').modal('hide');
+            var objs = {};
+            var empty = false
+            var l_array = []
+            $('#newFacture :input').each(function()
+            {
+                if($(this).attr('type') == 'checkbox')
+                {
+                    objs[$(this).attr('id')] = ($(this).prop('checked') ? 'True' : 'False');
+                }
+                else if($(this).attr('type') != 'button')
+                {
+                    var val = $(this).val();
+                    if (val == '')
+                    {
+                        l_array.push($(this).attr('id').replace('-', ' '));
+                        empty = true;
+                    }
+                    objs[$(this).attr('id')] = val;
+                }
+            });
+            if(empty)
+            {
+                alert('Liste des champs non remplis: ' + l_array);
+                return;
+            }
+            $.ajax({
+                method: 'POST',
+                url: '/factures',
+                data: objs
+            }).done(function()
+            {
+                $('#newFacture :input').each(function()
+                {
+                    if($(this).attr('type') == 'checkbox')
+                    {
+                        $(this).prop('checked', false);
+                    }
+                    else if($(this).attr('type') != 'button')
+                    {
+                        $(this).val('');
+                    }
+                });
+            });
+            reload_page();
+        });
+
+        $('#confirmModel').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('facturename') // Extract info from data-* attributes
+            var modal = $(this);
+            modal.find('.modal-body p').text('Etês-vous sùr de vouloir supprimer la facture: ' + recipient + ' ?');
+            modal.find('#btn_supp_fact').data('facturename', recipient);
+        });
+
+        $('#btn_supp_fact').click(function()
+        {
+            var facturename = $(this).data('facturename');
+            if(facturename != '')
+            {
+                remove_facture(facturename);
+                $(this).data('facturename', '');
+            }
+
+            $('#confirmModel').modal('hide');
+            reload_page();
+        });
+
+        $(".custom-file-input").on("change", function() {
+            var fileName = $(this).val().split('\\').pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    });
+
+    function remove_facture(facturename)
+    {
+        $.ajax({
+            method: 'POST',
+            url: 'facture-delete',
+            data: {'facture-name' : facturename}
+        }).done(function()
+        {
+            reload_page();
+        });
+    }
+
+    function facture_payee(facturename, payer)
+    {
+        $.ajax({
+            method: 'POST',
+            url: 'facture-payee',
+            data: {'facture-name' : facturename, 'facture-payee' : payer}
+        }).done(function()
+        {
+            reload_page();
+        });
+    }
+
+</script>
+{% endblock%}
+
+{%block body%}
+
+<div class="modal fade" id="newFacture" tabindex="-1" role="dialog" aria-labelledby="newFactureLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="newFactureLabel">Nouvelle Facture</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <label for="facture-name" class="col-form-label">N° Facture:</label>
+                    <input type="text" disabled value="{{new_facture}}" class="form-control" id="facture-name">
+                </div>
+                <div class="form-group">
+                    <label for="facture-client">Client:</label>
+                    <select class="form-control" id="facture-client">
+                        {%for c in clients%}
+                        <option>{{c.name}}</option>
+                        {%endfor%}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="facture-projet" class="col-form-label">Projet:</label>
+                    <input type="text" class="form-control" id="facture-projet">
+                </div>
+                <div class="form-group">
+                    <label for="facture-tjm" class="col-form-label">TJM:</label>
+                    <input type="number" step="0.01" value="300" min="0"  class="form-control" id="facture-tjm">
+                </div>
+                <div class="form-group">
+                    <label for="facture-jour" class="col-form-label">Jours:</label>
+                    <input type="number" step="1" value="0" min="0" max="31" class="form-control" id="facture-jour">
+                </div>
+                <div class="form-group">
+                    <label for="facture-dateenvoi" class="col-form-label">Date Envoi:</label>
+                    <input type="date"  class="form-control" id="facture-dateenvoi">
+                </div>
+                <div class="form-group">
+                    <label for="facture-dateecheance" class="col-form-label">Date Echeance:</label>
+                    <input type="date"  class="form-control" id="facture-dateecheance">
+                </div>
+                <div class="form-group">
+                    <label for="facture-delai" class="col-form-label">Delai Max:</label>
+                    <input type="date"  class="form-control" id="facture-delai">
+                </div>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="facture-tva">
+                    <label class="custom-control-label" for="facture-tva">TVA</label>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+            <button type="button" class="btn btn-success" id="btn_new_facture">Ajouter</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmModel" tabindex="-1" role="dialog" aria-labelledby="confirmModelLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="confirmModelLabel">Cofirmation !</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body"><p></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+              <button type="button" class="btn btn-danger" id="btn_supp_fact" data-facturename="">Oui, supprimer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<div class="row">
+
+    <!--<div class="col-lg-6 my-auto text-center">
+        <form method="post" action="/facture-file" enctype="multipart/form-data">
+            <dl>
+                <div class="custom-file">
+                    <input type="file" name="file" autocomplete="off" required class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" data-browse="Rechercher" for="customFile">Ajouter un fichier</label>
+                </div>
+            </dl>
+            <p>
+                <button type="submit" value="Submit" class="btn btn-outline-success shadow" >Uploader le fichier</button>
+            </p>
+        </form>
+    </div>-->
+    <div class="col-lg-6 my-auto text-center">
+        <button type="button" style="width:120px; height:120px;" class="btn btn-outline-success" data-toggle="modal" data-target="#newFacture"><i style="font-size: 40px" class="fa fa-file-invoice-dollar"></i></button>
+    </div>
+    {% if not factures %}
+    <div class="col-lg-6"></div>
+    {%endif%}
+    {%for f in factures%}
+    <div class="col-lg-6">
+        <div class="card mb-4 shadow">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <div class="row" style="width: 100%;">
+                    <div class="col-9 text-left">
+                        <h6 class="m-0 font-weight-bold text-primary">{{f.name}} - {{get_client_name(f.id_client)}}  <span class="badge {%if f.payee%}badge-success">Payée{%else%}badge-danger">En Attente{%endif%}</span></h6>
+                    </div>
+                    <div class="col-1">
+                        <button class="btn btn-primary btn-circle btn-sm" onclick="window.open(window.location.origin + '/pdf/{{f.name}}', '_blank')">
+                            <i class="fas fa-file-pdf"></i>
+                        </button>
+                    </div>
+                    <div class="col-1">
+                        <button class="btn btn-secondary btn-circle btn-sm" onclick="location.href='/facture/{{f.name}}'">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                    <div class="col-1">
+                        <button data-toggle="modal" data-target="#confirmModel" data-facturename="{{f.name}}" class="btn btn-danger btn-circle btn-sm">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p class="font-weight-bold">Projet: </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>{{f.projet}}</p>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: -5px;">
+                    <div class="col-sm-6">
+                        <p class="font-weight-bold">Date d'envoi: </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>{{convert_date(f.date_envoi)}}</p>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: -5px;">
+                    <div class="col-sm-6">
+                        <p class="font-weight-bold">Jours: </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>{{f.days}}</p>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: -5px;">
+                    <div class="col-sm-6">
+                        <p class="font-weight-bold">Taux journalier: </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>{{f.tjm}} €</p>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: -5px;">
+                    <div class="col-sm-6">
+                        <p class="font-weight-bold">Echéance max: </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>{{convert_date(f.delai_max)}}</p>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: -5px;">
+                    <div class="col-sm-6">
+                        <p class="font-weight-bold">Facturation de: </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>{{f.total}} € <span class="badge badge-pill badge-info">{%if not f.tva%}HT{%else%}TTC exclus{%endif%}</span></p>
+                    </div>
+                </div>
+                <div class="row">
+                    {% if not f.payee %}
+                    <div class="col-8 text-center">
+                        <a href="/factures" onclick="facture_payee('{{f.name}}', 'True');" class="btn btn-danger btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-times"></i>
+                            </span>
+                            <span class="text">Le client n'a pas payé</span>
+                        </a>
+                    </div>
+                    {% else %}
+                    <div class="col-8 text-center">
+                        <a href="/factures" onclick="facture_payee('{{f.name}}', 'False');" class="btn btn-success btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <span class="text">Le client a payé</span>
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {%endfor%}
+</div>
+
+{%endblock%}

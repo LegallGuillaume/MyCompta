@@ -1,0 +1,256 @@
+{% extends "body.html" %}
+
+{% block script%}
+<script>
+
+    function reload_page()
+    {
+        document.location.reload(true);
+    }
+
+    $(document).ready(function()
+    {
+        $('#btn_new_assurance').click(function(e)
+        {
+            $('#newAssurrance').modal('hide');
+            var objs = {};
+            var empty = false
+            var l_array = []
+            $('#newAssurrance :input').each(function()
+            {
+                if($(this).attr('type') == 'checkbox')
+                {
+                    objs[$(this).attr('id')] = ($(this).prop('checked') ? 'True' : 'False');
+                }
+                else if($(this).attr('type') != 'button')
+                {
+                    var val = $(this).val();
+                    if (val == '')
+                    {
+                        l_array.push($(this).attr('id').replace('-', ' '));
+                        empty = true;
+                    }
+                    objs[$(this).attr('id')] = val;
+                }
+            });
+            if(empty)
+            {
+                alert('Liste des champs non remplis: ' + l_array);
+                return;
+            }
+            $.ajax({
+                method: 'POST',
+                url: '/assurance',
+                data: objs
+            }).done(function()
+            {
+                $('#newAssurrance :input').each(function()
+                {
+                    if($(this).attr('type') == 'checkbox')
+                    {
+                        $(this).prop('checked', false);
+                    }
+                    else if($(this).attr('type') != 'button')
+                    {
+                        $(this).val('');
+                    }
+                });
+            });
+            reload_page();
+        });
+
+        $('#confirmModel').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('assurancename') // Extract info from data-* attributes
+            var modal = $(this);
+            modal.find('.modal-body p').text('Etês-vous sùr de vouloir supprimer le assurance: ' + recipient + ' ?');
+            modal.find('#btn_supp_assurance').data('assurancename', recipient);
+        });
+
+        $('#btn_supp_assurance').click(function()
+        {
+            var assurancename = $(this).data('assurancename');
+            if(assurancename != '')
+            {
+                remove_assurance(assurancename);
+                $(this).data('assurancename', '');
+            }
+
+            $('#confirmModel').modal('hide');
+            reload_page();
+        });
+
+        $(".custom-file-input").on("change", function() {
+            var fileName = $(this).val().split('\\').pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    });
+
+    function remove_assurance(assurancename)
+    {
+        $.ajax({
+            method: 'POST',
+            url: '/assurance-delete',
+            data: {'assurance-name' : assurancename}
+        }).done(function()
+        {
+            reload_page();
+        });
+    }
+    function select_assurance(assurancename, select)
+    {
+        $.ajax({
+            method: 'POST',
+            url: '/assurance-select',
+            data: {'assurance-name' : assurancename, 'assurance-select' : select}
+        }).done(function()
+        {
+            reload_page();
+        });
+    }
+
+</script>
+{% endblock%}
+
+{%block body%}
+
+<div class="modal fade" id="newAssurrance" tabindex="-1" role="dialog" aria-labelledby="newAssurranceLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="newAssurranceLabel">Nouvelle Assurance</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <label for="assurance-name" class="col-form-label">Nom assurance:</label>
+                    <input type="text" class="form-control" id="assurance-name">
+                </div>
+                <div class="form-group">
+                    <label for="assurance-type" class="col-form-label">Type d'assurance:</label>
+                    <input type="text" class="form-control" id="assurance-type">
+                </div>
+                <div class="form-group">
+                    <label for="assurance-region" class="col-form-label">Region démographique:</label>
+                    <input type="text" class="form-control" id="assurance-region">
+                </div>
+                <div class="form-group">
+                    <label for="assurance-contrat" class="col-form-label">Numéro contrat:</label>
+                    <input type="text"  class="form-control" id="assurance-contrat">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+            <button type="button" class="btn btn-success" id="btn_new_assurance">Ajouter</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmModel" tabindex="-1" role="dialog" aria-labelledby="confirmModelLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="confirmModelLabel">Cofirmation !</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body"><p></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+              <button type="button" class="btn btn-danger" id="btn_supp_assurance" data-assurancename="">Oui, supprimer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<div class="row">
+
+    <div class="col-lg-6 my-auto text-center">
+        <button type="button" style="width:120px; height:120px;" class="btn btn-outline-success" data-toggle="modal" data-target="#newAssurrance"><i style="font-size: 40px" class="fa fa-address-card"></i></button>
+    </div>
+    {% if not assurances %}
+    <div class="col-lg-6"></div>
+    {%endif%}
+    {%for c in assurances%}
+    <div class="col-lg-6">
+        <div class="card mb-4 shadow">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <div class="row" style="width: 100%;">
+                    <div class="col-11 text-left">
+                        <h6 class="m-0 font-weight-bold text-primary">{{c.name}} <span class="badge badge-info"></span></h6>
+                    </div>
+                    <div class="col-1">
+                        <button data-toggle="modal" data-target="#confirmModel" data-assurancename="{{c.name}}" class="btn btn-danger btn-circle btn-sm">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p class="font-weight-bold">Type d'assurance: </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>{{c.type}}</p>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: -5px;">
+                    <div class="col-sm-6">
+                        <p class="font-weight-bold">Nom société: </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>{{c.name}}</p>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: -5px;">
+                    <div class="col-sm-6">
+                        <p class="font-weight-bold">Numéro contrat: </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>{{c.n_contrat}}</p>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: -5px;">
+                    <div class="col-sm-6">
+                        <p class="font-weight-bold">Région: </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>{{c.region}}</p>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: -5px;">
+                    {% if c.sel == "False"%}
+                    <div class="col-8 text-center">
+                        <a href="/assurance" onclick="select_assurance('{{c.name}}', 'True');" class="btn btn-danger btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-times"></i>
+                            </span>
+                            <span class="text">L'assurance n'est pas sélectionnée</span>
+                        </a>
+                    </div>
+                    {% else %}
+                    <div class="col-8 text-center">
+                        <a href="/assurance" onclick="select_assurance('{{c.name}}', 'False');" class="btn btn-success btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <span class="text">L'assurance est sélectionnée</span>
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {%endfor%}
+</div>
+
+{%endblock%}
