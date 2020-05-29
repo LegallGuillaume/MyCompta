@@ -4,7 +4,7 @@ from models.color import Color
 from urls.urls_client import get_list_client, ClientDAO, Client, get_client_name
 from urls.urls_assurance import AssuranceDAO, Assurance
 from settings.config import TVA
-from settings.tools import get_profile_from_session
+from settings.tools import get_profile_from_session, CACHE_FACTURE
 from flask import flash, request, render_template, redirect, make_response, session
 import pdfkit
 import datetime
@@ -38,6 +38,8 @@ def add_facture(form):
 
     if fdao.insert(facture):
         flash('La facture {} a été ajoutée avec succès !'.format(facture.name), 'success')
+        if id_profile in CACHE_FACTURE.keys():
+            del CACHE_FACTURE[id_profile]
     else:
         flash("Erreur lors de la création de la facture {} !".format(facture.name), 'danger')
 
@@ -45,6 +47,8 @@ def remove_facture(facturename):
     fdao = FactureDAO()
     if fdao.delete(fdao.where('name', facturename)):
         flash('La facture {} a été supprimée avec succès !'.format(facturename), 'success')
+        if id_profile in CACHE_FACTURE.keys():
+            del CACHE_FACTURE[id_profile]
     else:
         flash("Erreur lors de la suppression de la facture {} !".format(facturename), 'danger')
 
@@ -55,6 +59,8 @@ def payee_facture(facturename, payer):
     del fac.total_ttc
     if fdao.update(fac, fdao.where('name', facturename)):
         flash('La facture {} {} avec succès !'.format(facturename, 'a été payée' if payer else 'a été rééditée'), 'success')
+        if id_profile in CACHE_FACTURE.keys():
+            del CACHE_FACTURE[id_profile]
     else:
         flash("Erreur lors de la {} du paiement de la facture {} !".format('validation' if payer else 'réédition', facturename), 'danger')
 

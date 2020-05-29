@@ -2,6 +2,8 @@ import json
 from flask import session
 from models.profile import ProfileDAO
 
+CACHE_FACTURE = dict()
+
 def get_profile_from_session():
     st_id = session['logged_in']
     pdao = ProfileDAO()
