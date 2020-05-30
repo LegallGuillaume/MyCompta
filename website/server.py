@@ -21,8 +21,8 @@ app.register_blueprint(manager_facture, url_prefix="/")
 app.register_blueprint(manager_client, url_prefix="/")
 app.register_blueprint(manager_assurance, url_prefix="/")
 app.register_blueprint(manager_profile, url_prefix="/")
-app.register_blueprint(manager_coffre, url_prefix="/")
-app.register_blueprint(manager_withdraw, url_prefix="/")
+# app.register_blueprint(manager_coffre, url_prefix="/")
+# app.register_blueprint(manager_withdraw, url_prefix="/")
 
 # return 'id' : {l_factures, sold_en, last_f, attent_f}
 def get_element_profile_factures(id):
