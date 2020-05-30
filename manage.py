@@ -1,10 +1,8 @@
 #!/bin/env python3
 from website.models.assurance import AssuranceDAO
 from website.models.client import ClientDAO
-from website.models.coffre import CoffreDAO
 from website.models.facture import FactureDAO
 from website.models.profile import ProfileDAO, Profile
-from website.models.withdraw import WithdrawDAO
 import argparse
 import subprocess
 
@@ -43,7 +41,7 @@ def prt(line):
 if __name__ == "__main__":
     if args.init:
         print(bcolors.BOLD + bcolors.HEADER + 'Starting init db ...' + bcolors.ENDC)
-        l_db = [AssuranceDAO(), FactureDAO(), WithdrawDAO(), ClientDAO(), CoffreDAO(), ProfileDAO()]
+        l_db = [AssuranceDAO(), FactureDAO(), ClientDAO(), ProfileDAO()]
         tab = 15
         for l in l_db:
             result = bcolors.OKBLUE + 'OK' + bcolors.ENDC if l.create_table() else bcolors.FAIL + 'KO' + bcolors.ENDC
