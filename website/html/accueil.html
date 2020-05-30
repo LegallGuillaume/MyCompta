@@ -100,22 +100,22 @@
             {% for f in factures%}
                 <tr>
                 {%if f.payee%}
-                    <td class="accueil-td">{{f.name}} <span class="badge badge-success btn-sm"><i class="fas fa-check"></i></span></td>
+                    <td class="accueil-td text-center">{{f.name}} <span class="badge btn-sm" style="background-color: {{color.col2}};"><i class="fas fa-check" style="margin-left: -3px; width:10px;"></i></span></td>
                 {%else%}
-                    <td class="accueil-td">{{f.name}} <span class="badge badge-warning btn-sm"><i class="fas fa-exclamation-triangle"></i></span></td>
+                    <td class="accueil-td text-center">{{f.name}} <span class="badge btn-sm" style="background-color: {{color.col5}};"><i class="fas fa-exclamation-triangle" style="margin-left: -3px; width:10px;"></i></span></td>
                 {%endif%}
-                    <td class="accueil-td">{{get_client_name(f.id_client)}}</td>
-                    <td class="accueil-td">{{f.projet}}</td>
-                    <td class="accueil-td">{{convert_date(f.date_envoi)}}</td>
-                    <td class="accueil-td">{{f.days}}</td>
-                    <td class="accueil-td">{{f.tjm}} €</td>
-                    <td class="accueil-td">{%if f.tva %}Oui{%else%}Non{%endif%}</td>
-                    <td class="accueil-td">{{convert_date(f.date_echeance)}}</td>
-                    <td class="accueil-td">{{f.total}} €</td>
+                    <td class="accueil-td text-center">{{get_client_name(f.id_client)}}</td>
+                    <td class="accueil-td text-center">{{f.projet}}</td>
+                    <td class="accueil-td text-center">{{convert_date(f.date_envoi)}}</td>
+                    <td class="accueil-td text-center">{{f.days}}</td>
+                    <td class="accueil-td text-center">{{f.tjm}} €</td>
+                    <td class="accueil-td text-center">{%if f.tva %}Oui{%else%}Non{%endif%}</td>
+                    <td class="accueil-td text-center">{{convert_date(f.date_echeance)}}</td>
+                    <td class="accueil-td text-center">{{f.total}} €</td>
                     {% if f.tva %}
-                    <td class="accueil-td">{{f.total_ttc}} €</td>
+                    <td class="accueil-td text-center">{{f.total_ttc}} €</td>
                     {%else%}
-                    <td class="accueil-td">---</td>
+                    <td class="accueil-td text-center">---</td>
                     {%endif%}
                 </tr>
             {%endfor%}
