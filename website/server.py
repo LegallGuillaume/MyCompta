@@ -8,21 +8,16 @@ from settings.tools import get_profile_from_session, CACHE_FACTURE
 from urls.urls_facture import manager_facture, get_list_facture, convert_date
 from urls.urls_client import manager_client, get_client_name, ClientDAO
 from urls.urls_assurance import manager_assurance, AssuranceDAO
-from urls.urls_coffre import manager_coffre
 from urls.urls_profile import manager_profile
-from urls.urls_withdraw import manager_withdraw
 import datetime
 
 app = Flask(__name__, static_folder='static/', template_folder='html/')
 app.secret_key = "dsd999fsdf78zeSDez25ré(Fàç!uy23hGg¨*%H£23)"
-# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 app.register_blueprint(manager_facture, url_prefix="/")
 app.register_blueprint(manager_client, url_prefix="/")
 app.register_blueprint(manager_assurance, url_prefix="/")
 app.register_blueprint(manager_profile, url_prefix="/")
-# app.register_blueprint(manager_coffre, url_prefix="/")
-# app.register_blueprint(manager_withdraw, url_prefix="/")
 
 # return 'id' : {l_factures, sold_en, last_f, attent_f}
 def get_element_profile_factures(id):
