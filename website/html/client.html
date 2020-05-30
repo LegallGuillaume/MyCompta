@@ -177,11 +177,11 @@
     {%endif%}
     {%for c in clients%}
     <div class="col-lg-6">
-        <div class="card mb-4 shadow">
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <div class="card mb-4 shadow" style="border: 0.10rem solid {{color.col7}}; background-color: transparent;">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between text-white" style="color: {{color.col7}}; background-color: {{color.col1}};">
                 <div class="row" style="width: 100%;">
                     <div class="col-11 text-left">
-                        <h6 class="m-0 font-weight-bold text-primary">{{c.name}} <span class="badge badge-info"></span></h6>
+                        <h6 class="m-0 font-weight-bold text-white" style="text-shadow: 1px 1px 2px {{color.col1}};">{{c.name}} <span class="badge badge-info"></span></h6>
                     </div>
                     <div class="col-1">
                         <button data-toggle="modal" data-target="#confirmModel" data-clientname="{{c.name}}" class="btn btn-danger btn-circle btn-sm">
@@ -193,42 +193,42 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-6">
-                        <p class="font-weight-bold">Adresse: </p>
+                        <p class="font-weight-bold text-white">Adresse: </p>
                     </div>
                     <div class="col-sm-6">
-                        <p>{{c.adresse}}</p>
-                    </div>
-                </div>
-                <div class="row" style="margin-top: -5px;">
-                    <div class="col-sm-6">
-                        <p class="font-weight-bold">Complement Adresse: </p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p>{{c.comp_adresse}}</p>
+                        <p class="text-white">{{c.adresse}}</p>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -5px;">
                     <div class="col-sm-6">
-                        <p class="font-weight-bold">Code Postal: </p>
+                        <p class="font-weight-bold text-white">Complement Adresse: </p>
                     </div>
                     <div class="col-sm-6">
-                        <p>{{c.cp}}</p>
-                    </div>
-                </div>
-                <div class="row" style="margin-top: -5px;">
-                    <div class="col-sm-6">
-                        <p class="font-weight-bold">Ville: </p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p>{{c.ville}}</p>
+                        <p class="text-white">{{c.comp_adresse}}</p>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -5px;">
                     <div class="col-sm-6">
-                        <p class="font-weight-bold">Pays: </p>
+                        <p class="font-weight-bold text-white">Code Postal: </p>
                     </div>
                     <div class="col-sm-6">
-                        <p>{{c.pays}}</p>
+                        <p class="text-white">{{c.cp}}</p>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: -5px;">
+                    <div class="col-sm-6">
+                        <p class="font-weight-bold text-white">Ville: </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="text-white">{{c.ville}}</p>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: -5px;">
+                    <div class="col-sm-6">
+                        <p class="font-weight-bold text-white">Pays: </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="text-white">{{c.pays}}</p>
                     </div>
                 </div>
             </div>

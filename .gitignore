@@ -7,3 +7,5 @@ prog_db
 
 #For the moment do not include action dir
 website/action/
+
+*_tmp*

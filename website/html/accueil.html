@@ -1,230 +1,127 @@
 {% extends "body.html" %}
 
 {%block body%}
-<!-- Content Row -->
+
 <div class="row">
-
-        <!-- TTC encaisser annee en cours-->
-        <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid {{color.col1}}">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-uppercase mb-1" style="color:{{color.col2}};"
-                            >FACTURATION ENCAISSÉE TTC {{annee}}</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ttc_encaissee}} €</div>
-                        </div>
-                    </div>
-                </div>
+    <div class="col-3">
+        <div class="card mb-3 shadow" style="max-width: 18rem; border: 0.10rem solid {{color.col7}}; background-color: transparent;">
+            <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col7}}; background-color: {{color.col1}};">FACTURATION ENCAISSÉE TTC {{annee}}</div>
+            <div class="card-body text-info">
+                <h5 class="card-title text-right font-weight-bold text-white" style="text-shadow: 1px 1px 2px {{color.col1}};">{{ttc_encaissee}} €</h5>
             </div>
         </div>
-
-        <!-- En Attente de paiment -->
-        <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid {{color.col1}}">
-                <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-uppercase mb-1" style="color:{{color.col1}};"
-                    >Facture en Attente</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{solde_non_payee}} €</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Facture dispo last - 1 -->
-        <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid {{color.col1}}">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-uppercase mb-1" style="color:{{color.col3}};"
-                                >Facturation disponible {{annee}}</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800 mb-1">{{facturation_available}} € (72000 €)</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Facture encaissee -->
-        <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid {{color.col2}}">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-uppercase mb-1" style="color:{{color.col1}};"
-                        >Facture encaissée HT (2019-20XX)</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{solde_encaissee}} €</div>
-                        </div>
-                        <div class="col-auto">
-                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Dernier facture -->
-        <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid {{color.col2}}">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-uppercase mb-1" style="color:{{color.col1}};"
-                            >Dernière facture</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{convert_date(last_facture)}}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- TVA Recoltée -->
-        <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid {{color.col2}}">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-uppercase mb-1" style="color:{{color.col2}};"
-                        >TVA Récoltée (2019-20xx)</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{tva_total}} € TTC</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ttc encaissee last year -->
-        <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid {{color.col3}}">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-uppercase mb-1" style="color:{{color.col3}};"
-                                >Facturation encaissée TTC {{annee_1}}</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800 mb-1">{{fact_enc_last_year}} €</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
-
-    <!-- Content Row -->
-
-    <div class="row text-center">
-       <div class="col-1"></div>
-        <div class="col-3">
-            <a href="/factures" class="btn btn-primary btn-icon-split">
-                <span class="icon text-white-50">
-                    <i class="fas fa-file-invoice-dollar" style="font-size: 20px;"></i>
-                </span>
-                <span class="text">Ajouter une facture</span>
-            </a>
-        </div>
-        <div class="col-4">
-            <a href="/clients" class="btn btn-info btn-icon-split">
-                <span class="icon text-white-50">
-                    <i class="fas fa-address-card" style="font-size: 20px;"></i>
-                </span>
-                <span class="text">Ajouter un client</span>
-            </a>
-        </div>
-        <div class="col-3">
-            <a href="/withdraw" class="btn btn-dark btn-icon-split">
-                <span class="icon text-white-50">
-                    <i class="fas fa-paper-plane" style="font-size: 20px;"></i>
-                </span>
-                <span class="text">Ajouter une dépence</span>
-            </a>
-        </div>
-        <div class="col-1"></div>
-    </div>
-
-    <br/>
-    
-    <!-- Content Row -->
-    <div class="row">
-
-        <!-- Content Column -->
-        <div class="container-fluid">
-
-        <!-- Project Card Example -->
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Liste des factures</h6>
+    <div class="col-3">
+        <div class="card mb-3 shadow" style="max-width: 18rem; border: 0.10rem solid {{color.col6}}; background-color: transparent;">
+            <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col6}}; background-color: {{color.col1}};">Facture en Attente</div>
+            <div class="card-body text-info">
+                <h5 class="card-title text-right font-weight-bold text-white" style="text-shadow: 1px 1px 2px {{color.col1}};">{{solde_non_payee}} €</h5>
             </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                    <tr>
-                        <th>N° Facture</th>
-                        <th>Client</th>
-                        <th>Projet</th>
-                        <th>Date d'envoi</th>
-                        <th>Jours travaillés</th>
-                        <th>Taux journalier</th>
-                        <th>TVA</th>
-                        <th>Date d'échéance</th>
-                        <th>Total</th>
-                    </tr>
-                    </thead>
-                    <tfoot>
-                    <tr>
-                        <th>N° Facture</th>
-                        <th>Client</th>
-                        <th>Projet</th>
-                        <th>Date d'envoi</th>
-                        <th>Jours travaillés</th>
-                        <th>Taux journalier</th>
-                        <th>TVA</th>
-                        <th>Date d'échéance</th>
-                        <th>Total HT</th>
-                        <th>Total TTC</th>
-                    </tr>
-                    </tfoot>
-                    <tbody>
-                    {% for f in factures%}
-                        <tr>
-                        {%if f.payee%}
-                            <td>{{f.name}} <span class="badge badge-success btn-sm"><i class="fas fa-check"></i></span></td>
-                        {%else%}
-                            <td>{{f.name}} <span class="badge badge-warning btn-sm"><i class="fas fa-exclamation-triangle"></i></span></td>
-                        {%endif%}
-                            <td>{{get_client_name(f.id_client)}}</td>
-                            <td>{{f.projet}}</td>
-                            <td>{{convert_date(f.date_envoi)}}</td>
-                            <td>{{f.days}}</td>
-                            <td>{{f.tjm}} €</td>
-                            <td>{%if f.tva %}Oui{%else%}Non{%endif%}</td>
-                            <td>{{convert_date(f.date_echeance)}}</td>
-                            <td>{{f.total}} €</td>
-                            {% if f.tva %}
-                            <td>{{f.total_ttc}} €</td>
-                            {%else%}
-                            <td>---</td>
-                            {%endif%}
-                        </tr>
-                    {%endfor%}
-                    </tbody>
-                </table>
-                </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="card mb-3 shadow" style="max-width: 18rem; border: 0.10rem solid {{color.col5}}; background-color: transparent;">
+            <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col5}}; background-color: {{color.col1}};">Facturation disponible {{annee}}</div>
+            <div class="card-body text-info">
+                <h5 class="card-title text-right font-weight-bold text-white" style="text-shadow: 1px 1px 2px {{color.col1}};">{{facturation_available}} € (72000 €)</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="card mb-3 shadow" style="max-width: 18rem; border: 0.10rem solid {{color.col4}}; background-color: transparent;">
+            <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col4}}; background-color: {{color.col1}};">Facture encaissée HT (2019-20XX)</div>
+            <div class="card-body text-info">
+                <h5 class="card-title text-right font-weight-bold text-white" style="text-shadow: 1px 1px 2px {{color.col1}};">{{solde_encaissee}} €</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="card mb-3 shadow" style="max-width: 18rem; border: 0.10rem solid {{color.col7}}; background-color: transparent;">
+            <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col7}}; background-color: {{color.col1}};">Dernière facture</div>
+            <div class="card-body text-info">
+                <h5 class="card-title text-right font-weight-bold text-white" style="text-shadow: 1px 1px 2px {{color.col1}};">{{convert_date(last_facture)}}</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="card mb-3 shadow" style="max-width: 18rem; border: 0.10rem solid {{color.col6}}; background-color: transparent;">
+            <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col6}}; background-color: {{color.col1}};">TVA Récoltée (2019-20xx)</div>
+            <div class="card-body text-info">
+                <h5 class="card-title text-right font-weight-bold text-white" style="text-shadow: 1px 1px 2px {{color.col1}};">{{tva_total}} € TTC</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="card mb-3 shadow" style="max-width: 18rem; border: 0.10rem solid {{color.col5}}; background-color: transparent;">
+            <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col5}}; background-color: {{color.col1}};">Facturation encaissée TTC {{annee_1}}</div>
+            <div class="card-body text-info">
+                <h5 class="card-title text-right font-weight-bold text-white" style="text-shadow: 1px 1px 2px {{color.col1}};">{{fact_enc_last_year}} €</h5>
             </div>
         </div>
     </div>
 </div>
+
+<div class="row" style="margin-top: 20px;">
+
+    <!-- Content Column -->
+    <div class="container-fluid">
+
+    <!-- Project Card Example -->
+        <table class="table table-bordered shadow" width="100%" cellspacing="0">
+            <thead>
+            <tr>
+                <th style="color: #F4A261;text-shadow: 1px 1px 2px #264653;border: 0.10rem solid #E9C46A;">N° Facture</th>
+                <th style="color: #F4A261;text-shadow: 1px 1px 2px #264653;border: 0.10rem solid #E9C46A;">Client</th>
+                <th style="color: #F4A261;text-shadow: 1px 1px 2px #264653;border: 0.10rem solid #E9C46A;">Projet</th>
+                <th style="color: #F4A261;text-shadow: 1px 1px 2px #264653;border: 0.10rem solid #E9C46A;">Date d'envoi</th>
+                <th style="color: #F4A261;text-shadow: 1px 1px 2px #264653;border: 0.10rem solid #E9C46A;">Jours travaillés</th>
+                <th style="color: #F4A261;text-shadow: 1px 1px 2px #264653;border: 0.10rem solid #E9C46A;">Taux journalier</th>
+                <th style="color: #F4A261;text-shadow: 1px 1px 2px #264653;border: 0.10rem solid #E9C46A;">TVA</th>
+                <th style="color: #F4A261;text-shadow: 1px 1px 2px #264653;border: 0.10rem solid #E9C46A;">Date d'échéance</th>
+                <th style="color: #F4A261;text-shadow: 1px 1px 2px #264653;border: 0.10rem solid #E9C46A;">Total HT</th>
+                <th style="color: #F4A261;text-shadow: 1px 1px 2px #264653;border: 0.10rem solid #E9C46A;">Total TTC</th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+                <th style="color: #F4A261;text-shadow: 1px 1px 2px #264653;border: 0.10rem solid #E9C46A;">N° Facture</th>
+                <th style="color: #F4A261;text-shadow: 1px 1px 2px #264653;border: 0.10rem solid #E9C46A;">Client</th>
+                <th style="color: #F4A261;text-shadow: 1px 1px 2px #264653;border: 0.10rem solid #E9C46A;">Projet</th>
+                <th style="color: #F4A261;text-shadow: 1px 1px 2px #264653;border: 0.10rem solid #E9C46A;">Date d'envoi</th>
+                <th style="color: #F4A261;text-shadow: 1px 1px 2px #264653;border: 0.10rem solid #E9C46A;">Jours travaillés</th>
+                <th style="color: #F4A261;text-shadow: 1px 1px 2px #264653;border: 0.10rem solid #E9C46A;">Taux journalier</th>
+                <th style="color: #F4A261;text-shadow: 1px 1px 2px #264653;border: 0.10rem solid #E9C46A;">TVA</th>
+                <th style="color: #F4A261;text-shadow: 1px 1px 2px #264653;border: 0.10rem solid #E9C46A;">Date d'échéance</th>
+                <th style="color: #F4A261;text-shadow: 1px 1px 2px #264653;border: 0.10rem solid #E9C46A;">Total HT</th>
+                <th style="color: #F4A261;text-shadow: 1px 1px 2px #264653;border: 0.10rem solid #E9C46A;">Total TTC</th>
+            </tr>
+            </tfoot>
+            <tbody>
+            {% for f in factures%}
+                <tr>
+                {%if f.payee%}
+                    <td class="accueil-td text-center">{{f.name}} <span class="badge btn-sm" style="background-color: {{color.col2}};"><i class="fas fa-check" style="margin-left: -3px; width:10px;"></i></span></td>
+                {%else%}
+                    <td class="accueil-td text-center">{{f.name}} <span class="badge btn-sm" style="background-color: {{color.col5}};"><i class="fas fa-exclamation-triangle" style="margin-left: -3px; width:10px;"></i></span></td>
+                {%endif%}
+                    <td class="accueil-td text-center">{{get_client_name(f.id_client)}}</td>
+                    <td class="accueil-td text-center">{{f.projet}}</td>
+                    <td class="accueil-td text-center">{{convert_date(f.date_envoi)}}</td>
+                    <td class="accueil-td text-center">{{f.days}}</td>
+                    <td class="accueil-td text-center">{{f.tjm}} €</td>
+                    <td class="accueil-td text-center">{%if f.tva %}Oui{%else%}Non{%endif%}</td>
+                    <td class="accueil-td text-center">{{convert_date(f.date_echeance)}}</td>
+                    <td class="accueil-td text-center">{{f.total}} €</td>
+                    {% if f.tva %}
+                    <td class="accueil-td text-center">{{f.total_ttc}} €</td>
+                    {%else%}
+                    <td class="accueil-td text-center">---</td>
+                    {%endif%}
+                </tr>
+            {%endfor%}
+            </tbody>
+        </table>
+    </div>
+</div>
+
 {%endblock%}

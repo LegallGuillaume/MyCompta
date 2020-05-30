@@ -160,7 +160,7 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body"><p></p>
+            <div class="modal-body"><p class="text-white"></p>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
@@ -180,11 +180,11 @@
     {%endif%}
     {%for c in assurances%}
     <div class="col-lg-6">
-        <div class="card mb-4 shadow">
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <div class="card mb-4 shadow" style="border: 0.10rem solid {{color.col7}}; background-color: transparent;">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between" style="color: {{color.col7}}; background-color: {{color.col1}};">
                 <div class="row" style="width: 100%;">
                     <div class="col-11 text-left">
-                        <h6 class="m-0 font-weight-bold text-primary">{{c.name}} <span class="badge badge-info"></span></h6>
+                        <h6 class="m-0 font-weight-bold text-white ">{{c.name}} <span class="badge badge-info"></span></h6>
                     </div>
                     <div class="col-1">
                         <button data-toggle="modal" data-target="#confirmModel" data-assurancename="{{c.name}}" class="btn btn-danger btn-circle btn-sm">
@@ -196,34 +196,34 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-6">
-                        <p class="font-weight-bold">Type d'assurance: </p>
+                        <p class="font-weight-bold text-white">Type d'assurance: </p>
                     </div>
                     <div class="col-sm-6">
-                        <p>{{c.type}}</p>
-                    </div>
-                </div>
-                <div class="row" style="margin-top: -5px;">
-                    <div class="col-sm-6">
-                        <p class="font-weight-bold">Nom société: </p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p>{{c.name}}</p>
+                        <p class="text-white">{{c.type}}</p>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -5px;">
                     <div class="col-sm-6">
-                        <p class="font-weight-bold">Numéro contrat: </p>
+                        <p class="font-weight-bold text-white">Nom société: </p>
                     </div>
                     <div class="col-sm-6">
-                        <p>{{c.n_contrat}}</p>
+                        <p class="text-white">{{c.name}}</p>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -5px;">
                     <div class="col-sm-6">
-                        <p class="font-weight-bold">Région: </p>
+                        <p class="font-weight-bold text-white">Numéro contrat: </p>
                     </div>
                     <div class="col-sm-6">
-                        <p>{{c.region}}</p>
+                        <p class="text-white">{{c.n_contrat}}</p>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: -5px;">
+                    <div class="col-sm-6">
+                        <p class="font-weight-bold text-white">Région: </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="text-white">{{c.region}}</p>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -5px;">

@@ -15,13 +15,14 @@
   <link href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
 
   <!-- Custom styles for this template-->
+  <link href="{{ url_for('static', filename='css/custom.css')}}" rel="stylesheet">
   <link href="{{ url_for('static', filename='css/sb-admin-2.css')}}" rel="stylesheet">
   <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
   <script src="{{ url_for('static', filename='vendor/chart.js/Chart.min.js')}}"></script>
   {% block script%} {% endblock%}
 </head>
 
-<body id="page-top" style="background-color: {{color.col4}};">
+<body id="page-top" style="background-color: {{color.col1}};">
 
   <!-- Page Wrapper -->
   <div id="wrapper" >
@@ -30,7 +31,7 @@
     <div id="content-wrapper" class="d-flex flex-column">
 
       <!-- Main Content -->
-      <div id="content" style="background-color: {{color.col4}};">
+      <div id="content" style="background-color: {{color.col1}};">
 
         <!-- Topbar -->
         <nav class="navbar fixed-top navbar-expand-md bg-dark"
@@ -53,6 +54,7 @@
                       <a class="nav-link" href="/assurance" style="color: {{color.col5}}; text-shadow: 1px 1px 2px {{color.col1}};"
                       >Assurance {% if Page_title == "Assurance"%}(actuel){% endif%}</a>
                     </li>
+                  <!--
                     <li class="nav-item {% if Page_title == "Coffre"%}active font-weight-bold{% endif%}">
                       <a class="nav-link" href="/coffre" style="color: {{color.col5}}; text-shadow: 1px 1px 2px {{color.col1}};"
                       >Coffre {% if Page_title == "Coffre"%}(actuel){% endif%}</a>
@@ -61,6 +63,7 @@
                       <a class="nav-link" href="/withdraw" style="color: {{color.col5}}; text-shadow: 1px 1px 2px {{color.col1}};"
                       >Dépences {% if Page_title == "Dépences"%}(actuel){% endif%}</a>
                     </li>
+                  -->
                 </ul>
             </div>
             <div class="mx-auto order-0">
@@ -118,10 +121,10 @@
       <!-- End of Main Content -->
 
       <!-- Footer -->
-      <footer class="sticky-footer" style="background-color: {{color.col4}};">
+      <footer class="sticky-footer" style="background-color: {{color.col1}};">
         <div class="container my-auto" >
           <div class="copyright text-center my-auto">
-            <span style="color: {{color.col1}};">Copyright &copy; Le Gall Guillaume 2020 - SB Admin 2</span>
+            <span style="color: {{color.col5}}; text-shadow: 1px 1px 2px {{color.col6}};">Copyright &copy; Le Gall Guillaume 2020 - SB Admin 2</span>
           </div>
         </div>
       </footer>

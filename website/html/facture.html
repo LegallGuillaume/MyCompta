@@ -196,19 +196,6 @@
 
 <div class="row">
 
-    <!--<div class="col-lg-6 my-auto text-center">
-        <form method="post" action="/facture-file" enctype="multipart/form-data">
-            <dl>
-                <div class="custom-file">
-                    <input type="file" name="file" autocomplete="off" required class="custom-file-input" id="customFile">
-                    <label class="custom-file-label" data-browse="Rechercher" for="customFile">Ajouter un fichier</label>
-                </div>
-            </dl>
-            <p>
-                <button type="submit" value="Submit" class="btn btn-outline-success shadow" >Uploader le fichier</button>
-            </p>
-        </form>
-    </div>-->
     <div class="col-lg-6 my-auto text-center">
         <button type="button" style="width:120px; height:120px;" class="btn btn-outline-success" data-toggle="modal" data-target="#newFacture"><i style="font-size: 40px" class="fa fa-file-invoice-dollar"></i></button>
     </div>
@@ -217,11 +204,11 @@
     {%endif%}
     {%for f in factures%}
     <div class="col-lg-6">
-        <div class="card mb-4 shadow">
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <div class="card mb-4 shadow" style="border: 0.10rem solid {{color.col7}}; background-color: transparent;">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between" style="color: {{color.col7}}; background-color: {{color.col1}};">
                 <div class="row" style="width: 100%;">
                     <div class="col-9 text-left">
-                        <h6 class="m-0 font-weight-bold text-primary">{{f.name}} - {{get_client_name(f.id_client)}}  <span class="badge {%if f.payee%}badge-success">Payée{%else%}badge-danger">En Attente{%endif%}</span></h6>
+                        <h6 class="m-0 font-weight-bold text-white">{{f.name}} - {{get_client_name(f.id_client)}}  <span class="badge {%if f.payee%}badge-success">Payée{%else%}badge-danger">En Attente{%endif%}</span></h6>
                     </div>
                     <div class="col-1">
                         <button class="btn btn-primary btn-circle btn-sm" onclick="window.open(window.location.origin + '/pdf/{{f.name}}', '_blank')">
@@ -243,50 +230,50 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-6">
-                        <p class="font-weight-bold">Projet: </p>
+                        <p class="font-weight-bold text-white text-white">Projet: </p>
                     </div>
                     <div class="col-sm-6">
-                        <p>{{f.projet}}</p>
-                    </div>
-                </div>
-                <div class="row" style="margin-top: -5px;">
-                    <div class="col-sm-6">
-                        <p class="font-weight-bold">Date d'envoi: </p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p>{{convert_date(f.date_envoi)}}</p>
+                        <p class="text-white">{{f.projet}}</p>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -5px;">
                     <div class="col-sm-6">
-                        <p class="font-weight-bold">Jours: </p>
+                        <p class="font-weight-bold text-white">Date d'envoi: </p>
                     </div>
                     <div class="col-sm-6">
-                        <p>{{f.days}}</p>
-                    </div>
-                </div>
-                <div class="row" style="margin-top: -5px;">
-                    <div class="col-sm-6">
-                        <p class="font-weight-bold">Taux journalier: </p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p>{{f.tjm}} €</p>
+                        <p class="text-white">{{convert_date(f.date_envoi)}}</p>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -5px;">
                     <div class="col-sm-6">
-                        <p class="font-weight-bold">Echéance max: </p>
+                        <p class="font-weight-bold text-white">Jours: </p>
                     </div>
                     <div class="col-sm-6">
-                        <p>{{convert_date(f.delai_max)}}</p>
+                        <p class="text-white">{{f.days}}</p>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -5px;">
                     <div class="col-sm-6">
-                        <p class="font-weight-bold">Facturation de: </p>
+                        <p class="font-weight-bold text-white">Taux journalier: </p>
                     </div>
                     <div class="col-sm-6">
-                        <p>{{f.total}} € <span class="badge badge-pill badge-info">{%if not f.tva%}HT{%else%}TTC exclus{%endif%}</span></p>
+                        <p class="text-white">{{f.tjm}} €</p>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: -5px;">
+                    <div class="col-sm-6">
+                        <p class="font-weight-bold text-white">Echéance max: </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="text-white">{{convert_date(f.delai_max)}}</p>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: -5px;">
+                    <div class="col-sm-6">
+                        <p class="font-weight-bold text-white">Facturation de: </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="text-white">{{f.total}} € <span class="badge badge-pill badge-info">{%if not f.tva%}HT{%else%}TTC exclus{%endif%}</span></p>
                     </div>
                 </div>
                 <div class="row">
