@@ -1,8 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, make_response, session
 from models.facture import Facture, FactureDAO
 from models.profile import Profile, ProfileDAO
-from models.coffre import Coffre, CoffreDAO
-from models.withdraw import WithdrawDAO, Withdraw
 from models.color import Color
 from settings.tools import get_profile_from_session, CACHE_FACTURE
 from urls.urls_facture import manager_facture, get_list_facture, convert_date
