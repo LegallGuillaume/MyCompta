@@ -5,7 +5,5 @@ __pycache__/
 prog_db
 .DS_Store
 
-#For the moment do not include action dir
-website/action/
 
 *_tmp*
