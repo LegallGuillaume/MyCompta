@@ -3,7 +3,7 @@
 from website.models.facture import FactureDAO
 from website.models.client import ClientDAO
 from website.models.assurance import AssuranceDAO
-from website.models.profile import ProfileDAO
+from website.models.profile import ProfileDAO, Profile
 from website.models.devis.devis import DevisDAO, DevisItemDAO
 
 class bcolors:

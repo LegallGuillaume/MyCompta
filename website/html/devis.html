@@ -103,77 +103,53 @@
 {%block body%}
 
 <div class="modal fade" id="newDevis" tabindex="-1" role="dialog" aria-labelledby="newDevisLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="newDevisLabel">Nouveau Devis</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <form>
-                <div class="form-group">
-                    <label for="devis-id" class="col-form-label">N° Devis:</label>
-                    <input type="text" value="{{new_devis}}" class="form-control" id="devis-id">
-                </div>
-                <div class="form-group">
-                    <label for="devis-client">Client:</label>
-                    <select class="form-control" id="devis-client">
-                        {%for c in clients%}
-                        <option>{{c.name}}</option>
-                        {%endfor%}
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="devis-dateenvoi" class="col-form-label">Date Envoi:</label>
-                    <input type="date"  class="form-control" id="devis-dateenvoi">
-                </div>
-                <div class="form-group">
-                    <label for="devis-datevalidite" class="col-form-label">Date Validité:</label>
-                    <input type="date"  class="form-control" id="devis-datevalidite">
-                </div>
-                <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="devis-tva">
-                    <label class="custom-control-label" for="devis-tva">TVA</label>
-                </div>
-                <div class="form-group">
-                    <label for="devis-datevalidite" class="col-form-label">Date Validité:</label>
-                    <input type="date"  class="form-control" id="devis-datevalidite">
-                </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-            <button type="button" class="btn btn-success" id="btn_new_devis">Ajouter</button>
-        </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+          <h4 class="modal-title" id="newDevisLabel">Nouveau Devis</h4>
         </div>
         <div class="modal-body">
           <div class="tabbable">
               <ul class="nav nav-tabs" data-tabs="tabs">
                   <li id="tab1" class="active mytabs">
-                      <a href="#One" data-toggle="tab">One</a>
+                      <a href="#One" data-toggle="tab">Global</a>
                   </li>
                   <li id="tab2" class="mytabs">
-                      <a href="#Two" data-toggle="tab">Two</a>
+                      <a href="#Two" data-toggle="tab">Elements</a>
                   </li>
               </ul>
               <div class="tab-content">
                   <div class="tab-pane active" id="One">
                       <form id="FormOne" role="form" class="container-fluid" action="One.asp" method="post">
-                          <div class="row">
-                              FormOne
-                          </div>
+                        <div class="form-group">
+                            <label for="devis-id" class="col-form-label">N° Devis:</label>
+                            <input type="text" value="{{new_devis}}" class="form-control" id="devis-id">
+                        </div>
+                        <div class="form-group">
+                            <label for="devis-client">Client:</label>
+                            <select class="form-control" id="devis-client">
+                                {%for c in clients%}
+                                <option>{{c.name}}</option>
+                                {%endfor%}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="devis-dateenvoi" class="col-form-label">Date Envoi:</label>
+                            <input type="date"  class="form-control" id="devis-dateenvoi">
+                        </div>
+                        <div class="form-group">
+                            <label for="devis-datevalidite" class="col-form-label">Date Validité:</label>
+                            <input type="date"  class="form-control" id="devis-datevalidite">
+                        </div>
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="devis-tva">
+                            <label class="custom-control-label" for="devis-tva">TVA</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="devis-datevalidite" class="col-form-label">Date Validité:</label>
+                            <input type="date"  class="form-control" id="devis-datevalidite">
+                        </div>
                       </form>
                   </div>
                   <div class="tab-pane" id="Two">
@@ -187,8 +163,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button id="save-button" type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-success" id="btn_new_devis">Ajouter</button>
         </div>
       </div>
     </div>
