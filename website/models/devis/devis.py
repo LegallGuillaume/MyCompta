@@ -10,7 +10,7 @@ class Devis:
         self.numero = -1
         self.date_envoi = ''
         self.date_validite = ''
-        self.id_client = -1
+        self.client = ''
         self.id_profile = -1
         self.total = 0.0
         self.tva_price = 0.0
@@ -41,7 +41,7 @@ class DevisDAO(DbDAO):
             'numero': 'INTEGER NOT NULL',
             'total': 'FLOAT NOT NULL',
             'tva_price': 'FLOAT NOT NULL',
-            'id_client': 'INTEGER NOT NULL',
+            'client': 'TEXT NOT NULL',
             'date_validite': 'TEXT NOT NULL',
             'date_envoi': 'TEXT NOT NULL',
             'created': 'TEXT NOT NULL',

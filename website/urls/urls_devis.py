@@ -1,5 +1,5 @@
 from flask import Blueprint
-from models.devis.devis import Devis, DevisDAO
+from models.devis.devis import Devis, DevisDAO, DevisItem, DevisItemDAO
 from models.color import Color
 from urls.urls_client import get_list_client, ClientDAO, Client, get_client_name
 from urls.urls_assurance import AssuranceDAO, Assurance
@@ -11,51 +11,102 @@ import datetime
 
 manager_devis = Blueprint("devis", __name__)
 
+"""
+objs = {
+                devis: $('#devis-id').val(),
+                client: $('#devis-client').val(),
+                date_envoi: $('#devis-dateenvoi').val(),
+                date_validite: $('#devis-datevalidite').val(),
+                tva: $('#devis-tva').prop('checked'),
+                lines: []
+            }
+            $('.devis-line').each(function()
+            {
+                obj = {}
+                obj['description'] = $(this).find('textarea').val();
+                obj['quantity'] = $(this).find('input:first').val();
+                obj['prix'] = $(this).find('input:last').val();
+                objs['lines'].push(obj)
+            });
+"""
+
 def add_devis(form):
-    cdao = ClientDAO()
-    if not cdao.exist(cdao.where('name', form['facture-client'])):
-        flash("Ce client n'existe plus, veuillez recharger la page !", 'danger')
-        return
     profileSession = get_profile_from_session()
     if profileSession.id:
         id_profile = profileSession.id
     else:
-        flash("Impossible d'ajouter cette facture, car votre session a expirée", 'danger')
+        flash("Impossible d'ajouter ce devis, car votre session a expirée", 'danger')
         return
-    facture = Facture()
-    facture.name = form['facture-name']
-    facture.projet = form['facture-projet']
-    facture.tjm = float(form['facture-tjm'])
-    facture.days = int(form['facture-jour'])
-    facture.date_envoi = '/'.join(reversed(form['facture-dateenvoi'].split('-')))
-    facture.date_echeance = '/'.join(reversed(form['facture-dateecheance'].split('-')))
-    facture.delai_max = '/'.join(reversed(form['facture-delai'].split('-')))
-    facture.tva = form['facture-tva'] == 'True'
-    facture.total = (facture.tjm * facture.days)
-    facture.id_client = cdao.get(cdao.where('name', form['facture-client']))[0].id
-    facture.id_profile = id_profile
-    fdao = FactureDAO()
 
-    if fdao.insert(facture):
-        flash('La facture {} a été ajoutée avec succès !'.format(facture.name), 'success')
-        if id_profile in CACHE_FACTURE.keys():
-            del CACHE_FACTURE[id_profile]
+    n_devis = form['devis']
+    client = form['client']
+    date_envoi = form['date_envoi']
+    date_validite = form['date_validite']
+    tva = (form['tva'] == "true")
+    lines = [(x.replace('lines[','').replace('][', '-').replace(']',''), dict(form)[x]) for x in dict(form) if x.startswith('lines[')]
+    
+    devis_obj = Devis()
+    devis_obj.client = client
+    devis_obj.date_envoi = date_envoi
+    devis_obj.date_validite = date_validite
+    devis_obj.numero = n_devis
+    devis_obj.tva_price = 0
+    devis_obj.id_profile = id_profile
+
+    ddao = DevisDAO()
+
+    didao = DevisItemDAO()
+    success = True
+    nb_items = int(len(lines) / 3)
+    list_devis_item = list()
+    for i in range(0,nb_items):
+        devisItem = DevisItem()
+        devisItem.description = lines[(i*3)+0][1]
+        devisItem.quantity = float(lines[(i*3)+1][1]) #TODO REGEX 1m2 or 2ml or 23.2cm remove unit
+        devisItem.unit_price = float(lines[(i*3)+2][1])
+        devisItem.reduction = False
+        list_devis_item.append(devisItem)
+        devis_obj.total += (devisItem.quantity*devisItem.unit_price)
+        if tva:
+            devis_obj.tva_price += ((devisItem.quantity*devisItem.unit_price)*20/100)
+
+    if not ddao.insert(devis_obj):
+        flash("Impossible d'ajouter le devis n°{}".format(n_devis), 'danger')
+        return
+    
+    for devisItem in list_devis_item:
+        devisItem.id_devis = devis_obj.id
+        success &= didao.insert(devisItem)
+
+    if not success:
+        didao.delete(didao.where('id_devis', n_devis))  
+        ddao.delete(ddao.where('id', n_devis))   
+        flash("Impossible d'ajouter le devis n°{}".format(n_devis), 'danger')
     else:
-        flash("Erreur lors de la création de la facture {} !".format(facture.name), 'danger')
+        flash("Le devis n°{} a été ajouté avec succès !".format(n_devis), 'success')       
+
+    # if fdao.insert(facture):
+    #     flash('La facture {} a été ajoutée avec succès !'.format(facture.name), 'success')
+    #     if id_profile in CACHE_FACTURE.keys():
+    #         del CACHE_FACTURE[id_profile]
+    # else:
+    #     flash("Erreur lors de la création de la facture {} !".format(facture.name), 'danger')
 
 def remove_devis(facturename):
-    fdao = FactureDAO()
-    if fdao.delete(fdao.where('name', facturename)):
-        flash('La facture {} a été supprimée avec succès !'.format(facturename), 'success')
-        if id_profile in CACHE_FACTURE.keys():
-            del CACHE_FACTURE[id_profile]
-    else:
-        flash("Erreur lors de la suppression de la facture {} !".format(facturename), 'danger')
+    pass
+    # fdao = FactureDAO()
+    # if fdao.delete(fdao.where('name', facturename)):
+    #     flash('La facture {} a été supprimée avec succès !'.format(facturename), 'success')
+    #     if id_profile in CACHE_FACTURE.keys():
+    #         del CACHE_FACTURE[id_profile]
+    # else:
+    #     flash("Erreur lors de la suppression de la facture {} !".format(facturename), 'danger')
 
 
 def convert_date(date):
     if not date:
         return 'Aucune'
+    date = date.replace('-', '/')
     l_mois = ['', 'Jan.', 'Fev.', 'Mars', 'Avr.', 'Mai', 'Juin', 'Juil.', 'Aou.', 'Sep.', 'Oct.', 'Nov.', 'Dec.']
     l_date = date.split('/')
     month = l_date[1]
