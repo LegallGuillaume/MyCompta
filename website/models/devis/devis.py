@@ -69,25 +69,6 @@ class DevisDAO(DbDAO):
     def update(self, obj, where):
         list_item = obj.list_item
         del obj.list_item
-        itemdao = DevisItemDAO()
-        list_old = itemdao.get(itemdao.where('id_devis', obj.id))
-        for i in list_old:
-            if not next((x for x in list_item if x.id == i.id), None):
-                itemdao.delete(itemdao.where('id', i.id))
-        for item in list_item:
-            if not itemdao.exist(itemdao.where('id', item.id)):
-                itemdao.insert(item)
-            else:
-                itemdao.update(item, itemdao.where('id', item.id))
-
-        return super().update(obj, where)
-
-    def delete(self, wh):
-        obj = self.get(wh)
-        list_item = obj.list_item
-        del obj.list_item
-        itemdao = DevisItemDAO()
-        for item in list_item:
-            itemdao.delete(itemdao.where('id', item.id))
-
-        return super().delete(wh)
+        ret = super().update(obj, where)
+        obj.list_item = list_item
+        return ret

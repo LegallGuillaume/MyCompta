@@ -23,6 +23,19 @@ function clear_modal()
     original.find('input').val('')
 }
 
+function remove_devis(devis_id)
+{
+    $.ajax({
+        method: 'POST',
+        url: '/devis-delete',
+        data: {devis: devis_id}
+    }).done(function()
+    {
+        clear_modal();
+    });
+    reload_page();
+}
+
 $(document).ready(function()
     {
         $('#btn_new_devis').click(function(e)
@@ -47,13 +60,13 @@ $(document).ready(function()
             console.log(objs)
             $.ajax({
                 method: 'POST',
-                url: '/devis',
+                url: '/devis-add',
                 data: objs
             }).done(function()
             {
-                // clear_modal();
+                clear_modal();
             });
-            // reload_page();
+            reload_page();
         });
 
         $('#confirmModel').on('show.bs.modal', function (event) {

@@ -8,6 +8,7 @@ from settings.tools import get_profile_from_session
 from flask import flash, request, render_template, redirect, make_response, session
 import pdfkit
 import datetime
+import re
 
 manager_devis = Blueprint("devis", __name__)
 
@@ -62,8 +63,14 @@ def add_devis(form):
     for i in range(0,nb_items):
         devisItem = DevisItem()
         devisItem.description = lines[(i*3)+0][1]
-        devisItem.quantity = float(lines[(i*3)+1][1]) #TODO REGEX 1m2 or 2ml or 23.2cm remove unit
-        devisItem.unit_price = float(lines[(i*3)+2][1])
+        result = re.findall('[-+]?\d*\.\d+|^\d+', lines[(i*3)+1][1])
+        if len(result) == 0:
+            result = [0]
+        devisItem.quantity = float(result[0])
+        uprice = lines[(i*3)+2][1]
+        if not uprice:
+            uprice = 0
+        devisItem.unit_price = float(uprice)
         devisItem.reduction = False
         list_devis_item.append(devisItem)
         devis_obj.total += (devisItem.quantity*devisItem.unit_price)
@@ -83,25 +90,16 @@ def add_devis(form):
         ddao.delete(ddao.where('id', n_devis))   
         flash("Impossible d'ajouter le devis n°{}".format(n_devis), 'danger')
     else:
-        flash("Le devis n°{} a été ajouté avec succès !".format(n_devis), 'success')       
+        flash("Le devis n°{} a été ajouté avec succès !".format(n_devis), 'success')
 
-    # if fdao.insert(facture):
-    #     flash('La facture {} a été ajoutée avec succès !'.format(facture.name), 'success')
-    #     if id_profile in CACHE_FACTURE.keys():
-    #         del CACHE_FACTURE[id_profile]
-    # else:
-    #     flash("Erreur lors de la création de la facture {} !".format(facture.name), 'danger')
-
-def remove_devis(facturename):
-    pass
-    # fdao = FactureDAO()
-    # if fdao.delete(fdao.where('name', facturename)):
-    #     flash('La facture {} a été supprimée avec succès !'.format(facturename), 'success')
-    #     if id_profile in CACHE_FACTURE.keys():
-    #         del CACHE_FACTURE[id_profile]
-    # else:
-    #     flash("Erreur lors de la suppression de la facture {} !".format(facturename), 'danger')
-
+def remove_devis(n_devis):
+    ddao = DevisDAO()
+    didao = DevisItemDAO()
+    if didao.delete(didao.where('id_devis', n_devis)): 
+        ddao.delete(ddao.where('numero', n_devis))
+        flash('Le devis n°{} a été ajouté avec succès !'.format(n_devis), 'success')
+    else:
+        flash("Erreur lors de la suppression du devis n° {} !".format(n_devis), 'danger')
 
 def convert_date(date):
     if not date:
@@ -111,7 +109,6 @@ def convert_date(date):
     l_date = date.split('/')
     month = l_date[1]
     return '{} {} {}'.format(l_date[0], l_mois[int(month)], l_date[2])
-
 
 def pdf_file(factname, download):
     if not factname:
@@ -156,48 +153,42 @@ def pdf_file(factname, download):
         response.headers['Content-Disposition'] = 'inline; filename=Facture_{}.pdf'.format(factname)
     return response
 
-@manager_devis.route('/devis', methods=['GET','POST'])
+@manager_devis.route('/devis')
 def devis():
     if not session.get('logged_in'):
         return redirect('/')
     profile = get_profile_from_session()
-    if request.method == 'GET':
-        l_clients = get_list_client(profile.id)
-        ddao = DevisDAO()
-        l_devis = ddao.get(ddao.where('id_profile', profile.id))
-        return render_template(
-            'devis.html', convert_date=convert_date, 
-            Page_title='Devis', devis=reversed(l_devis),
-            clients=l_clients,
-            get_client_name=get_client_name, profile=profile, len=len, color=Color
-        )
-    elif request.method == 'POST':
-        add_devis(request.form)
-        return redirect('/devis')
-    else:
-        return redirect('/home')
+    l_clients = get_list_client(profile.id)
+    ddao = DevisDAO()
+    l_devis = ddao.get(ddao.where('id_profile', profile.id))
+    return render_template(
+        'devis.html', convert_date=convert_date, 
+        Page_title='Devis', devis=reversed(l_devis),
+        clients=l_clients,
+        get_client_name=get_client_name, profile=profile, len=len, color=Color
+    )
 
 @manager_devis.route('/devis/<int:numero>')
-def fact_name(factname = None):
+def devis_id(factname = None):
     if not session.get('logged_in'):
         return redirect('/')
     return pdf_file(factname, True)
 
 @manager_devis.route('/pdf-devis/<int:numero>')
-def fact_pdf(factname = None):
+def devis_pdf(factname = None):
     if not session.get('logged_in'):
         return redirect('/')
     return pdf_file(factname, False)
 
 @manager_devis.route('/devis-delete', methods=['POST'])
-def fact_del():
+def devis_del():
     if not session.get('logged_in'):
         return redirect('/')
     remove_devis(request.form['devis-id'])
     return redirect('/devis')
 
 @manager_devis.route('/devis-add', methods=['POST'])
-def fact_add():
+def devis_add():
     if not session.get('logged_in'):
         return redirect('/')
     if request.method == 'POST':
