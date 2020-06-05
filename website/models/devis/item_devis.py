@@ -8,6 +8,7 @@ class DevisItem:
         self.description = ''
         self.unit_price = 0.0
         self.quantity = 0.0
+        self.quantity_text = ''
         self.reduction = False
         self.id_devis = -1
     def __str__(self):
@@ -24,6 +25,7 @@ class DevisItemDAO(DbDAO):
             'description': 'TEXT NOT NULL',
             'unit_price': 'FLOAT NOT NULL',
             'quantity': 'FLOAT NOT NULL',
+            'quantity_text': 'TEXT NOT NULL',
             'reduction': 'BOOLEAN NOT NULL',
             'created': 'TEXT NOT NULL',
             'id_devis': 'INTEGER NOT NULL'

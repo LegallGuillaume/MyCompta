@@ -12,25 +12,6 @@ import re
 
 manager_devis = Blueprint("devis", __name__)
 
-"""
-objs = {
-                devis: $('#devis-id').val(),
-                client: $('#devis-client').val(),
-                date_envoi: $('#devis-dateenvoi').val(),
-                date_validite: $('#devis-datevalidite').val(),
-                tva: $('#devis-tva').prop('checked'),
-                lines: []
-            }
-            $('.devis-line').each(function()
-            {
-                obj = {}
-                obj['description'] = $(this).find('textarea').val();
-                obj['quantity'] = $(this).find('input:first').val();
-                obj['prix'] = $(this).find('input:last').val();
-                objs['lines'].push(obj)
-            });
-"""
-
 def add_devis(form):
     profileSession = get_profile_from_session()
     if profileSession.id:
@@ -39,7 +20,13 @@ def add_devis(form):
         flash("Impossible d'ajouter ce devis, car votre session a expirée", 'danger')
         return
 
+    ddao = DevisDAO()
     n_devis = form['devis']
+
+    if ddao.exist(ddao.where('numero', n_devis)):
+        flash("Impossible d'ajouter ce devis, car le numero de devis existe déjà", 'danger')
+        return
+
     client = form['client']
     date_envoi = form['date_envoi']
     date_validite = form['date_validite']
@@ -54,8 +41,6 @@ def add_devis(form):
     devis_obj.tva_price = 0
     devis_obj.id_profile = id_profile
 
-    ddao = DevisDAO()
-
     didao = DevisItemDAO()
     success = True
     nb_items = int(len(lines) / 3)
@@ -63,7 +48,8 @@ def add_devis(form):
     for i in range(0,nb_items):
         devisItem = DevisItem()
         devisItem.description = lines[(i*3)+0][1]
-        result = re.findall('[-+]?\d*\.\d+|^\d+', lines[(i*3)+1][1])
+        devisItem.quantity_text = lines[(i*3)+1][1]
+        result = re.findall('[-+]?\d*\.\d+|^\d+', devisItem.quantity_text)
         if len(result) == 0:
             result = [0]
         devisItem.quantity = float(result[0])
@@ -108,77 +94,31 @@ def convert_date(date):
     l_mois = ['', 'Jan.', 'Fev.', 'Mars', 'Avr.', 'Mai', 'Juin', 'Juil.', 'Aou.', 'Sep.', 'Oct.', 'Nov.', 'Dec.']
     l_date = date.split('/')
     month = l_date[1]
-    return '{} {} {}'.format(l_date[0], l_mois[int(month)], l_date[2])
-
-def pdf_file(factname, download):
-    if not factname:
-        return redirect('factures')
-    fdao = FactureDAO()
-    if not fdao.exist(fdao.where('name', factname)):
-        return redirect('factures')
-    facture = fdao.get(fdao.where('name', factname))[0]
-
-    def date(dat):
-        return '/'.join(reversed(dat.split('/')))
-
-    presta_mois = '/'.join(facture.date_envoi.split('/')[1:])
-
-    client = Client()
-    cdao = ClientDAO()
-    client = cdao.get(cdao.where('id', facture.id_client))[0]
-
-    total = float(facture.total)
-    if facture.tva:
-        total *= 1.20
-
-    profile = get_profile_from_session()
-
-    adao = AssuranceDAO()
-    assurance = adao.get([adao.where('id_profile', profile.id), adao.where('sel', 'True')])
-
-    html_rendu = render_template(
-        'template/pdf_template.html', profile=profile, 
-        presta_mois=presta_mois, date=date, facture=facture, 
-        convert_date=convert_date, Page_title='Facture',
-        client=client, total=total, assurance=assurance, len=len
-    )
-
-    pdf = pdfkit.from_string(html_rendu, False)
-
-    response = make_response(pdf)
-    response.headers['Content-Type'] = 'application/pdf'
-    if download:
-        response.headers['Content-Disposition'] = 'attachment; filename=Facture_{}.pdf'.format(factname)
-    else:
-        response.headers['Content-Disposition'] = 'inline; filename=Facture_{}.pdf'.format(factname)
-    return response
+    return '{} {} {}'.format(l_date[2], l_mois[int(month)], l_date[0])
 
 @manager_devis.route('/devis')
 def devis():
     if not session.get('logged_in'):
         return redirect('/')
     profile = get_profile_from_session()
-    l_clients = get_list_client(profile.id)
     ddao = DevisDAO()
     l_devis = ddao.get(ddao.where('id_profile', profile.id))
     return render_template(
         'devis.html', convert_date=convert_date, 
-        Page_title='Devis', devis=reversed(l_devis),
-        clients=l_clients,
-        get_client_name=get_client_name, profile=profile, len=len, color=Color
+        Page_title='Devis', devis=reversed(l_devis), 
+        profile=profile, len=len, color=Color
     )
 
-@manager_devis.route('/devis/<int:numero>')
-def devis_id(factname = None):
+@manager_devis.route('/devis/<numero>')
+def devis_id(numero = None):
     if not session.get('logged_in'):
         return redirect('/')
-    return pdf_file(factname, True)
-
-@manager_devis.route('/pdf-devis/<int:numero>')
-def devis_pdf(factname = None):
-    if not session.get('logged_in'):
-        return redirect('/')
-    return pdf_file(factname, False)
+    profile = get_profile_from_session()
+    ddao = DevisDAO()
+    if not ddao.exist(ddao.where('numero', numero)):
+        return redirect('/devis')
+    devis = ddao.get(ddao.where('numero', numero))[0]
+    return render_template('template/pdf_template_devis.html', profile=profile, convert_date=convert_date, devis=devis)
 
 @manager_devis.route('/devis-delete', methods=['POST'])
 def devis_del():

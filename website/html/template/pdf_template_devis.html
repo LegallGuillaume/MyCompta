@@ -1,0 +1,324 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div class="ritz grid-container">
+  <table class="waffle no-grid" cellspacing="0" cellpadding="0">
+    <tbody>
+    <tr style='height:30px;'>
+      <th id="0R0" style="height: 30px;" class="row-headers-background">
+        <div class="row-header-wrapper" style="line-height: 30px;"></div>
+      </th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr style='height:30px;'>
+      <th id="0R3" style="height: 30px;" class="row-headers-background">
+        <div class="row-header-wrapper" style="line-height: 30px;"></div>
+      </th>
+      <td></td>
+      <td style="text-align: center; font-size: 1.4em;" colspan="9"><b>{{profile.name}} {{profile.prenom}}</b></td>
+    </tr>
+    <tr style='height:25px;'>
+      <th id="0R3" style="height: 25px;" class="row-headers-background">
+        <div class="row-header-wrapper" style="line-height: 25px;"></div>
+      </th>
+      <td></td>
+      <td style="text-align: center; font-size: 0.8em;" colspan="9">SIRET: {{profile.siret}}</td>
+    </tr>
+    <tr style='height:30px;'>
+      <th id="0R5" style="height: 30px;" class="row-headers-background">
+        <div class="row-header-wrapper" style="line-height: 30px;"></div>
+      </th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td style="background-color: lightgray; text-align: center; border: 1px solid black;" colspan="1">DEVIS N° 243</td>
+    </tr>
+    <tr style='height:20px;'>
+    <th id="0R6" style="height: 20px;" class="row-headers-background">
+    <div class="row-header-wrapper" style="line-height: 20px;"></div>
+  </th>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td style="text-align: right;" >Date envoi:</td>
+    <td style="text-align: right;" >{{convert_date(devis.date_envoi)}}</td>
+  </tr>
+  <tr style='height:20px;'>
+    <th id="0R6" style="height: 20px;" class="row-headers-background">
+      <div class="row-header-wrapper" style="line-height: 20px;"></div>
+    </th>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td style="text-align: right;" >Date de validité:</td>
+    <td style="text-align: right;" >{{convert_date(devis.date_validite)}}</td>
+  </tr>
+    <tr style='height:20px;'>
+    <th id="0R7" style="height: 20px;" class="row-headers-background">
+    <div class="row-header-wrapper" style="line-height: 20px;"></div>
+  </th>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td style="text-align: right;" >Chantier:</td>
+    <td style="text-align: right;" >GARDANNE</td>
+  </tr>
+    <tr style='height:30px;'>
+    <th id="0R8" style="height: 30px;" class="row-headers-background">
+    <div class="row-header-wrapper" style="line-height: 30px;"></div>
+  </th>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+    <tr style='height:30px;'>
+    <th id="0R9" style="height: 30px;" class="row-headers-background">
+    <div class="row-header-wrapper" style="line-height: 30px;"></div>
+  </th>
+    <td></td>
+    <td></td>
+    <td  colspan="2">Informations client:</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+    <tr style='height:30px;'>
+    <th id="0R11" style="height: 30px;" class="row-headers-background">
+    <div class="row-header-wrapper" style="line-height: 30px;"></div>
+  </th>
+    <td></td>
+    <td></td>
+    <td  colspan="3" style="font-size: 1em;">{{devis.client}}</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+    <tr style='height:30px;'>
+    <th id="0R12" style="height: 30px;" class="row-headers-background">
+    <div class="row-header-wrapper" style="line-height: 30px;"></div>
+  </th>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+    <tr>
+    <th id="0R13" class="row-headers-background">
+    <div class="row-header-wrapper"></div>
+  </th>
+    <td></td>
+    <td  style="text-align: center; border: 1px solid black; font-size: 1.2em;" colspan="4"><b>Désignation</b></td>
+    <td  style="text-align: center; border: 1px solid black; font-size: 1.2em" colspan="2"><b>Quantité</b></td>
+    <td  style="text-align: center; border: 1px solid black; font-size: 1.2em" colspan="2"><b>Prix unitaire H.T</b></td>
+    <td  style="text-align: center; border: 1px solid black; font-size: 1.2em" ><b>TOTAL H.T</b></td>
+  </tr>
+    {% for item in devis.list_item %}
+    <tr>
+    <th id="0R14" class="row-headers-background">
+      <div class="row-header-wrapper" ></div>
+    </th>
+    <td></td>
+    <td style="width: 250px; text-align: center; border: 1px solid black; font-size: 0.8em;" colspan="4">{{item.description}}</td>
+    <td style="text-align: center; border: 1px solid black; font-size: 0.9em;" colspan="2">{{item.quantity_text}}</td>
+    <td style="text-align: center; border: 1px solid black; font-size: 0.9em;" colspan="2">{{item.unit_price}} €</td>
+    <td style="text-align: center; border: 1px solid black; font-size: 0.9em;">{{item.quantity*item.unit_price}} €</td>
+  </tr>
+    {% endfor %}
+    {% if devis.tva_price > 0 %}
+    <tr>
+    <th id="0R23" class="row-headers-background">
+    <div class="row-header-wrapper"></div>
+  </th>
+    <td></td>
+    <td style="border-left: 1px solid black;"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td style="text-align: right" colspan="2">Montant total H.T: </td>
+    <td style="text-align: center; border-right: 1px solid black;">{{devis.total}} €</td>
+  </tr>
+    <tr>
+    <th id="0R24" class="row-headers-background">
+    <div class="row-header-wrapper"></div>
+  </th>
+    <td></td>
+    <td style="border-left: 1px solid black;"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td style="text-align: right" colspan="2">TVA 20%: </td>
+    <td style="text-align: center; border-right: 1px solid black;" >{{devis.tva_price}} €</td>
+  </tr>
+    <tr>
+    <th id="0R25" class="row-headers-background">
+    <div class="row-header-wrapper"></div>
+  </th>
+    <td></td>
+    <td style="border-bottom: 1px solid black; border-left: 1px solid black;"></td>
+    <td style=" border-bottom: 1px solid black;"></td>
+    <td style=" border-bottom: 1px solid black;"></td>
+    <td style=" border-bottom: 1px solid black;"></td>
+    <td style=" border-bottom: 1px solid black;"></td>
+    <td style=" border-bottom: 1px solid black;"></td>
+    <td style="text-align: right; border-bottom: 1px solid black;" colspan="2"><b>Montant total TTC:</b></td>
+    <td style="text-align: center;border-right: 1px solid black; border-bottom: 1px solid black;"><b>{{devis.total + devis.tva_price}} €</b></td>
+  </tr>
+    {% else %}
+    <tr>
+    <th id="0R25" class="row-headers-background">
+    <div class="row-header-wrapper"></div>
+  </th>
+    <td></td>
+    <td style="border-bottom: 1px solid black; border-left: 1px solid black;"></td>
+    <td style=" border-bottom: 1px solid black;"></td>
+    <td style=" border-bottom: 1px solid black;"></td>
+    <td style=" border-bottom: 1px solid black;"></td>
+    <td style=" border-bottom: 1px solid black;"></td>
+    <td style=" border-bottom: 1px solid black;"></td>
+    <td style="text-align: right; border-bottom: 1px solid black;" colspan="2"><b>Montant total HT:</b></td>
+    <td style="text-align: center;border-right: 1px solid black; border-bottom: 1px solid black;"><b>{{devis.total}} €</b></td>
+  </tr>
+    {%endif%}
+    <tr style='height:30px;'>
+    <th id="0R26" style="height: 30px;" class="row-headers-background">
+    <div class="row-header-wrapper" style="line-height: 30px;"></div>
+  </th>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+    <tr style='height:30px;'>
+    <th id="0R27" style="height: 30px;" class="row-headers-background">
+    <div class="row-header-wrapper" style="line-height: 30px;"></div>
+  </th>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+    <tr style='height:30px;'>
+    <th id="0R28" style="height: 30px;" class="row-headers-background">
+    <div class="row-header-wrapper" style="line-height: 30px;"></div>
+  </th>
+    <td></td>
+    <td colspan="9">&quot;Acompte de 30% à l&#39;acceptation du devis&quot;</td>
+  </tr>
+    <tr style='height:30px;'>
+    <th id="0R29" style="height: 30px;" class="row-headers-background">
+    <div class="row-header-wrapper" style="line-height: 30px;"></div>
+  </th>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+    <tr style='height:30px;'>
+    <th id="0R30" style="height: 30px;" class="row-headers-background">
+    <div class="row-header-wrapper" style="line-height: 30px;"></div>
+  </th>
+    <td></td>
+    <td colspan="3">&quot;Bon pour accord&quot;</td>
+    <td colspan="6"> A   ................................................................        Le   .....................................</td>
+  </tr>
+    <tr style='height:30px;'>
+    <th id="0R31" style="height: 30px;" class="row-headers-background">
+    <div class="row-header-wrapper" style="line-height: 30px;"></div>
+  </th>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+    <tr style='height:30px;'>
+    <th id="0R32" style="height: 30px;" class="row-headers-background">
+    <div class="row-header-wrapper" style="line-height: 30px;"></div>
+  </th>
+    <td></td>
+    <td>Signature</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  </tbody>
+  </table>
+</div>

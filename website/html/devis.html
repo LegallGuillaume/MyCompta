@@ -149,16 +149,11 @@
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between" style="color: {{color.col7}}; background-color: {{color.col1}};">
                 <div class="row" style="width: 100%;">
                     <div class="col-9 text-left">
-                        <h6 class="m-0 font-weight-bold text-white">Devis N°{{d.numero}} || Total {{d.total}} € H.T</h6>
+                        <h6 class="m-0 font-weight-bold text-white">Devis N°{{d.numero}} - Total {{d.total}} € H.T</h6>
                     </div>
                     <div class="col-1">
-                        <button class="btn btn-primary btn-circle btn-sm" onclick="window.open(window.location.origin + '/pdf-devis/{{d.numero}}', '_blank')">
+                        <button class="btn btn-primary btn-circle btn-sm" onclick="window.open(window.location.origin + '/devis/{{d.numero}}', '_blank')">
                             <i class="fas fa-file-pdf"></i>
-                        </button>
-                    </div>
-                    <div class="col-1">
-                        <button class="btn btn-secondary btn-circle btn-sm" onclick="location.href='/devis-down/{{d.numero}}'">
-                            <i class="fas fa-download"></i>
                         </button>
                     </div>
                     <div class="col-1">
