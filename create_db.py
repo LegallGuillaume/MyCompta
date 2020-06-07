@@ -3,7 +3,8 @@
 from website.models.facture import FactureDAO
 from website.models.client import ClientDAO
 from website.models.assurance import AssuranceDAO
-from website.models.profile import ProfileDAO
+from website.models.profile import ProfileDAO, Profile
+from website.models.devis.devis import DevisDAO, DevisItemDAO
 
 class bcolors:
     HEADER = '\033[95m'
@@ -27,6 +28,10 @@ def main():
     print(bcolors.HEADER + 'AssuranceDAO ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if adao.create_table() else bcolors.FAIL + "KO", bcolors.ENDC)
     pdao = ProfileDAO()
     print(bcolors.HEADER + 'ProfileDAO ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if pdao.create_table() else bcolors.FAIL + "KO", bcolors.ENDC)
+    ddao = DevisDAO()
+    print(bcolors.HEADER + 'DevisDAO ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if ddao.create_table() else bcolors.FAIL + "KO", bcolors.ENDC)
+    didao = DevisItemDAO()
+    print(bcolors.HEADER + 'DevisItemDAO ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if didao.create_table() else bcolors.FAIL + "KO", bcolors.ENDC)
 
 if __name__ == "__main__":
     main()

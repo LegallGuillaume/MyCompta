@@ -18,6 +18,7 @@
   <link href="{{ url_for('static', filename='css/custom.css')}}" rel="stylesheet">
   <link href="{{ url_for('static', filename='css/sb-admin-2.css')}}" rel="stylesheet">
   <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/commun.js')}}"></script>
   <script src="{{ url_for('static', filename='vendor/chart.js/Chart.min.js')}}"></script>
   {% block script%} {% endblock%}
 </head>
@@ -53,6 +54,10 @@
                     <li class="nav-item {% if Page_title == "Assurance"%}active font-weight-bold{% endif%}">
                       <a class="nav-link" href="/assurance" style="color: {{color.col5}}; text-shadow: 1px 1px 2px {{color.col1}};"
                       >Assurance {% if Page_title == "Assurance"%}(actuel){% endif%}</a>
+                    </li>
+                    <li class="nav-item {% if Page_title == "Devis"%}active font-weight-bold{% endif%}">
+                      <a class="nav-link" href="/devis" style="color: {{color.col5}}; text-shadow: 1px 1px 2px {{color.col1}};"
+                      >Devis {% if Page_title == "Devis"%}(actuel){% endif%}</a>
                     </li>
                 </ul>
             </div>

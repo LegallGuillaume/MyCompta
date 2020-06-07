@@ -97,7 +97,9 @@ class DbDAO:
         sql = """ INSERT INTO {} ( {} ) VALUES ( {} )""".format(self.__tablename, columnN, valueN)
         try:
             conn = self.__db.get_con()
-            conn.execute(sql)
+            cursor = conn.cursor()
+            cursor.execute(sql)
+            obj.id = cursor.lastrowid
             conn.commit()
             return True
         except Exception as e:

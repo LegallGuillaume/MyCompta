@@ -1,0 +1,237 @@
+{% extends "body.html" %}
+
+{% block script%}
+<script>
+    function reload_page()
+    {
+        document.location.reload(true);
+    }
+
+    function remove_devis(devisid)
+    {
+        $.ajax({
+            method: 'POST',
+            url: 'devis-delete',
+            data: {'devis-id' : devisid}
+        }).done(function()
+        {
+            reload_page();
+        });
+    }
+
+</script>
+{% endblock%}
+
+{%block body%}
+
+<div class="modal fade" id="newDevis" tabindex="-1" role="dialog" aria-labelledby="newDevisLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="newDevisLabel">Nouveau Devis</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+          <div class="tabbable">
+              <ul class="nav nav-tabs" data-tabs="tabs">
+                  <li id="tab1" class="nav-item">
+                      <a class="nav-link active" href="#One" data-toggle="tab">Global</a>
+                  </li>
+                  <li id="tab2" class="nav-item">
+                      <a class="nav-link" href="#Two" data-toggle="tab" style="margin-left: 10px;">Elements</a>
+                  </li>
+                  <li id="tab3" class="nav-item">
+                      <a class="nav-link" href="#Three" data-toggle="tab" style="margin-left: 10px;">Fin devis</a>
+                  </li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane active" id="One">
+                    <form id="FormOne" role="form" class="container-fluid" action="/devis" method="post">
+                        <div class="form-group">
+                            <label for="devis-id" class="col-form-label">N° Devis:</label>
+                            <input type="text" value="{{new_devis}}" class="form-control" id="devis-id" placeholder="{{last_devis}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="devis-id" class="col-form-label">Client:</label>
+                            <input type="text" value="{{new_devis}}" class="form-control" id="devis-client">
+                        </div>
+                        <div class="form-group">
+                            <label for="devis-dateenvoi" class="col-form-label">Date Envoi:</label>
+                            <input type="date"  class="form-control" id="devis-dateenvoi">
+                        </div>
+                        <div class="form-group">
+                            <label for="devis-datevalidite" class="col-form-label">Date Validité:</label>
+                            <input type="date"  class="form-control" id="devis-datevalidite">
+                        </div>
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="devis-tva">
+                            <label class="custom-control-label" for="devis-tva">TVA</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane" id="Two" style="width: 100%;">
+                    <form id="FormTwo" role="form" class="container-fluid" method="post"  style="margin-top: 10px;">
+                        <div class="row devis-line" style="width: 100%; padding: 0;">
+                            <div class="col-6 p-0">
+                                <textarea class="form-control" rows="1" placeholder="description"></textarea>
+                            </div>
+                            <div class="col p-0">
+                                <input type="text" class="form-control" placeholder="Quantité">
+                            </div>
+                            <div class="col p-0">
+                                <input type="number" step="0.1" min="0" class="form-control" placeholder="Prix U">
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col">
+                            <button type="button" class="btn btn-warning" onclick="addline('devis-line');">Nouvelle ligne</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-outline-warning" onclick="removeline('devis-line');">Effacer ligne</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="Three" style="width: 100%;">
+                    <form id="FormThree" role="form" class="container-fluid" method="post"  style="margin-top: 10px;">
+                        <div class="row devis-end-text" style="width: 100%; padding: 0;">
+                            <div class="col-12 p-0">
+                                <textarea class="form-control" rows="1" placeholder="n°TVA, acompte, ..."></textarea>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col">
+                            <button type="button" class="btn btn-warning" onclick="addline('devis-end-text');">Nouvelle ligne</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-outline-warning" onclick="removeline('devis-end-text');">Effacer ligne</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                  <div class="col-6 text-center">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                  </div>
+                  <div class="col-6 text-center">
+                      <button type="button" class="btn btn-success" id="btn_new_devis">Ajouter</button>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="modal fade" id="confirmModel" tabindex="-1" role="dialog" aria-labelledby="confirmModelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="confirmModelLabel">Cofirmation !</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body"><p></p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+            <button type="button" class="btn btn-danger" id="btn_supp_devis" data-devisid="">Oui, supprimer</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-lg-6 my-auto text-center">
+        <button type="button" style="width:120px; height:120px;" class="btn btn-outline-success" data-toggle="modal" data-target="#newDevis"><i style="font-size: 40px" class="fa fa-file-invoice-dollar"></i></button>
+    </div>
+    {% if not devis %}
+    <div class="col-lg-6"></div>
+    {%endif%}
+    {%for d in devis%}
+    <div class="col-lg-6">
+        <div class="card mb-4 shadow" style="border: 0.10rem solid {{color.col7}}; background-color: transparent;">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between" style="color: {{color.col7}}; background-color: {{color.col1}};">
+                <div class="row" style="width: 100%;">
+                    <div class="col-9 text-left">
+                        <h6 class="m-0 font-weight-bold text-white">Devis N°{{d.numero}} - Total {{d.total}} € H.T</h6>
+                    </div>
+                    <div class="col-1">
+                        <button class="btn btn-primary btn-circle btn-sm" onclick="window.open(window.location.origin + '/devis/{{d.numero}}', '_blank')">
+                            <i class="fas fa-file-pdf"></i>
+                        </button>
+                    </div>
+                    <div class="col-1">
+                        <button data-toggle="modal" data-target="#confirmModel" data-devisid="{{d.numero}}" class="btn btn-danger btn-circle btn-sm">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row" style="margin-top: -5px;">
+                    <div class="col-sm-6">
+                        <p class="font-weight-bold text-white">Date d'envoi: </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="text-white">{{convert_date(d.date_envoi)}}</p>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: -5px;">
+                    <div class="col-sm-6">
+                        <p class="font-weight-bold text-white">Date de validité: </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="text-white">{{convert_date(d.date_validite)}}</p>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: -5px;">
+                    <div class="col-sm-6">
+                        <p class="font-weight-bold text-white">Total H.T: </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="text-white">{{d.total}} € <span class="badge badge-pill badge-info">HT</span></p>
+                    </div>
+                </div>
+                {% if d.tva_price > 0 %}
+                <div class="row" style="margin-top: -5px;">
+                    <div class="col-sm-6">
+                        <p class="font-weight-bold text-white">TVA: </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="text-white">{{d.tva_price}} €</p>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: -5px;">
+                    <div class="col-sm-6">
+                        <p class="font-weight-bold text-white">Devis de: </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="text-white">{{d.total+d.tva_price}} € <span class="badge badge-pill badge-info">TTC</span></p>
+                    </div>
+                </div>
+                {% endif %}
+                <div class="row">
+                    <div class="col-8 text-center">
+                        <a href="/devis-convert" onclick="devisToFacture('{{d.name}}');" class="btn btn-success btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <span class="text">Convertir ce devis en facture</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {%endfor%}
+</div>
+
+{%endblock%}
