@@ -44,6 +44,12 @@ def add_invoice(form):
         flash("Erreur lors de la création de la facture {} !".format(facture.name), 'danger')
 
 def remove_invoice(facturename):
+    profileSession = get_profile_from_session()
+    if profileSession.id:
+        id_profile = profileSession.id
+    else:
+        flash("Impossible de supprimer cette facture, car votre session a expirée", 'danger')
+        return
     fdao = InvoiceDAO()
     if fdao.delete(fdao.where('name', facturename)):
         flash('La facture {} a été supprimée avec succès !'.format(facturename), 'success')
@@ -53,6 +59,12 @@ def remove_invoice(facturename):
         flash("Erreur lors de la suppression de la facture {} !".format(facturename), 'danger')
 
 def bill(facturename, payer):
+    profileSession = get_profile_from_session()
+    if profileSession.id:
+        id_profile = profileSession.id
+    else:
+        flash("Impossible de payée cette facture, car votre session a expirée", 'danger')
+        return
     fdao = InvoiceDAO()
     fac = fdao.get(fdao.where('name', facturename))[0]
     fac.payee = payer
@@ -172,7 +184,7 @@ def facts():
         l_clients = get_list_client(profile.id)
         return render_template(
             'invoice.html', convert_date=convert_date, 
-            Page_title='Invoices', factures=reversed(l_factures), 
+            Page_title='Factures', factures=reversed(l_factures), 
             solde_encaissee=sold_en, last_facture=last_f, 
             solde_non_payee=attent_f, clients=l_clients, new_facture=get_new_invoice(),
             get_client_name=get_client_name, profile=profile, len=len, color=Color
