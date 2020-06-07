@@ -7,12 +7,12 @@
         document.location.reload(true);
     }
 
-    function remove_devis(devisid)
+    function remove_frai(fraiid)
     {
         $.ajax({
             method: 'POST',
-            url: 'quotation-delete',
-            data: {'devis-id' : devisid}
+            url: 'frai-delete',
+            data: {'frai-id' : fraiid}
         }).done(function()
         {
             reload_page();
@@ -24,11 +24,11 @@
 
 {%block body%}
 
-<div class="modal fade" id="newDevis" tabindex="-1" role="dialog" aria-labelledby="newDevisLabel" aria-hidden="true">
+<div class="modal fade" id="newFrai" tabindex="-1" role="dialog" aria-labelledby="newFraiLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="newDevisLabel">Nouveau Devis</h5>
+            <h5 class="modal-title" id="newFraiLabel">Ajout Frai</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -42,16 +42,13 @@
                   <li id="tab2" class="nav-item">
                       <a class="nav-link" href="#Two" data-toggle="tab" style="margin-left: 10px;">Elements</a>
                   </li>
-                  <li id="tab3" class="nav-item">
-                      <a class="nav-link" href="#Three" data-toggle="tab" style="margin-left: 10px;">Fin devis</a>
-                  </li>
               </ul>
               <div class="tab-content">
                 <div class="tab-pane active" id="One">
                     <form id="FormOne" role="form" class="container-fluid" action="/devis" method="post">
                         <div class="form-group">
-                            <label for="devis-id" class="col-form-label">N° Devis:</label>
-                            <input type="text" value="{{new_devis}}" class="form-control" id="devis-id" placeholder="{{last_devis}}">
+                            <label for="devis-id" class="col-form-label">Description:</label>
+                            <textarea class="form-control" rows="1" placeholder="description"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="devis-id" class="col-form-label">Client:</label>
@@ -94,23 +91,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane" id="Three" style="width: 100%;">
-                    <form id="FormThree" role="form" class="container-fluid" method="post"  style="margin-top: 10px;">
-                        <div class="row devis-end-text" style="width: 100%; padding: 0;">
-                            <div class="col-12 p-0">
-                                <textarea class="form-control" rows="1" placeholder="n°TVA, acompte, ..."></textarea>
-                            </div>
-                        </div>
-                    </form>
-                    <div class="row" style="margin-top: 10px;">
-                        <div class="col">
-                            <button type="button" class="btn btn-warning" onclick="addline('devis-end-text');">Nouvelle ligne</button>
-                        </div>
-                        <div class="col">
-                            <button type="button" class="btn btn-outline-warning" onclick="removeline('devis-end-text');">Effacer ligne</button>
-                        </div>
-                    </div>
-                </div>
                 </div>
               </div>
               <hr>
@@ -150,7 +130,7 @@
 <div class="row">
 
     <div class="col-lg-6 my-auto text-center">
-        <button type="button" style="width:120px; height:120px;" class="btn btn-outline-success" data-toggle="modal" data-target="#newDevis"><i style="font-size: 40px" class="fa fa-file-invoice-dollar"></i></button>
+        <button type="button" style="width:120px; height:120px;" class="btn btn-outline-success" data-toggle="modal" data-target="#newFrai"><i style="font-size: 40px" class="fa fa-file-invoice-dollar"></i></button>
     </div>
     {% if not devis %}
     <div class="col-lg-6"></div>

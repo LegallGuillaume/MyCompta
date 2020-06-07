@@ -39,7 +39,7 @@
             }
             $.ajax({
                 method: 'POST',
-                url: '/factures',
+                url: '/invoices',
                 data: objs
             }).done(function()
             {
@@ -89,7 +89,7 @@
     {
         $.ajax({
             method: 'POST',
-            url: 'facture-delete',
+            url: 'invoice-delete',
             data: {'facture-name' : facturename}
         }).done(function()
         {
@@ -101,7 +101,7 @@
     {
         $.ajax({
             method: 'POST',
-            url: 'facture-payee',
+            url: 'invoice-payee',
             data: {'facture-name' : facturename, 'facture-payee' : payer}
         }).done(function()
         {
