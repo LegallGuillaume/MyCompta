@@ -32,7 +32,7 @@ def add_devis(form):
     date_validite = form['date_validite']
     tva = (form['tva'] == "true")
     lines = [(x.replace('lines[','').replace('][', '-').replace(']',''), dict(form)[x]) for x in dict(form) if x.startswith('lines[')]
-    
+    list_text = [dict(form)[x] for x in dict(form) if x.startswith('text_end[')]
     devis_obj = Devis()
     devis_obj.client = client
     devis_obj.date_envoi = date_envoi
@@ -40,6 +40,7 @@ def add_devis(form):
     devis_obj.numero = n_devis
     devis_obj.tva_price = 0
     devis_obj.id_profile = id_profile
+    devis_obj.end_text = '\n'.join(list_text)
 
     didao = DevisItemDAO()
     success = True
@@ -83,7 +84,7 @@ def remove_devis(n_devis):
     didao = DevisItemDAO()
     if didao.delete(didao.where('id_devis', n_devis)): 
         ddao.delete(ddao.where('numero', n_devis))
-        flash('Le devis n°{} a été ajouté avec succès !'.format(n_devis), 'success')
+        flash('Le devis n°{} a été supprimé avec succès !'.format(n_devis), 'success')
     else:
         flash("Erreur lors de la suppression du devis n° {} !".format(n_devis), 'danger')
 
@@ -103,9 +104,11 @@ def devis():
     profile = get_profile_from_session()
     ddao = DevisDAO()
     l_devis = ddao.get(ddao.where('id_profile', profile.id))
+    last_devis = l_devis[-1].numero if l_devis else ''
+
     return render_template(
         'devis.html', convert_date=convert_date, 
-        Page_title='Devis', devis=reversed(l_devis), 
+        Page_title='Devis', devis=reversed(l_devis), last_devis=last_devis,
         profile=profile, len=len, color=Color
     )
 

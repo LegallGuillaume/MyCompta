@@ -14,6 +14,7 @@ class Devis:
         self.id_profile = -1
         self.total = 0.0
         self.tva_price = 0.0
+        self.end_text = '' # comme acompte, n°TVA
     def __str__(self):
         return str(self.__dict__)
     def __repr__(self):
@@ -44,6 +45,7 @@ class DevisDAO(DbDAO):
             'client': 'TEXT NOT NULL',
             'date_validite': 'TEXT NOT NULL',
             'date_envoi': 'TEXT NOT NULL',
+            'end_text': 'TEXT NOT NULL',
             'created': 'TEXT NOT NULL',
             'id_profile': 'INTEGER NOT NULL'
         }

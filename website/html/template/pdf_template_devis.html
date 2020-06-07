@@ -230,21 +230,6 @@
   </tr>
     {%endif%}
     <tr style='height:30px;'>
-    <th id="0R26" style="height: 30px;" class="row-headers-background">
-    <div class="row-header-wrapper" style="line-height: 30px;"></div>
-  </th>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-    <tr style='height:30px;'>
     <th id="0R27" style="height: 30px;" class="row-headers-background">
     <div class="row-header-wrapper" style="line-height: 30px;"></div>
   </th>
@@ -259,13 +244,15 @@
     <td></td>
     <td></td>
   </tr>
-    <tr style='height:30px;'>
-    <th id="0R28" style="height: 30px;" class="row-headers-background">
-    <div class="row-header-wrapper" style="line-height: 30px;"></div>
+  {% for text in devis.end_text.split('\n') %}
+    <tr style='height:25px;'>
+    <th id="0R28" style="height: 25px;" class="row-headers-background">
+    <div class="row-header-wrapper" style="line-height: 25px;"></div>
   </th>
     <td></td>
-    <td colspan="9">&quot;Acompte de 30% à l&#39;acceptation du devis&quot;</td>
+    <td colspan="9">{{text.replace('"', "&quot;").replace("'", '&#39;')}}</td>
   </tr>
+  {% endfor %}
     <tr style='height:30px;'>
     <th id="0R29" style="height: 30px;" class="row-headers-background">
     <div class="row-header-wrapper" style="line-height: 30px;"></div>

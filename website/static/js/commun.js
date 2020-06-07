@@ -1,26 +1,28 @@
 
-function addline()
+function addline(class_copy)
 {
-    devis_line = $('.devis-line:last').clone();
+    devis_line = $('.' + class_copy + ':last').clone();
     devis_line.removeClass('d-none');
     devis_line.addClass('devis-copy');
-    $('.devis-line:last').after(devis_line);
+    $('.' + class_copy + ':last').after(devis_line);
 }
 
-function removeline()
+function removeline(class_copy)
 {
-    if ($('.devis-line').length > 1)
+    if ($('.'+ class_copy).length > 1)
     {
-        $('.devis-line:last').remove();
+        $('.'+ class_copy + ':last').remove();
     }
 }
 
 function clear_modal()
 {
     $('.devis-copy').remove();
-    original = $('.devis-line:first')
-    original.find('textarea').val('')
-    original.find('input').val('')
+    original = $('.devis-line:first');
+    original.find('textarea').val('');
+    original.find('input').val('');
+    original2.find('.devis-end-text:first');
+    original2.find('textarea').val('');
 }
 
 function remove_devis(devis_id)
@@ -47,7 +49,8 @@ $(document).ready(function()
                 date_envoi: $('#devis-dateenvoi').val(),
                 date_validite: $('#devis-datevalidite').val(),
                 tva: $('#devis-tva').prop('checked'),
-                lines: []
+                lines: [],
+                text_end: []
             }
             $('.devis-line').each(function()
             {
@@ -55,9 +58,12 @@ $(document).ready(function()
                 obj['description'] = $(this).find('textarea').val();
                 obj['quantity'] = $(this).find('input:first').val();
                 obj['prix'] = $(this).find('input:last').val();
-                objs['lines'].push(obj)
+                objs['lines'].push(obj);
             });
-            console.log(objs)
+            $('.devis-end-text').each(function()
+            {
+                objs['text_end'].push({text :$(this).find('textarea').val()});
+            });
             $.ajax({
                 method: 'POST',
                 url: '/devis-add',
