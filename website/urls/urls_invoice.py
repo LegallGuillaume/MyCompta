@@ -1,17 +1,17 @@
 from flask import Blueprint
-from models.facture import FactureDAO, Facture
+from models.invoice import InvoiceDAO, Invoice
 from models.color import Color
 from urls.urls_client import get_list_client, ClientDAO, Client, get_client_name
-from urls.urls_assurance import AssuranceDAO, Assurance
+from urls.urls_insurance import InsuranceDAO, Insurance
 from settings.config import TVA
-from settings.tools import get_profile_from_session, CACHE_FACTURE
+from settings.tools import get_profile_from_session, CACHE_INVOICE
 from flask import flash, request, render_template, redirect, make_response, session
 import pdfkit
 import datetime
 
-manager_facture = Blueprint("facture", __name__)
+manager_invoice = Blueprint("invoice", __name__)
 
-def add_facture(form):
+def add_invoice(form):
     cdao = ClientDAO()
     if not cdao.exist(cdao.where('name', form['facture-client'])):
         flash("Ce client n'existe plus, veuillez recharger la page !", 'danger')
@@ -22,7 +22,7 @@ def add_facture(form):
     else:
         flash("Impossible d'ajouter cette facture, car votre session a expirée", 'danger')
         return
-    facture = Facture()
+    facture = Invoice()
     facture.name = form['facture-name']
     facture.projet = form['facture-projet']
     facture.tjm = float(form['facture-tjm'])
@@ -34,38 +34,38 @@ def add_facture(form):
     facture.total = (facture.tjm * facture.days)
     facture.id_client = cdao.get(cdao.where('name', form['facture-client']))[0].id
     facture.id_profile = id_profile
-    fdao = FactureDAO()
+    fdao = InvoiceDAO()
 
     if fdao.insert(facture):
         flash('La facture {} a été ajoutée avec succès !'.format(facture.name), 'success')
-        if id_profile in CACHE_FACTURE.keys():
-            del CACHE_FACTURE[id_profile]
+        if id_profile in CACHE_INVOICE.keys():
+            del CACHE_INVOICE[id_profile]
     else:
         flash("Erreur lors de la création de la facture {} !".format(facture.name), 'danger')
 
-def remove_facture(facturename):
-    fdao = FactureDAO()
+def remove_invoice(facturename):
+    fdao = InvoiceDAO()
     if fdao.delete(fdao.where('name', facturename)):
         flash('La facture {} a été supprimée avec succès !'.format(facturename), 'success')
-        if id_profile in CACHE_FACTURE.keys():
-            del CACHE_FACTURE[id_profile]
+        if id_profile in CACHE_INVOICE.keys():
+            del CACHE_INVOICE[id_profile]
     else:
         flash("Erreur lors de la suppression de la facture {} !".format(facturename), 'danger')
 
-def payee_facture(facturename, payer):
-    fdao = FactureDAO()
+def bill(facturename, payer):
+    fdao = InvoiceDAO()
     fac = fdao.get(fdao.where('name', facturename))[0]
     fac.payee = payer
     del fac.total_ttc
     if fdao.update(fac, fdao.where('name', facturename)):
         flash('La facture {} {} avec succès !'.format(facturename, 'a été payée' if payer else 'a été rééditée'), 'success')
-        if id_profile in CACHE_FACTURE.keys():
-            del CACHE_FACTURE[id_profile]
+        if id_profile in CACHE_INVOICE.keys():
+            del CACHE_INVOICE[id_profile]
     else:
         flash("Erreur lors de la {} du paiement de la facture {} !".format('validation' if payer else 'réédition', facturename), 'danger')
 
-def get_list_facture(id_profile):
-    fdao = FactureDAO()
+def get_list_invoice(id_profile):
+    fdao = InvoiceDAO()
     l_factures = fdao.get(fdao.where('id_profile', id_profile))
     sold_en = 0
     last_f = ''
@@ -97,8 +97,8 @@ def convert_date(date):
     month = l_date[1]
     return '{} {} {}'.format(l_date[0], l_mois[int(month)], l_date[2])
 
-def get_new_fact():
-    fdao = FactureDAO()
+def get_new_invoice():
+    fdao = InvoiceDAO()
     now = datetime.datetime.now()
     annee = now.year
     profile = get_profile_from_session()
@@ -121,10 +121,10 @@ def get_new_fact():
 
 def pdf_file(factname, download):
     if not factname:
-        return redirect('factures')
-    fdao = FactureDAO()
+        return redirect('invoices')
+    fdao = InvoiceDAO()
     if not fdao.exist(fdao.where('name', factname)):
-        return redirect('factures')
+        return redirect('invoices')
     facture = fdao.get(fdao.where('name', factname))[0]
 
     def date(dat):
@@ -142,7 +142,7 @@ def pdf_file(factname, download):
 
     profile = get_profile_from_session()
 
-    adao = AssuranceDAO()
+    adao = InsuranceDAO()
     assurance = adao.get([adao.where('id_profile', profile.id), adao.where('sel', 'True')])
 
     html_rendu = render_template(
@@ -162,70 +162,57 @@ def pdf_file(factname, download):
         response.headers['Content-Disposition'] = 'inline; filename=Facture_{}.pdf'.format(factname)
     return response
 
-@manager_facture.route('/factures', methods=['GET','POST'])
+@manager_invoice.route('/invoices', methods=['GET','POST'])
 def facts():
     if not session.get('logged_in'):
         return redirect('/')
     profile = get_profile_from_session()
     if request.method == 'GET':
-        l_factures, sold_en, last_f, attent_f = get_list_facture(profile.id)
+        l_factures, sold_en, last_f, attent_f = get_list_invoice(profile.id)
         l_clients = get_list_client(profile.id)
         return render_template(
-            'facture.html', convert_date=convert_date, 
-            Page_title='Factures', factures=reversed(l_factures), 
+            'invoice.html', convert_date=convert_date, 
+            Page_title='Invoices', factures=reversed(l_factures), 
             solde_encaissee=sold_en, last_facture=last_f, 
-            solde_non_payee=attent_f, clients=l_clients, new_facture=get_new_fact(),
+            solde_non_payee=attent_f, clients=l_clients, new_facture=get_new_invoice(),
             get_client_name=get_client_name, profile=profile, len=len, color=Color
         )
     elif request.method == 'POST':
-        add_facture(request.form)
-        return redirect('/factures')
+        add_invoice(request.form)
+        return redirect('/invoices')
     else:
         return redirect('/home')
 
-@manager_facture.route('/facture/<factname>')
+@manager_invoice.route('/invoice/<factname>')
 def fact_name(factname = None):
     if not session.get('logged_in'):
         return redirect('/')
     return pdf_file(factname, True)
 
-@manager_facture.route('/pdf/<factname>')
+@manager_invoice.route('/pdf/<factname>')
 def fact_pdf(factname = None):
     if not session.get('logged_in'):
         return redirect('/')
     return pdf_file(factname, False)
 
-@manager_facture.route('/facture-delete', methods=['POST'])
+@manager_invoice.route('/invoice-delete', methods=['POST'])
 def fact_del():
     if not session.get('logged_in'):
         return redirect('/')
-    remove_facture(request.form['facture-name'])
-    return redirect('/factures')
+    remove_invoice(request.form['facture-name'])
+    return redirect('/invoices')
 
-@manager_facture.route('/facture-payee', methods=['POST'])
+@manager_invoice.route('/invoice-payee', methods=['POST'])
 def fact_payee():
     if not session.get('logged_in'):
         return redirect('/')
-    payee_facture(request.form['facture-name'], request.form['facture-payee'] == 'True')
-    return redirect('/factures')
+    bill(request.form['facture-name'], request.form['facture-payee'] == 'True')
+    return redirect('/invoices')
 
-@manager_facture.route('/facture-add', methods=['POST'])
+@manager_invoice.route('/invoice-add', methods=['POST'])
 def fact_add():
     if not session.get('logged_in'):
         return redirect('/')
     if request.method == 'POST':
-        add_facture(request.form)
-    return redirect('/factures')
-
-#@manager_facture.route('/facture-file', methods=['POST'])
-#def fact_add():
-#    if 'file' not in request.files:
-#        return redirect('factures')
-#    file = request.files['file']
-#    if file.filename == '':
-#        return redirect('factures')
-#    if file and file.filename.split('.')[-1] in ALLOWED_EXTENSIONS:
-#        filename = file.filename
-#        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-#        code_ret = save_csv_db(filename)
-#    return redirect('factures')
+        add_invoice(request.form)
+    return redirect('/invoices')

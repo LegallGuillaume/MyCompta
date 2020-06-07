@@ -1,18 +1,14 @@
 from flask import Blueprint
-from models.devis.devis import Devis, DevisDAO, DevisItem, DevisItemDAO
+from models.quotation.quotation import Quotation, QuotationDAO, QuotationItem, QuotationItemDAO
 from models.color import Color
-from urls.urls_client import get_list_client, ClientDAO, Client, get_client_name
-from urls.urls_assurance import AssuranceDAO, Assurance
-from settings.config import TVA
 from settings.tools import get_profile_from_session
 from flask import flash, request, render_template, redirect, make_response, session
-import pdfkit
 import datetime
 import re
 
-manager_devis = Blueprint("devis", __name__)
+manager_quotation = Blueprint("devis", __name__)
 
-def add_devis(form):
+def add_quotation(form):
     profileSession = get_profile_from_session()
     if profileSession.id:
         id_profile = profileSession.id
@@ -20,7 +16,7 @@ def add_devis(form):
         flash("Impossible d'ajouter ce devis, car votre session a expirée", 'danger')
         return
 
-    ddao = DevisDAO()
+    ddao = QuotationDAO()
     n_devis = form['devis']
 
     if ddao.exist(ddao.where('numero', n_devis)):
@@ -33,7 +29,7 @@ def add_devis(form):
     tva = (form['tva'] == "true")
     lines = [(x.replace('lines[','').replace('][', '-').replace(']',''), dict(form)[x]) for x in dict(form) if x.startswith('lines[')]
     list_text = [dict(form)[x] for x in dict(form) if x.startswith('text_end[')]
-    devis_obj = Devis()
+    devis_obj = Quotation()
     devis_obj.client = client
     devis_obj.date_envoi = date_envoi
     devis_obj.date_validite = date_validite
@@ -42,12 +38,12 @@ def add_devis(form):
     devis_obj.id_profile = id_profile
     devis_obj.end_text = '\n'.join(list_text)
 
-    didao = DevisItemDAO()
+    didao = QuotationItemDAO()
     success = True
     nb_items = int(len(lines) / 3)
     list_devis_item = list()
     for i in range(0,nb_items):
-        devisItem = DevisItem()
+        devisItem = QuotationItem()
         devisItem.description = lines[(i*3)+0][1]
         devisItem.quantity_text = lines[(i*3)+1][1]
         result = re.findall(r'[-+]?\d*\.\d+|^\d+', devisItem.quantity_text)
@@ -79,9 +75,9 @@ def add_devis(form):
     else:
         flash("Le devis n°{} a été ajouté avec succès !".format(n_devis), 'success')
 
-def remove_devis(n_devis):
-    ddao = DevisDAO()
-    didao = DevisItemDAO()
+def remove_quotation(n_devis):
+    ddao = QuotationDAO()
+    didao = QuotationItemDAO()
     if didao.delete(didao.where('id_devis', n_devis)): 
         ddao.delete(ddao.where('numero', n_devis))
         flash('Le devis n°{} a été supprimé avec succès !'.format(n_devis), 'success')
@@ -97,43 +93,43 @@ def convert_date(date):
     month = l_date[1]
     return '{} {} {}'.format(l_date[2], l_mois[int(month)], l_date[0])
 
-@manager_devis.route('/devis')
+@manager_quotation.route('/quotation')
 def devis():
     if not session.get('logged_in'):
         return redirect('/')
     profile = get_profile_from_session()
-    ddao = DevisDAO()
+    ddao = QuotationDAO()
     l_devis = ddao.get(ddao.where('id_profile', profile.id))
     last_devis = l_devis[-1].numero if l_devis else ''
 
     return render_template(
-        'devis.html', convert_date=convert_date, 
+        'quotation.html', convert_date=convert_date, 
         Page_title='Devis', devis=reversed(l_devis), last_devis=last_devis,
         profile=profile, len=len, color=Color
     )
 
-@manager_devis.route('/devis/<numero>')
+@manager_quotation.route('/quotation/<numero>')
 def devis_id(numero = None):
     if not session.get('logged_in'):
         return redirect('/')
     profile = get_profile_from_session()
-    ddao = DevisDAO()
+    ddao = QuotationDAO()
     if not ddao.exist(ddao.where('numero', numero)):
-        return redirect('/devis')
+        return redirect('/quotation')
     devis = ddao.get(ddao.where('numero', numero))[0]
-    return render_template('template/pdf_template_devis.html', profile=profile, convert_date=convert_date, devis=devis)
+    return render_template('template/pdf_template_quotation.html', profile=profile, convert_date=convert_date, devis=devis)
 
-@manager_devis.route('/devis-delete', methods=['POST'])
+@manager_quotation.route('/quotation-delete', methods=['POST'])
 def devis_del():
     if not session.get('logged_in'):
         return redirect('/')
-    remove_devis(request.form['devis-id'])
-    return redirect('/devis')
+    remove_quotation(request.form['devis-id'])
+    return redirect('/quotation')
 
-@manager_devis.route('/devis-add', methods=['POST'])
+@manager_quotation.route('/quotation-add', methods=['POST'])
 def devis_add():
     if not session.get('logged_in'):
         return redirect('/')
     if request.method == 'POST':
-        add_devis(request.form)
-    return redirect('/devis')
+        add_quotation(request.form)
+    return redirect('/quotation')
