@@ -40,7 +40,7 @@
             }
             $.ajax({
                 method: 'POST',
-                url: '/assurance',
+                url: '/insurance',
                 data: objs
             }).done(function()
             {
@@ -90,7 +90,7 @@
     {
         $.ajax({
             method: 'POST',
-            url: '/assurance-delete',
+            url: '/insurance-delete',
             data: {'assurance-name' : assurancename}
         }).done(function()
         {
@@ -101,7 +101,7 @@
     {
         $.ajax({
             method: 'POST',
-            url: '/assurance-select',
+            url: '/insurance-select',
             data: {'assurance-name' : assurancename, 'assurance-select' : select}
         }).done(function()
         {
