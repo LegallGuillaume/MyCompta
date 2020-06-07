@@ -50,7 +50,7 @@ def add_devis(form):
         devisItem = DevisItem()
         devisItem.description = lines[(i*3)+0][1]
         devisItem.quantity_text = lines[(i*3)+1][1]
-        result = re.findall('[-+]?\d*\.\d+|^\d+', devisItem.quantity_text)
+        result = re.findall(r'[-+]?\d*\.\d+|^\d+', devisItem.quantity_text)
         if len(result) == 0:
             result = [0]
         devisItem.quantity = float(result[0])

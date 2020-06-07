@@ -44,7 +44,7 @@
       <td></td>
       <td></td>
       <td></td>
-      <td style="background-color: lightgray; text-align: center; border: 1px solid black;" colspan="1">DEVIS N° 243</td>
+      <td style="background-color: lightgray; text-align: center; border: 1px solid black;" colspan="1">DEVIS: {{devis.numero}}</td>
     </tr>
     <tr style='height:20px;'>
     <th id="0R6" style="height: 20px;" class="row-headers-background">
@@ -75,21 +75,6 @@
     <td></td>
     <td style="text-align: right;" >Date de validité:</td>
     <td style="text-align: right;" >{{convert_date(devis.date_validite)}}</td>
-  </tr>
-    <tr style='height:20px;'>
-    <th id="0R7" style="height: 20px;" class="row-headers-background">
-    <div class="row-header-wrapper" style="line-height: 20px;"></div>
-  </th>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td style="text-align: right;" >Chantier:</td>
-    <td style="text-align: right;" >GARDANNE</td>
   </tr>
     <tr style='height:30px;'>
     <th id="0R8" style="height: 30px;" class="row-headers-background">
@@ -250,7 +235,7 @@
     <div class="row-header-wrapper" style="line-height: 25px;"></div>
   </th>
     <td></td>
-    <td colspan="9">{{text.replace('"', "&quot;").replace("'", '&#39;')}}</td>
+    <td colspan="9">{{text}}</td>
   </tr>
   {% endfor %}
     <tr style='height:30px;'>
