@@ -44,3 +44,17 @@ class InvoiceDAO(DbDAO):
             'created': 'TEXT',
             'id_profile': 'INTEGER NOT NULL'
         }
+
+    def insert(self, obj):
+        cpy = obj.total_ttc
+        del obj.total_ttc
+        ret = super().insert(obj)
+        obj.total_ttc = cpy
+        return ret
+
+    def update(self, obj, where):
+        cpy = obj.total_ttc
+        del obj.total_ttc
+        ret = super().update(obj, where)
+        obj.total_ttc = cpy
+        return ret
