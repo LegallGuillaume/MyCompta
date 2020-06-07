@@ -3,7 +3,7 @@ try:
 except ModuleNotFoundError:
     from website.models.db import DbDAO
 
-class DevisItem:
+class QuotationItem:
     def __init__(self):
         self.description = ''
         self.unit_price = 0.0
@@ -14,12 +14,12 @@ class DevisItem:
     def __str__(self):
         return str(self.__dict__)
     def __repr__(self):
-        return "<DevisItem pour N°{}>".format(self.id_devis)
+        return "<QuotationItem pour N°{}>".format(self.id_devis)
 
-class DevisItemDAO(DbDAO):
+class QuotationItemDAO(DbDAO):
     def __init__(self):
         super().__init__('devis_item')
-        self.obj_type = DevisItem
+        self.obj_type = QuotationItem
         self.table_create = {
             'id': 'INTEGER PRIMARY KEY AUTOINCREMENT',
             'description': 'TEXT NOT NULL',

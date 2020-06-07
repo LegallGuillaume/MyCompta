@@ -1,11 +1,11 @@
 try:
     from models.db import DbDAO
-    from models.devis.item_devis import DevisItem, DevisItemDAO
+    from models.quotation.item_quotation import QuotationItem, QuotationItemDAO
 except ModuleNotFoundError:
     from website.models.db import DbDAO
-    from website.models.devis.item_devis import DevisItem, DevisItemDAO
+    from website.models.quotation.item_quotation import QuotationItem, QuotationItemDAO
 
-class Devis:
+class Quotation:
     def __init__(self):
         self.numero = -1
         self.date_envoi = ''
@@ -18,10 +18,10 @@ class Devis:
     def __str__(self):
         return str(self.__dict__)
     def __repr__(self):
-        return "<Devis N°{}>".format(self.numero)
+        return "<Quotation N°{}>".format(self.numero)
 
     def add_item(self, item):
-        if not isinstance(item, DevisItem):
+        if not isinstance(item, QuotationItem):
             return
         if not hasattr(self, 'list_item'):
             self.list_item = list()
@@ -33,10 +33,10 @@ class Devis:
             self.total = max(0, self.total-new_price)
         self.list_item.append(item)
 
-class DevisDAO(DbDAO):
+class QuotationDAO(DbDAO):
     def __init__(self):
         super().__init__('devis')
-        self.obj_type = Devis
+        self.obj_type = Quotation
         self.table_create = {
             'id': 'INTEGER PRIMARY KEY AUTOINCREMENT', 
             'numero': 'INTEGER NOT NULL',
@@ -53,7 +53,7 @@ class DevisDAO(DbDAO):
     def get(self, where=None):
         obj = super().get(where)
         for o in obj:
-            itemdao = DevisItemDAO()
+            itemdao = QuotationItemDAO()
             o.list_item = itemdao.get(itemdao.where('id_devis', o.id))
         return obj
 
@@ -62,7 +62,7 @@ class DevisDAO(DbDAO):
         if hasattr(obj, 'list_item'):
             list_item = obj.list_item
             del obj.list_item
-        itemdao = DevisItemDAO()
+        itemdao = QuotationItemDAO()
         for item in list_item:
             item.id_devis = self.id
             itemdao.insert(item)

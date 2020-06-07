@@ -3,7 +3,7 @@ try:
 except ModuleNotFoundError:
     from website.models.db import DbDAO
 
-class Assurance:
+class Insurance:
     def __init__(self):
         self.name = ''
         self.type = ''
@@ -15,12 +15,12 @@ class Assurance:
     def __str__(self):
         return str(self.__dict__)
     def __repr__(self):
-        return "<Assurance name: '{}'>".format(self.name)
+        return "<Insurance name: '{}'>".format(self.name)
 
-class AssuranceDAO(DbDAO):
+class InsuranceDAO(DbDAO):
     def __init__(self):
         super().__init__('assurance')
-        self.obj_type = Assurance
+        self.obj_type = Insurance
         self.table_create = {
             'id': 'INTEGER PRIMARY KEY AUTOINCREMENT', 
             'name': 'TEXT NOT NULL',

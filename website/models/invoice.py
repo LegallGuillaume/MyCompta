@@ -3,7 +3,7 @@ try:
 except ModuleNotFoundError:
     from website.models.db import DbDAO
 
-class Facture:
+class Invoice:
     def __init__(self):
         self.name = ''
         self.id_client = 0
@@ -22,12 +22,12 @@ class Facture:
     def __str__(self):
         return str(self.__dict__)
     def __repr__(self):
-        return "<Facture name: '{}'>".format(self.name)
+        return "<Invoice name: '{}'>".format(self.name)
 
-class FactureDAO(DbDAO):
+class InvoiceDAO(DbDAO):
     def __init__(self):
         super().__init__('facture')
-        self.obj_type = Facture
+        self.obj_type = Invoice
         self.table_create = {
             'id': 'INTEGER PRIMARY KEY AUTOINCREMENT',
             'name': 'text  NOT NULL',
