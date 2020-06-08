@@ -1,5 +1,10 @@
 #!/bin/env python3
 
+__author__ = "Software Le Gall Guillaume"
+__copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
+__license__ = "Private Domain"
+__version__ = "1.1"
+
 from website.models.invoice import InvoiceDAO
 from website.models.client import ClientDAO
 from website.models.insurance import InsuranceDAO

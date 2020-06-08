@@ -6,6 +6,11 @@ from website.models.profile import ProfileDAO, Profile
 import argparse
 import subprocess
 
+__author__ = "Software Le Gall Guillaume"
+__copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
+__license__ = "Private Domain"
+__version__ = "1.1"
+
 parser = argparse.ArgumentParser(description='Manage server flask')
 parser.add_argument('--init', action='store_true', help='Init db')
 parser.add_argument('--demo', help='Create user demo with name arg')

@@ -4,6 +4,10 @@ from models.color import Color
 from settings.tools import get_profile_from_session
 from flask import flash, request, render_template, redirect, session
 
+__author__ = "Software Le Gall Guillaume"
+__copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
+__license__ = "Private Domain"
+__version__ = "1.1"
 
 manager_client = Blueprint("client", __name__)
 

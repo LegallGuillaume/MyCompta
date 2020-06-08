@@ -1,4 +1,9 @@
 
+__author__ = "Software Le Gall Guillaume"
+__copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
+__license__ = "Private Domain"
+__version__ = "1.1"
+
 class Color:
     col1 = "#264653"
     col2 = "#287271"

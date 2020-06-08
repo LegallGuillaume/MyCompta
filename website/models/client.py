@@ -3,6 +3,11 @@ try:
 except ModuleNotFoundError:
     from website.models.db import DbDAO
 
+__author__ = "Software Le Gall Guillaume"
+__copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
+__license__ = "Private Domain"
+__version__ = "1.1"
+
 class Client:
     def __init__(self):
         self.name = ''

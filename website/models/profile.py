@@ -4,6 +4,11 @@ except ModuleNotFoundError:
     from website.models.db import DbDAO
 from hashlib import sha256
 
+__author__ = "Software Le Gall Guillaume"
+__copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
+__license__ = "Private Domain"
+__version__ = "1.1"
+
 class Profile:
     def __init__(self):
         self.name = ''

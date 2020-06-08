@@ -9,6 +9,11 @@ from flask import flash, request, render_template, redirect, make_response, sess
 import pdfkit
 import datetime
 
+__author__ = "Software Le Gall Guillaume"
+__copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
+__license__ = "Private Domain"
+__version__ = "1.1"
+
 manager_invoice = Blueprint("invoice", __name__)
 
 def add_invoice(form):

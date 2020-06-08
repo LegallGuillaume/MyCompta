@@ -10,6 +10,11 @@ from urls.urls_profile import manager_profile
 from urls.urls_quotation import manager_quotation
 import datetime
 
+__author__ = "Software Le Gall Guillaume"
+__copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
+__license__ = "Private Domain"
+__version__ = "1.1"
+
 app = Flask(__name__, static_folder='static/', template_folder='html/')
 app.secret_key = "dsd999fsdf78zeSDez25ré(Fàç!uy23hGg¨*%H£23)"
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
