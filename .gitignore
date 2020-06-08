@@ -8,3 +8,5 @@ prog_db
 TRANSLATE
 
 *_tmp*
+
+test_dir/

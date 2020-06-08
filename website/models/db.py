@@ -11,10 +11,11 @@ __license__ = "Private Domain"
 __version__ = "1.1"
 
 class DB:
-    def __init__(self):
+    def __init__(self, db_path):
         self.conn = None
+        self.dbpath = db_path
     def connect(self):
-        self.conn = sqlite3.connect(DB_PATH)
+        self.conn = sqlite3.connect(self.dbpath)
     def commit(self):
         self.conn.commit()
     def close(self):
@@ -26,10 +27,10 @@ class DB:
 
 
 class DbDAO:
-    def __init__(self, table_name):
+    def __init__(self, table_name, db_path=DB_PATH):
         self.__tablename = table_name
         self.obj_type = type(self)
-        self.__db = DB()
+        self.__db = DB(db_path)
 
     def get_table_name(self):
         return self.__tablename
