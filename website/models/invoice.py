@@ -30,8 +30,8 @@ class Invoice:
         return "<Invoice name: '{}'>".format(self.name)
 
 class InvoiceDAO(DbDAO):
-    def __init__(self):
-        super().__init__('facture')
+    def __init__(self, dbpath=None):
+        super().__init__('facture',db_path=dbpath)
         self.obj_type = Invoice
         self.table_create = {
             'id': 'INTEGER PRIMARY KEY AUTOINCREMENT',

@@ -24,8 +24,8 @@ class Client:
         return "<Client name: '{}'>".format(self.name)
 
 class ClientDAO(DbDAO):
-    def __init__(self):
-        super().__init__('client')
+    def __init__(self,dbpath=None):
+        super().__init__('client', db_path=dbpath)
         self.obj_type = Client
         self.table_create = {
             'id': 'INTEGER PRIMARY KEY AUTOINCREMENT', 

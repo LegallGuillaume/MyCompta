@@ -22,8 +22,8 @@ class QuotationItem:
         return "<QuotationItem pour N°{}>".format(self.id_devis)
 
 class QuotationItemDAO(DbDAO):
-    def __init__(self):
-        super().__init__('devis_item')
+    def __init__(self, dbpath=None):
+        super().__init__('devis_item', db_path=dbpath)
         self.obj_type = QuotationItem
         self.table_create = {
             'id': 'INTEGER PRIMARY KEY AUTOINCREMENT',
