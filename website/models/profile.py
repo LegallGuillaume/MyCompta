@@ -70,3 +70,25 @@ class ProfileDAO(DbDAO):
 
     def get_list_profile(self):
         return self.get()
+
+    def exist(self, obj):
+        if isinstance(obj, Profile):
+            if hasattr(obj, 'id'):
+                return super().exist(self.where('id', obj.id))
+            else:
+                return super().exist(self.where('siret', obj.siret))
+        else:
+            return super().exist(obj)
+    def update(self, obj):
+        if hasattr(obj, 'id'):
+            return super().update(obj, self.where('id', obj.id))
+        else:
+            return super().update(obj, self.where('siret', obj.siret))
+    def delete(self, obj):
+        if isinstance(obj, Profile):
+            if hasattr(obj, 'id'):
+                return super().delete(self.where('id', obj.id))
+            else:
+                return super().delete(self.where('siret', obj.siret))
+        else:
+            return super().delete(obj)

@@ -73,9 +73,18 @@ class QuotationDAO(DbDAO):
             itemdao.insert(item)
         return super().insert(obj)
 
-    def update(self, obj, where):
+    def update(self, obj):
         list_item = obj.list_item
         del obj.list_item
-        ret = super().update(obj, where)
+        ret = super().update(obj, self.where('numero', obj.numero))
         obj.list_item = list_item
         return ret
+
+    def delete(self, obj):
+        if isinstance(obj, Quotation):
+            if hasattr(obj, 'id'):
+                return super().delete(self.where('id', obj.id))
+            else:
+                return super().delete(self.where('numero', obj.numero))
+        else:
+            return super().delete(obj)

@@ -36,3 +36,25 @@ class InsuranceDAO(DbDAO):
             'created': 'TEXT',
             'id_profile': 'INTEGER NOT NULL'
         }
+    
+    def exist(self, obj):
+        if isinstance(obj, Insurance):
+            if hasattr(obj, 'id'):
+                return super().exist(self.where('id', obj.id))
+            else:
+                return super().exist(self.where('n_contrat', obj.n_contrat))
+        else:
+            return super().exist(obj)
+    def update(self, obj):
+        if hasattr(obj, 'id'):
+            return super().update(obj, self.where('id', obj.id))
+        else:
+            return super().update(obj, self.where('n_contrat', obj.n_contrat))
+    def delete(self, obj):
+        if isinstance(obj, Insurance):
+            if hasattr(obj, 'id'):
+                return super().delete(self.where('id', obj.id))
+            else:
+                return super().delete(self.where('n_contrat', obj.n_contrat))
+        else:
+            return super().delete(obj)

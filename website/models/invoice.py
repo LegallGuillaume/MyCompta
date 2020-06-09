@@ -57,9 +57,18 @@ class InvoiceDAO(DbDAO):
         obj.total_ttc = cpy
         return ret
 
-    def update(self, obj, where):
+    def update(self, obj):
         cpy = obj.total_ttc
         del obj.total_ttc
-        ret = super().update(obj, where)
+        ret = super().update(obj, self.where('name', obj.name))
         obj.total_ttc = cpy
         return ret
+
+    def delete(self, obj):
+        if isinstance(obj, Invoice):
+            if hasattr(obj, 'id'):
+                return super().delete(self.where('id', obj.id))
+            else:
+                return super().delete(self.where('name', obj.name))
+        else:
+            return super().delete(obj)

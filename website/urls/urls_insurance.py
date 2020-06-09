@@ -38,7 +38,7 @@ def select_insurance(assurancename, select):
     profile=get_profile_from_session()
     assu = adao.get([adao.where('name', assurancename), adao.where('id_profile', profile.id)])[0]
     assu.sel = select
-    adao.update(assu, adao.where('name', assurancename))
+    adao.update(assu)
 
 def get_list_insurance(id_profile):
     adao = InsuranceDAO()

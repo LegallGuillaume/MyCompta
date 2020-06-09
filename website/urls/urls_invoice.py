@@ -74,7 +74,7 @@ def bill(facturename, payer):
     fac = fdao.get(fdao.where('name', facturename))[0]
     fac.payee = payer
     del fac.total_ttc
-    if fdao.update(fac, fdao.where('name', facturename)):
+    if fdao.update(fac):
         flash('La facture {} {} avec succès !'.format(facturename, 'a été payée' if payer else 'a été rééditée'), 'success')
         if id_profile in CACHE_INVOICE.keys():
             del CACHE_INVOICE[id_profile]
