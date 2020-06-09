@@ -20,6 +20,7 @@ class DB:
         self.conn.commit()
     def close(self):
         self.conn.close()
+        self.conn = None
     def get_con(self):
         if not self.conn:
             self.connect()
