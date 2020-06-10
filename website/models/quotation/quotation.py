@@ -4,6 +4,7 @@ try:
 except ModuleNotFoundError:
     from website.models.db import DbDAO
     from website.models.quotation.item_quotation import QuotationItem, QuotationItemDAO
+import logging
 
 __author__ = "Software Le Gall Guillaume"
 __copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
@@ -58,10 +59,13 @@ class QuotationDAO(DbDAO):
     def exist(self, obj):
         if isinstance(obj, Quotation):
             if hasattr(obj, 'id'):
+                logging.warning('QuotationDAO use exist with id')
                 return super().exist(self.where('id', obj.id))
             else:
+                logging.warning('QuotationDAO use exist with numero')
                 return super().exist(self.where('numero', obj.numero))
         else:
+            logging.warning('QuotationDAO use exist with WHERE')
             return super().exist(obj)
 
     def get(self, where=None):
@@ -92,8 +96,11 @@ class QuotationDAO(DbDAO):
     def delete(self, obj):
         if isinstance(obj, Quotation):
             if hasattr(obj, 'id'):
+                logging.warning('QuotationDAO use delete with id')
                 return super().delete(self.where('id', obj.id))
             else:
+                logging.warning('QuotationDAO use delete with numero')
                 return super().delete(self.where('numero', obj.numero))
         else:
+            logging.warning('QuotationDAO use delete with WHERE')
             return super().delete(obj)

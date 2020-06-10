@@ -3,6 +3,7 @@ try:
 except ModuleNotFoundError:
     from website.models.db import DbDAO
 from hashlib import sha256
+import logging
 
 __author__ = "Software Le Gall Guillaume"
 __copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
@@ -74,21 +75,29 @@ class ProfileDAO(DbDAO):
     def exist(self, obj):
         if isinstance(obj, Profile):
             if hasattr(obj, 'id'):
+                logging.warning('ProfileDAO use exist with id')
                 return super().exist(self.where('id', obj.id))
             else:
+                logging.warning('ProfileDAO use exist with siret')
                 return super().exist(self.where('siret', obj.siret))
         else:
+            logging.warning('ProfileDAO use delete with WHERE')
             return super().exist(obj)
     def update(self, obj):
         if hasattr(obj, 'id'):
+            logging.warning('ProfileDAO use update with id')
             return super().update(obj, self.where('id', obj.id))
         else:
+            logging.warning('ProfileDAO use update with siret')
             return super().update(obj, self.where('siret', obj.siret))
     def delete(self, obj):
         if isinstance(obj, Profile):
             if hasattr(obj, 'id'):
+                logging.warning('ProfileDAO use delete with id')
                 return super().delete(self.where('id', obj.id))
             else:
+                logging.warning('ProfileDAO use delete with siret')
                 return super().delete(self.where('siret', obj.siret))
         else:
+            logging.warning('ProfileDAO use delete with WHERE')
             return super().delete(obj)

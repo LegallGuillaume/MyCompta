@@ -2,6 +2,7 @@ try:
     from models.db import DbDAO
 except ModuleNotFoundError:
     from website.models.db import DbDAO
+import logging
 
 __author__ = "Software Le Gall Guillaume"
 __copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
@@ -39,22 +40,30 @@ class QuotationItemDAO(DbDAO):
     def exist(self, obj):
         if isinstance(obj, QuotationItem):
             if hasattr(obj, 'id'):
+                logging.warning('QuotationItemDAO use exist with id')
                 return super().exist(self.where('id', obj.id))
             else:
+                logging.warning('QuotationItemDAO use exist with description')
                 return super().exist(self.where('description', obj.description))
         else:
+            logging.warning('QuotationItemDAO use exist with WHERE')
             return super().exist(obj)
     def update(self, obj):
         if hasattr(obj, 'id'):
+            logging.warning('QuotationItemDAO use update with id')
             return super().update(obj, self.where('id', obj.id))
         else:
+            logging.warning('QuotationItemDAO use update with description')
             return super().update(obj, self.where('description', obj.description))
             
     def delete(self, obj):
         if isinstance(obj, QuotationItem):
             if hasattr(obj, 'id'):
+                logging.warning('QuotationItemDAO use delete with id')
                 return super().delete(self.where('id', obj.id))
             else:
+                logging.warning('QuotationItemDAO use delete with description')
                 return super().delete(self.where('description', obj.description))
         else:
+            logging.warning('QuotationItemDAO use delete with WHERE')
             return super().delete(obj)

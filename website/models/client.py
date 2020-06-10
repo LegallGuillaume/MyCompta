@@ -2,6 +2,7 @@ try:
     from models.db import DbDAO
 except ModuleNotFoundError:
     from website.models.db import DbDAO
+import logging
 
 __author__ = "Software Le Gall Guillaume"
 __copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
@@ -42,21 +43,29 @@ class ClientDAO(DbDAO):
     def exist(self, obj):
         if isinstance(obj, Client):
             if hasattr(obj, 'id'):
+                logging.warning('ClientDAO use exist with id')
                 return super().exist(self.where('id', obj.id))
             else:
+                logging.warning('ClientDAO use exist with name')
                 return super().exist(self.where('name', obj.name))
         else:
+            logging.warning('ClientDAO use exist with WHERE')
             return super().exist(obj)
     def update(self, obj):
         if hasattr(obj, 'id'):
+            logging.warning('ClientDAO use update with id')
             return super().update(obj, self.where('id', obj.id))
         else:
+            logging.warning('ClientDAO use update with name')
             return super().update(obj, self.where('name', obj.name))
     def delete(self, obj):
         if isinstance(obj, Client):
             if hasattr(obj, 'id'):
+                logging.warning('ClientDAO use delete with id')
                 return super().delete(self.where('id', obj.id))
             else:
+                logging.warning('ClientDAO use delete with name')
                 return super().delete(self.where('name', obj.name))
         else:
+            logging.warning('ClientDAO use delete with WHERE')
             return super().delete(obj)
