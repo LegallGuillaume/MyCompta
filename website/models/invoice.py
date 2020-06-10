@@ -50,6 +50,15 @@ class InvoiceDAO(DbDAO):
             'id_profile': 'INTEGER NOT NULL'
         }
 
+    def exist(self, obj):
+        if isinstance(obj, Invoice):
+            if hasattr(obj, 'id'):
+                return super().exist(self.where('id', obj.id))
+            else:
+                return super().exist(self.where('name', obj.name))
+        else:
+            return super().exist(obj)
+
     def insert(self, obj):
         cpy = obj.total_ttc
         del obj.total_ttc

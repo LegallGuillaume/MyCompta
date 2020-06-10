@@ -23,7 +23,7 @@ class Insurance:
         return "<Insurance name: '{}'>".format(self.name)
 
 class InsuranceDAO(DbDAO):
-    def __init__(self, db_path=None):
+    def __init__(self, dbpath=None):
         super().__init__('assurance', db_path=dbpath)
         self.obj_type = Insurance
         self.table_create = {

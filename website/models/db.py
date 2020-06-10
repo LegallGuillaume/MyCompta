@@ -13,7 +13,7 @@ __version__ = "1.1"
 class DB:
     def __init__(self, db_path):
         self.conn = None
-        self.dbpath = db_path
+        self.dbpath = db_path if db_path else DB_PATH
     def connect(self):
         self.conn = sqlite3.connect(self.dbpath)
     def commit(self):
@@ -209,9 +209,9 @@ class DbDAO:
             return False
 
     def drop(self, valid1, valid2):
-        if not issubclass(type(self), DbDAO) and valid1 and valid2:
-            return list()
-            
+        if not issubclass(type(self), DbDAO) or not valid1 or not valid2:
+            return False
+
         sql = """ DROP TABLE {}""".format(self.__tablename)
         try:
             conn = self.__db.get_con()

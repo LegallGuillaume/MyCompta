@@ -55,6 +55,15 @@ class QuotationDAO(DbDAO):
             'id_profile': 'INTEGER NOT NULL'
         }
 
+    def exist(self, obj):
+        if isinstance(obj, Quotation):
+            if hasattr(obj, 'id'):
+                return super().exist(self.where('id', obj.id))
+            else:
+                return super().exist(self.where('numero', obj.numero))
+        else:
+            return super().exist(obj)
+
     def get(self, where=None):
         obj = super().get(where)
         for o in obj:
