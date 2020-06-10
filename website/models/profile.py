@@ -35,8 +35,8 @@ class Profile:
         object.__setattr__(self, name, value)
 
 class ProfileDAO(DbDAO):
-    def __init__(self):
-        super().__init__('profile')
+    def __init__(self, dbpath=None):
+        super().__init__('profile', db_path=dbpath)
         self.obj_type = Profile
         self.table_create = {
             'id': 'INTEGER PRIMARY KEY AUTOINCREMENT', 

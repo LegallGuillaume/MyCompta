@@ -11,14 +11,16 @@ __license__ = "Private Domain"
 __version__ = "1.1"
 
 class DB:
-    def __init__(self):
+    def __init__(self, db_path):
         self.conn = None
+        self.dbpath = db_path if db_path else DB_PATH
     def connect(self):
-        self.conn = sqlite3.connect(DB_PATH)
+        self.conn = sqlite3.connect(self.dbpath)
     def commit(self):
         self.conn.commit()
     def close(self):
         self.conn.close()
+        self.conn = None
     def get_con(self):
         if not self.conn:
             self.connect()
@@ -26,10 +28,10 @@ class DB:
 
 
 class DbDAO:
-    def __init__(self, table_name):
+    def __init__(self, table_name, db_path=DB_PATH):
         self.__tablename = table_name
         self.obj_type = type(self)
-        self.__db = DB()
+        self.__db = DB(db_path)
 
     def get_table_name(self):
         return self.__tablename
@@ -207,9 +209,9 @@ class DbDAO:
             return False
 
     def drop(self, valid1, valid2):
-        if not issubclass(type(self), DbDAO) and valid1 and valid2:
-            return list()
-            
+        if not issubclass(type(self), DbDAO) or not valid1 or not valid2:
+            return False
+
         sql = """ DROP TABLE {}""".format(self.__tablename)
         try:
             conn = self.__db.get_con()

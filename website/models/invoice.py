@@ -30,8 +30,8 @@ class Invoice:
         return "<Invoice name: '{}'>".format(self.name)
 
 class InvoiceDAO(DbDAO):
-    def __init__(self):
-        super().__init__('facture')
+    def __init__(self, dbpath=None):
+        super().__init__('facture',db_path=dbpath)
         self.obj_type = Invoice
         self.table_create = {
             'id': 'INTEGER PRIMARY KEY AUTOINCREMENT',
@@ -49,6 +49,15 @@ class InvoiceDAO(DbDAO):
             'created': 'TEXT',
             'id_profile': 'INTEGER NOT NULL'
         }
+
+    def exist(self, obj):
+        if isinstance(obj, Invoice):
+            if hasattr(obj, 'id'):
+                return super().exist(self.where('id', obj.id))
+            else:
+                return super().exist(self.where('name', obj.name))
+        else:
+            return super().exist(obj)
 
     def insert(self, obj):
         cpy = obj.total_ttc

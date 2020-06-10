@@ -39,8 +39,8 @@ class Quotation:
         self.list_item.append(item)
 
 class QuotationDAO(DbDAO):
-    def __init__(self):
-        super().__init__('devis')
+    def __init__(self, dbpath=None):
+        super().__init__('devis', db_path=dbpath)
         self.obj_type = Quotation
         self.table_create = {
             'id': 'INTEGER PRIMARY KEY AUTOINCREMENT', 
@@ -54,6 +54,15 @@ class QuotationDAO(DbDAO):
             'created': 'TEXT NOT NULL',
             'id_profile': 'INTEGER NOT NULL'
         }
+
+    def exist(self, obj):
+        if isinstance(obj, Quotation):
+            if hasattr(obj, 'id'):
+                return super().exist(self.where('id', obj.id))
+            else:
+                return super().exist(self.where('numero', obj.numero))
+        else:
+            return super().exist(obj)
 
     def get(self, where=None):
         obj = super().get(where)
