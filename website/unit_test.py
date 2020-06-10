@@ -1,5 +1,6 @@
 import unittest
 import os
+import logging
 from models.client import ClientDAO, Client
 from models.db import DbDAO, DB
 from models.insurance import InsuranceDAO, Insurance
@@ -328,4 +329,6 @@ class InvoiceTestCase(unittest.TestCase):
 
 
 if __name__ == '__main__':
+    DEBUG = False
+    logging.basicConfig(filename='unit_test.log',level=logging.DEBUG if DEBUG else logging.WARNING)
     unittest.main()

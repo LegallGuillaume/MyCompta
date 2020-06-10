@@ -9,6 +9,7 @@ from urls.urls_insurance import manager_insurance
 from urls.urls_profile import manager_profile
 from urls.urls_quotation import manager_quotation
 import datetime
+import logging
 
 __author__ = "Software Le Gall Guillaume"
 __copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
@@ -38,6 +39,7 @@ def get_element_profile_invoice(id):
     return CACHE_INVOICE[id]
 @app.route('/', methods=['GET', 'POST'])
 def login():
+    logging.warning('URL / send with ' + request.method)
     if request.method == 'POST':
         email = str(request.form['user-name'])
         pwd = str(request.form['user-password'])
@@ -45,18 +47,25 @@ def login():
         if pdao.check_auth(pdao.where('email', email), pwd):
             session['logged_in'] = str(pdao.get(pdao.where('email', email))[0].id)
     if not session.get('logged_in'):
+        logging.warning('display login.html')
         return render_template('login.html')
     else:
+        logging.warning('redirect to URL /home')
         return redirect('/home')
 
 @app.route('/logout')
 def logout():
+    logging.warning('URL /logout')
+    id = session['logged_in']
     del session['logged_in']
+    logging.warning('deconnection user id=' + str(id))
     return redirect('/')
 
 @app.route('/home')
 def accueil():
+    logging.warning('URL /home')
     if not session.get('logged_in'):
+        logging.warning('redirect /, no session enable')
         return redirect('/')
     profile = get_profile_from_session()
     dic_profile = get_element_profile_invoice(profile.id)
@@ -90,6 +99,7 @@ def accueil():
             if fact.tva:
                 tva_total += (float(fact.total)*0.20)
 
+    logging.warning('display home.html')
     return render_template(
         'home.html', convert_date=convert_date, 
         Page_title='Accueil', factures=reversed(l_factures), 
@@ -102,8 +112,11 @@ def accueil():
 
 
 if __name__ == "__main__":
+    DEBUG = False
+    logging.basicConfig(filename='server.log',level=logging.DEBUG if DEBUG else logging.WARNING)
     pdao = ProfileDAO()
     for profile in pdao.get_list_profile():
         id = pdao.get_profile_id(pdao.where('siret', profile.siret))
+        logging.debug('profile checked : id=' + str(id))
         get_element_profile_invoice(id)
-    app.run(host='0.0.0.0', port=5000, debug=False)
+    app.run(host='0.0.0.0', port=5000, debug=DEBUG)
