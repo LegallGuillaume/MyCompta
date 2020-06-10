@@ -29,7 +29,7 @@ function remove_devis(devis_id)
 {
     $.ajax({
         method: 'POST',
-        url: '/devis-delete',
+        url: '/quotation-delete',
         data: {devis: devis_id}
     }).done(function()
     {
@@ -66,7 +66,7 @@ $(document).ready(function()
             });
             $.ajax({
                 method: 'POST',
-                url: '/devis-add',
+                url: '/quotation-add',
                 data: objs
             }).done(function()
             {
