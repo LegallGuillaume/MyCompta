@@ -1,5 +1,6 @@
 import unittest
 import os
+import logging
 from models.client import ClientDAO, Client
 from models.db import DbDAO, DB
 from models.insurance import InsuranceDAO, Insurance
@@ -328,4 +329,18 @@ class InvoiceTestCase(unittest.TestCase):
 
 
 if __name__ == '__main__':
+    DEBUG = False
+    format_log = '(%(asctime)s)(%(filename)s:%(lineno)d) %(levelname)s >> %(message)s'
+    format_date = '%d/%m/%Y %I:%M:%S'
+    if not DEBUG:
+        logging.basicConfig(
+            filename='unit_test.log',filemode='w', 
+            format=format_log, datefmt=format_date,
+            level=logging.INFO
+        )
+    else:
+        logging.basicConfig(
+            format=format_log, datefmt=format_date,
+            level=logging.DEBUG
+        )
     unittest.main()

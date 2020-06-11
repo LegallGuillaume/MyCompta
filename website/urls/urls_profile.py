@@ -2,6 +2,7 @@ from flask import Blueprint
 from models.profile import ProfileDAO, Profile
 from flask import flash, request, render_template, redirect, make_response, session
 import datetime
+import logging
 #register-data
 
 __author__ = "Software Le Gall Guillaume"
@@ -15,6 +16,7 @@ manager_profile = Blueprint("profile", __name__)
 def register():
     if request.method == 'GET':
         return redirect('/')
+    logging.info('receive socket from /register-data -> profile: %s', request.form['profile-name'])
     form = request.form
     profile = Profile()
     profile.name = form['profile-name']
@@ -29,5 +31,8 @@ def register():
     profile.siret = form['profile-siret']
     pdao = ProfileDAO()
     if pdao.insert(profile):
+        logging.info('add profile %s OK', profile.name)
         session['logged_in'] = pdao.field(pdao.where('email', profile.email), 'id')[0][0]
+    else:
+        logging.info('add profile %s FAILED', profile.name)
     return redirect('/')

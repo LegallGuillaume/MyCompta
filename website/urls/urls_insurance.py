@@ -3,6 +3,7 @@ from models.insurance import Insurance, InsuranceDAO
 from models.color import Color
 from settings.tools import get_profile_from_session
 from flask import flash, request, render_template, redirect, session
+import logging
 
 __author__ = "Software Le Gall Guillaume"
 __copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
@@ -22,15 +23,19 @@ def add_insurance(form):
     insurance.id_profile = profile.id
     adao = InsuranceDAO()
     if adao.insert(insurance):
+        logging.info('add insurance %s OK', insurance.name)
         flash('L\'assurance {} a été ajoutée avec succès !'.format(insurance.name), 'success')
     else:
+        logging.warning('add insurance %s OK', insurance.name)
         flash("Erreur lors de la création de l\'assurance {} !".format(insurance.name), 'danger')
 
 def remove_insurance(assurancename):
     adao = InsuranceDAO()
     if adao.delete(adao.where('name', assurancename)):
+        logging.info('remove insurance %s FAILED', assurancename)
         flash('L\'assurance {} a été supprimée avec succès !'.format(assurancename), 'success')
     else:
+        logging.info('remove insurance %s FAILED', assurancename)
         flash("Erreur lors de la suppression de l\'assurance {} !".format(assurancename), 'danger')
 
 def select_insurance(assurancename, select):
@@ -38,7 +43,11 @@ def select_insurance(assurancename, select):
     profile=get_profile_from_session()
     assu = adao.get([adao.where('name', assurancename), adao.where('id_profile', profile.id)])[0]
     assu.sel = select
-    adao.update(assu)
+    ret = adao.update(assu)
+    if ret:
+        logging.info('insurance %s %s OK', str(select), assurancename)
+    else:
+        logging.info('insurance %s %s OK', str(select), assurancename)
 
 def get_list_insurance(id_profile):
     adao = InsuranceDAO()
@@ -48,6 +57,7 @@ def get_list_insurance(id_profile):
 def as_():
     if not session.get('logged_in'):
         return redirect('/')
+    logging.info('go url /insurance with ' + request.method)
     if request.method == 'GET':
         profile=get_profile_from_session()
         l_assurances = get_list_insurance(profile.id)
@@ -63,6 +73,7 @@ def as_():
 def as_del():
     if not session.get('logged_in'):
         return redirect('/')
+    logging.info('receive socket from /insurance-delete')
     remove_insurance(request.form['assurance-name'])
     return redirect('/insurance')
 
@@ -70,5 +81,6 @@ def as_del():
 def as_select():
     if not session.get('logged_in'):
         return redirect('/')
+    logging.info('receive socket from /insurance-select')
     select_insurance(request.form['assurance-name'], request.form['assurance-select'])
     return redirect('/insurance')

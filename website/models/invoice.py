@@ -2,6 +2,7 @@ try:
     from models.db import DbDAO
 except ModuleNotFoundError:
     from website.models.db import DbDAO
+import logging
 
 __author__ = "Software Le Gall Guillaume"
 __copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
@@ -53,10 +54,13 @@ class InvoiceDAO(DbDAO):
     def exist(self, obj):
         if isinstance(obj, Invoice):
             if hasattr(obj, 'id'):
+                logging.info('InvoiceDAO use exist with id')
                 return super().exist(self.where('id', obj.id))
             else:
+                logging.info('InvoiceDAO use exist with name')
                 return super().exist(self.where('name', obj.name))
         else:
+            logging.info('InvoiceDAO use exist with WHERE')
             return super().exist(obj)
 
     def insert(self, obj):
@@ -76,8 +80,11 @@ class InvoiceDAO(DbDAO):
     def delete(self, obj):
         if isinstance(obj, Invoice):
             if hasattr(obj, 'id'):
+                logging.info('InvoiceDAO use delete with id')
                 return super().delete(self.where('id', obj.id))
             else:
+                logging.info('InvoiceDAO use delete with name')
                 return super().delete(self.where('name', obj.name))
         else:
+            logging.info('InvoiceDAO use delete with WHERE')
             return super().delete(obj)

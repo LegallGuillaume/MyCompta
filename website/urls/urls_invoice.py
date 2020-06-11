@@ -8,6 +8,7 @@ from settings.tools import get_profile_from_session, CACHE_INVOICE
 from flask import flash, request, render_template, redirect, make_response, session
 import pdfkit
 import datetime
+import logging
 
 __author__ = "Software Le Gall Guillaume"
 __copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
@@ -19,12 +20,14 @@ manager_invoice = Blueprint("invoice", __name__)
 def add_invoice(form):
     cdao = ClientDAO()
     if not cdao.exist(cdao.where('name', form['facture-client'])):
+        logging.warning('(Invoice) This client doesnt exist: ' + form['facture-client'])
         flash("Ce client n'existe plus, veuillez recharger la page !", 'danger')
         return
     profileSession = get_profile_from_session()
     if profileSession.id:
         id_profile = profileSession.id
     else:
+        logging.warning('(Invoice) Session closed: ' + profileSession.id)
         flash("Impossible d'ajouter cette facture, car votre session a expirée", 'danger')
         return
     facture = Invoice()
@@ -42,10 +45,12 @@ def add_invoice(form):
     fdao = InvoiceDAO()
 
     if fdao.insert(facture):
+        logging.info('add invoice %s OK', facture.name)
         flash('La facture {} a été ajoutée avec succès !'.format(facture.name), 'success')
         if id_profile in CACHE_INVOICE.keys():
             del CACHE_INVOICE[id_profile]
     else:
+        logging.info('add invoice %s FAILED', facture.name)
         flash("Erreur lors de la création de la facture {} !".format(facture.name), 'danger')
 
 def remove_invoice(facturename):
@@ -53,14 +58,17 @@ def remove_invoice(facturename):
     if profileSession.id:
         id_profile = profileSession.id
     else:
+        logging.warning('(Invoice) Session closed: ' + profileSession.id)
         flash("Impossible de supprimer cette facture, car votre session a expirée", 'danger')
         return
     fdao = InvoiceDAO()
     if fdao.delete(fdao.where('name', facturename)):
+        logging.info('remove invoice %s OK', facturename)
         flash('La facture {} a été supprimée avec succès !'.format(facturename), 'success')
         if id_profile in CACHE_INVOICE.keys():
             del CACHE_INVOICE[id_profile]
     else:
+        logging.info('remove invoice %s OK', facturename)
         flash("Erreur lors de la suppression de la facture {} !".format(facturename), 'danger')
 
 def bill(facturename, payer):
@@ -68,6 +76,7 @@ def bill(facturename, payer):
     if profileSession.id:
         id_profile = profileSession.id
     else:
+        logging.warning('(Invoice) Session closed: ' + profileSession.id)
         flash("Impossible de payée cette facture, car votre session a expirée", 'danger')
         return
     fdao = InvoiceDAO()
@@ -75,10 +84,12 @@ def bill(facturename, payer):
     fac.payee = payer
     del fac.total_ttc
     if fdao.update(fac):
+        logging.info('bill invoice sold %s %s OK', payer, facturename)
         flash('La facture {} {} avec succès !'.format(facturename, 'a été payée' if payer else 'a été rééditée'), 'success')
         if id_profile in CACHE_INVOICE.keys():
             del CACHE_INVOICE[id_profile]
     else:
+        logging.info('bill invoice sold %s %s FAILED', payer, facturename)
         flash("Erreur lors de la {} du paiement de la facture {} !".format('validation' if payer else 'réédition', facturename), 'danger')
 
 def get_list_invoice(id_profile):
@@ -134,6 +145,7 @@ def get_new_invoice():
             nb = last_f.split('-')[1]
             nb = int(nb) + 1
             return '{}-{:04d}'.format(str(annee), nb)
+    logging.info('new invoice name: %s', '{}-0001'.format(annee))
     return '{}-0001'.format(annee)
 
 def pdf_file(factname, download):
@@ -177,12 +189,14 @@ def pdf_file(factname, download):
         response.headers['Content-Disposition'] = 'attachment; filename=Facture_{}.pdf'.format(factname)
     else:
         response.headers['Content-Disposition'] = 'inline; filename=Facture_{}.pdf'.format(factname)
+    logging.info('Invoice create pdf download: %s', str(download))
     return response
 
 @manager_invoice.route('/invoices', methods=['GET','POST'])
 def facts():
     if not session.get('logged_in'):
         return redirect('/')
+    logging.info('go url /invoices with ' + request.method)
     profile = get_profile_from_session()
     if request.method == 'GET':
         l_factures, sold_en, last_f, attent_f = get_list_invoice(profile.id)
@@ -204,18 +218,21 @@ def facts():
 def fact_name(factname = None):
     if not session.get('logged_in'):
         return redirect('/')
+    logging.info('go url /invoice/%s with download' + factname)
     return pdf_file(factname, True)
 
 @manager_invoice.route('/pdf/<factname>')
 def fact_pdf(factname = None):
     if not session.get('logged_in'):
         return redirect('/')
+    logging.info('go url /pdf/%s ' + factname)
     return pdf_file(factname, False)
 
 @manager_invoice.route('/invoice-delete', methods=['POST'])
 def fact_del():
     if not session.get('logged_in'):
         return redirect('/')
+    logging.info('receive socket from /invoice-delete %s' + request.form['facture-name'])
     remove_invoice(request.form['facture-name'])
     return redirect('/invoices')
 
@@ -223,6 +240,7 @@ def fact_del():
 def fact_payee():
     if not session.get('logged_in'):
         return redirect('/')
+    logging.info('receive socket from /invoice-payee %s %s' + request.form['facture-name'], request.form['facture-payee'] == 'True')
     bill(request.form['facture-name'], request.form['facture-payee'] == 'True')
     return redirect('/invoices')
 
@@ -230,6 +248,7 @@ def fact_payee():
 def fact_add():
     if not session.get('logged_in'):
         return redirect('/')
+    logging.info('receive socket from /invoice-add')
     if request.method == 'POST':
         add_invoice(request.form)
     return redirect('/invoices')
