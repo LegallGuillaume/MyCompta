@@ -11,5 +11,4 @@ TRANSLATE
 
 test_dir/
 
-server.log
-unit_test.log
+*.log
