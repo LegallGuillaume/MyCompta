@@ -113,7 +113,11 @@ def accueil():
 
 if __name__ == "__main__":
     DEBUG = False
-    logging.basicConfig(filename='server.log',level=logging.DEBUG if DEBUG else logging.WARNING)
+    logging.basicConfig(
+        filename='server.log',filemode='w', 
+        format='%(asctime)s >> %(levelname)s >> %(message)s', datefmt='%d/%m/%Y %I:%M:%S',
+        level=logging.DEBUG if DEBUG else logging.INFO
+    )
     pdao = ProfileDAO()
     for profile in pdao.get_list_profile():
         id = pdao.get_profile_id(pdao.where('siret', profile.siret))

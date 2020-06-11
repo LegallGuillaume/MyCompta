@@ -330,5 +330,17 @@ class InvoiceTestCase(unittest.TestCase):
 
 if __name__ == '__main__':
     DEBUG = False
-    logging.basicConfig(filename='unit_test.log',level=logging.DEBUG if DEBUG else logging.WARNING)
+    format_log = '(%(asctime)s)(%(filename)s:%(lineno)d) %(levelname)s >> %(message)s'
+    format_date = '%d/%m/%Y %I:%M:%S'
+    if not DEBUG:
+        logging.basicConfig(
+            filename='unit_test.log',filemode='w', 
+            format=format_log, datefmt=format_date,
+            level=logging.INFO
+        )
+    else:
+        logging.basicConfig(
+            format=format_log, datefmt=format_date,
+            level=logging.DEBUG
+        )
     unittest.main()
