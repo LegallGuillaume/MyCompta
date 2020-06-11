@@ -10,6 +10,7 @@ from website.models.client import ClientDAO
 from website.models.insurance import InsuranceDAO
 from website.models.profile import ProfileDAO, Profile
 from website.models.quotation.quotation import QuotationDAO, QuotationItemDAO
+import logging
 
 class bcolors:
     HEADER = '\033[95m'
@@ -39,4 +40,10 @@ def main():
     print(bcolors.HEADER + 'QuotationItemDAO ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if didao.create_table() else bcolors.FAIL + "KO", bcolors.ENDC)
 
 if __name__ == "__main__":
+    DEBUG=False
+    logging.basicConfig(
+        filename='create_db.log',filemode='w', 
+        format='%(asctime)s >> %(levelname)s >> %(message)s', datefmt='%d/%m/%Y %I:%M:%S',
+        level=logging.DEBUG if DEBUG else logging.INFO
+    )
     main()
