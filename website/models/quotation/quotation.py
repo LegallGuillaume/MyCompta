@@ -80,11 +80,9 @@ class QuotationDAO(DbDAO):
         if hasattr(obj, 'list_item'):
             list_item = obj.list_item
             del obj.list_item
-        itemdao = QuotationItemDAO()
-        for item in list_item:
-            item.id_devis = self.id
-            itemdao.insert(item)
-        return super().insert(obj)
+        ret = super().insert(obj)
+        obj.list_item = list_item
+        return ret
 
     def update(self, obj):
         list_item = obj.list_item

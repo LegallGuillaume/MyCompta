@@ -284,6 +284,12 @@ class DbDAO:
             logging.error('DbDAO field FAILED "' + str(e) + '"')
             return list()
 
+    def colnames(self):
+        conn = self.__db.get_con()
+        cursor = conn.execute('select * from {}'.format(self.__tablename))
+        names = list(map(lambda x: x[0], cursor.description))
+        return (self.__tablename, names)
+
     def __exit__(self):
         logging.info('DbDAO __exit__ OK')
         self.close()
