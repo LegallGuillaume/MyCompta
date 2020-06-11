@@ -74,7 +74,7 @@ class DbDAO:
             return False
 
     def exist(self, where):
-        logging.info('DbDAO use exist with "' + where + '"')
+        logging.info('DbDAO use exist with "' + str(where) + '"')
         if not issubclass(type(self), DbDAO):
             logging.debug('DbDAO exist is use in non object DbDAO')
             return False
@@ -139,7 +139,7 @@ class DbDAO:
         SET column1 = value1, column2 = value2...., columnN = valueN
         WHERE [condition];
         """
-        logging.info('DbDAO use update with "' + where + '"')
+        logging.info('DbDAO use update with "' + str(where) + '"')
         if not issubclass(type(self), DbDAO):
             logging.debug('DbDAO update is use in non object DbDAO')
             return False
@@ -187,7 +187,7 @@ class DbDAO:
         return obj
 
     def get(self, where=None):
-        logging.info('DbDAO use get with "' + where + '"')
+        logging.info('DbDAO use get with "' + str(where) + '"')
         if not issubclass(type(self), DbDAO):
             logging.debug('DbDAO get is use in non object DbDAO')
             return
@@ -220,7 +220,7 @@ class DbDAO:
         DELETE FROM table_name
         WHERE [condition];
         """
-        logging.info('DbDAO use delete with "' + where + '"')
+        logging.info('DbDAO use delete with "' + str(where) + '"')
         if not issubclass(type(self), DbDAO):
             logging.debug('DbDAO delete is use in non object DbDAO')
             return False
@@ -261,7 +261,7 @@ class DbDAO:
             return False
 
     def field(self, where, col):
-        logging.info('DbDAO use field with WHERE = "' + where + '", COL = "' + col + '"')
+        logging.info('DbDAO use field with WHERE = "' + str(where) + '", COL = "' + col + '"')
         if not issubclass(type(self), DbDAO):
             logging.debug('DbDAO field is use in non object DbDAO')
             return False
