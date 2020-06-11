@@ -1,0 +1,14 @@
+#!/bin/bash
+
+python3 website/unit_test.py
+RET=$?
+
+if [ $RET -eq 0 ]
+then
+  echo -e "\033[1;32mTest valid OK\033[0m"
+  git commit "$@"
+  exit $?
+else
+  echo -e "\033[0;31mTest valid FAILED\033[0m"
+  exit 1
+fi
