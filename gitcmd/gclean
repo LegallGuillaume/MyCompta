@@ -1,0 +1,8 @@
+DIR=$(git rev-parse --show-toplevel)
+
+rm -rf $DIR/test_dir
+rm -rf $DIR/website/models/__pycache__
+rm -rf $DIR/website/settings/__pycache__
+rm -rf $DIR/website/urls/__pycache__
+rm -rf $DIR/server.log
+rm -rf $DIR/unit_test.log
