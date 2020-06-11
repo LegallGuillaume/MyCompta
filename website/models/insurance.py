@@ -41,29 +41,29 @@ class InsuranceDAO(DbDAO):
     def exist(self, obj):
         if isinstance(obj, Insurance):
             if hasattr(obj, 'id'):
-                logging.warning('InsuranceDAO use exist with id')
+                logging.info('InsuranceDAO use exist with id')
                 return super().exist(self.where('id', obj.id))
             else:
-                logging.warning('InsuranceDAO use existe with n_contrat')
+                logging.info('InsuranceDAO use existe with n_contrat')
                 return super().exist(self.where('n_contrat', obj.n_contrat))
         else:
-            logging.warning('InsuranceDAO use delete with WHERE')
+            logging.info('InsuranceDAO use delete with WHERE')
             return super().exist(obj)
     def update(self, obj):
         if hasattr(obj, 'id'):
-            logging.warning('InsuranceDAO use update with id')
+            logging.info('InsuranceDAO use update with id')
             return super().update(obj, self.where('id', obj.id))
         else:
-            logging.warning('InsuranceDAO use update with n_contrat')
+            logging.info('InsuranceDAO use update with n_contrat')
             return super().update(obj, self.where('n_contrat', obj.n_contrat))
     def delete(self, obj):
         if isinstance(obj, Insurance):
             if hasattr(obj, 'id'):
-                logging.warning('InsuranceDAO use delete with id')
+                logging.info('InsuranceDAO use delete with id')
                 return super().delete(self.where('id', obj.id))
             else:
-                logging.warning('InsuranceDAO use delete with n_contrat')
+                logging.info('InsuranceDAO use delete with n_contrat')
                 return super().delete(self.where('n_contrat', obj.n_contrat))
         else:
-            logging.warning('InsuranceDAO use delete with WHERE')
+            logging.info('InsuranceDAO use delete with WHERE')
             return super().delete(obj)

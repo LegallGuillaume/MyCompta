@@ -75,29 +75,29 @@ class ProfileDAO(DbDAO):
     def exist(self, obj):
         if isinstance(obj, Profile):
             if hasattr(obj, 'id'):
-                logging.warning('ProfileDAO use exist with id')
+                logging.info('ProfileDAO use exist with id')
                 return super().exist(self.where('id', obj.id))
             else:
-                logging.warning('ProfileDAO use exist with siret')
+                logging.info('ProfileDAO use exist with siret')
                 return super().exist(self.where('siret', obj.siret))
         else:
-            logging.warning('ProfileDAO use delete with WHERE')
+            logging.info('ProfileDAO use delete with WHERE')
             return super().exist(obj)
     def update(self, obj):
         if hasattr(obj, 'id'):
-            logging.warning('ProfileDAO use update with id')
+            logging.info('ProfileDAO use update with id')
             return super().update(obj, self.where('id', obj.id))
         else:
-            logging.warning('ProfileDAO use update with siret')
+            logging.info('ProfileDAO use update with siret')
             return super().update(obj, self.where('siret', obj.siret))
     def delete(self, obj):
         if isinstance(obj, Profile):
             if hasattr(obj, 'id'):
-                logging.warning('ProfileDAO use delete with id')
+                logging.info('ProfileDAO use delete with id')
                 return super().delete(self.where('id', obj.id))
             else:
-                logging.warning('ProfileDAO use delete with siret')
+                logging.info('ProfileDAO use delete with siret')
                 return super().delete(self.where('siret', obj.siret))
         else:
-            logging.warning('ProfileDAO use delete with WHERE')
+            logging.info('ProfileDAO use delete with WHERE')
             return super().delete(obj)

@@ -54,13 +54,13 @@ class InvoiceDAO(DbDAO):
     def exist(self, obj):
         if isinstance(obj, Invoice):
             if hasattr(obj, 'id'):
-                logging.warn('InvoiceDAO use exist with id')
+                logging.info('InvoiceDAO use exist with id')
                 return super().exist(self.where('id', obj.id))
             else:
-                logging.warn('InvoiceDAO use exist with name')
+                logging.info('InvoiceDAO use exist with name')
                 return super().exist(self.where('name', obj.name))
         else:
-            logging.warn('InvoiceDAO use exist with WHERE')
+            logging.info('InvoiceDAO use exist with WHERE')
             return super().exist(obj)
 
     def insert(self, obj):
@@ -80,11 +80,11 @@ class InvoiceDAO(DbDAO):
     def delete(self, obj):
         if isinstance(obj, Invoice):
             if hasattr(obj, 'id'):
-                logging.warn('InvoiceDAO use delete with id')
+                logging.info('InvoiceDAO use delete with id')
                 return super().delete(self.where('id', obj.id))
             else:
-                logging.warn('InvoiceDAO use delete with name')
+                logging.info('InvoiceDAO use delete with name')
                 return super().delete(self.where('name', obj.name))
         else:
-            logging.warn('InvoiceDAO use delete with WHERE')
+            logging.info('InvoiceDAO use delete with WHERE')
             return super().delete(obj)
