@@ -9,16 +9,11 @@ from models.profile import ProfileDAO, Profile
 from models.quotation.quotation import QuotationDAO, Quotation
 from models.quotation.item_quotation import QuotationItemDAO, QuotationItem
 
+DB_PATH = ''
 
 class DbTestCase(unittest.TestCase):
-    def setUp(self):
-        self.db = None
-        directory_test = 'test_dir'
-        os.makedirs(directory_test, exist_ok=True)
-        self.db_path = directory_test + os.sep + 'test_db'
-        open(self.db_path, 'w').close()
     def test_connection(self):
-        self.db = DB(self.db_path)
+        self.db = DB(DB_PATH)
         self.assertIsNotNone(self.db, msg='Impossible to create db "test_db"')
         self.assertIsNotNone(self.db.get_con(), msg='Impossible to connect to db "test_db"')
         self.db.close()
@@ -26,11 +21,7 @@ class DbTestCase(unittest.TestCase):
 
 class ClientTestCase(unittest.TestCase):
     def setUp(self):
-        directory_test = 'test_dir'
-        os.makedirs(directory_test, exist_ok=True)
-        self.db_path = directory_test + os.sep + 'test_db'
-        open(self.db_path, 'w').close()
-        self.cdao = ClientDAO(self.db_path)
+        self.cdao = ClientDAO(DB_PATH)
         self.client = Client()
         self.client.adresse = "TEST 1"
         self.client.comp_adresse = "TEST 2"
@@ -72,11 +63,7 @@ class ClientTestCase(unittest.TestCase):
 
 class QuotationItemTestCase(unittest.TestCase):
     def setUp(self):
-        directory_test = 'test_dir'
-        os.makedirs(directory_test, exist_ok=True)
-        self.db_path = directory_test + os.sep + 'test_db'
-        open(self.db_path, 'w').close()
-        self.iqdao = QuotationItemDAO(self.db_path)
+        self.iqdao = QuotationItemDAO(DB_PATH)
         self.item = QuotationItem()
         self.item.description = ""
         self.item.id_devis = 1
@@ -116,11 +103,7 @@ class QuotationItemTestCase(unittest.TestCase):
 
 class QuotationTestCase(unittest.TestCase):
     def setUp(self):
-        directory_test = 'test_dir'
-        os.makedirs(directory_test, exist_ok=True)
-        self.db_path = directory_test + os.sep + 'test_db'
-        open(self.db_path, 'w').close()
-        self.qdao = QuotationDAO(self.db_path)
+        self.qdao = QuotationDAO(DB_PATH)
         self.quotation = Quotation()
         self.quotation.client = "TEST 1"
         self.quotation.date_envoi = "01/01/2020"
@@ -164,11 +147,7 @@ class QuotationTestCase(unittest.TestCase):
 
 class InsuranceTestCase(unittest.TestCase):
     def setUp(self):
-        directory_test = 'test_dir'
-        os.makedirs(directory_test, exist_ok=True)
-        self.db_path = directory_test + os.sep + 'test_db'
-        open(self.db_path, 'w').close()
-        self.idao = InsuranceDAO(self.db_path)
+        self.idao = InsuranceDAO(DB_PATH)
         self.insurance = Insurance()
         self.insurance.id_profile = 1
         self.insurance.n_contrat = "1234567891011121314"
@@ -208,11 +187,7 @@ class InsuranceTestCase(unittest.TestCase):
 
 class ProfileTestCase(unittest.TestCase):
     def setUp(self):
-        directory_test = 'test_dir'
-        os.makedirs(directory_test, exist_ok=True)
-        self.db_path = directory_test + os.sep + 'test_db'
-        open(self.db_path, 'w').close()
-        self.pdao = ProfileDAO(self.db_path)
+        self.pdao = ProfileDAO(DB_PATH)
         self.profile = Profile()
         self.profile.adresse = 'TEST 1'
         self.profile.comp_adresse = 'TEST 2'
@@ -262,11 +237,7 @@ class ProfileTestCase(unittest.TestCase):
 
 class InvoiceTestCase(unittest.TestCase):
     def setUp(self):
-        directory_test = 'test_dir'
-        os.makedirs(directory_test, exist_ok=True)
-        self.db_path = directory_test + os.sep + 'test_db'
-        open(self.db_path, 'w').close()
-        self.fdao = InvoiceDAO(self.db_path)
+        self.fdao = InvoiceDAO(DB_PATH)
         self.invoice = Invoice()
         self.invoice.date_echeance = '01/01/2020'
         self.invoice.date_envoi = '01/01/2020'
@@ -327,8 +298,11 @@ class InvoiceTestCase(unittest.TestCase):
         self.assertTrue(self.fdao.drop(True, True), msg="Cannot drop table invoice")
         self.assertFalse(self.fdao.drop(True, True), msg="The table has not deleted before")
 
-
 if __name__ == '__main__':
+    directory_test = 'test_dir'
+    os.makedirs(directory_test, exist_ok=True)
+    DB_PATH = directory_test + os.sep + 'test_db'
+    open(DB_PATH, 'w').close()
     DEBUG = False
     format_log = '(%(asctime)s)(%(filename)s:%(lineno)d) %(levelname)s >> %(message)s'
     format_date = '%d/%m/%Y %I:%M:%S'
