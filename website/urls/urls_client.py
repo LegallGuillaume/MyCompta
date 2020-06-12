@@ -14,7 +14,10 @@ manager_client = Blueprint("client", __name__)
 
 def get_client_name(id_client):
     cdao = ClientDAO()
-    return cdao.field(cdao.where('id', id_client), 'name')[0][0]
+    list_all_name = cdao.field(cdao.where('id', id_client), 'name')
+    if list_all_name:
+        return list_all_name[0][0]
+    return 'client_supprimé'
 
 def add_client(form):
     profileSession = get_profile_from_session()
