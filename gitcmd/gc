@@ -1,14 +1,32 @@
 #!/bin/bash
+DIR=$(git rev-parse --show-toplevel)
+cd $DIR
+# python3 website/unit_test.py
+RET=0
 
-python3 website/unit_test.py
-RET=$?
+#\033[95m
 
 if [ $RET -eq 0 ]
 then
-  echo -e "\033[1;32mTest valid OK\033[0m"
-  git commit "$@"
-  exit $?
+  clear
+  echo -e "\033[1;95munit_test.py\033[0m: \033[1;32mTest valid OK\033[0m"
+  python3 website/test_works.py
+  RET2=$?
+  if [ $RET2 -eq 0 ]
+  then
+    clear
+    echo -e "\033[1;95munit_test.py\033[0m: \033[1;32mTest valid OK\033[0m"
+    echo -e "\033[1;95mtest_works.py\033[0m: \033[1;32mTest valid OK\033[0m"
+    git commit "$@"
+    exit $?
+  else
+    clear
+    echo -e "\033[1;95munit_test.py\033[0m: \033[1;32mTest valid OK\033[0m"
+    echo -e "\033[1;95mtest_works.py\033[0m: \033[0;31mTest valid FAILED\033[0m"
+    exit 3
+  fi
+  exit 2
 else
-  echo -e "\033[0;31mTest valid FAILED\033[0m"
+  echo -e "\033[1;95munit_test.py\033[0m: \033[0;31mTest valid FAILED\033[0m"
   exit 1
 fi
