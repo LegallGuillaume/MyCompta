@@ -55,12 +55,14 @@ class ProfileDAO(DbDAO):
             'created': 'TEXT'
         }
     
-    def check_auth(self, where, password):
-        result = self.field(where, 'password')
+    def check_auth(self, where_or_obj, password):
+        if isinstance(where_or_obj, Profile):
+            hash = sha256(str(password).encode(encoding='utf-8')).hexdigest()
+            return (where_or_obj.password == hash)
+        result = self.field(where_or_obj, 'password')
         hash = sha256(str(password).encode(encoding='utf-8')).hexdigest()
         if result:
-            if result[0][0] == hash:
-                return True
+            return (result[0][0] == hash)
         return False
 
     def get_profile_id(self, _where):

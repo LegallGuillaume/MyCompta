@@ -110,7 +110,7 @@ class QuotationTestCase(unittest.TestCase):
         self.quotation.date_validite = "01/01/2021"
         self.quotation.end_text = "TEST 2\nTEST 3\nTEST 4"
         self.quotation.id_profile = 1
-        self.quotation.numero = "230-N"
+        self.quotation.numero = 230
         self.quotation.total = 2030.20
         self.quotation.tva_price = 55.10
     def test_quotation_obj(self):
