@@ -308,7 +308,7 @@ if __name__ == '__main__':
     format_date = '%d/%m/%Y %I:%M:%S'
     if not DEBUG:
         logging.basicConfig(
-            filename='unit_test.log',filemode='w', 
+            filename='test_unit.log',filemode='w', 
             format=format_log, datefmt=format_date,
             level=logging.INFO
         )
