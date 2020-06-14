@@ -18,12 +18,12 @@ You can push on the server if test in gitcmd/gc command is OK
 ## Unit test
 *These tests check if there are no regression only with object creation (exclude website)*
 
-> python3 website/unit_test.py : create log in unit_test.log
+> python3 manage.py --testunit : create log in unit_test.log
 
 ## Funtional test
 *These tests check if there are no regression with the global function (exclude website)*
 
-> python3 website/test_works.py : create log in test_works.log
+> python3 manage.py --testfunc : create log in test_works.log
 
 ## Website
 *To start website, you should use manager.py*

@@ -3,6 +3,7 @@ from website.models.insurance import InsuranceDAO
 from website.models.client import ClientDAO
 from website.models.invoice import InvoiceDAO
 from website.models.profile import ProfileDAO, Profile
+from website.models.quotation.quotation import QuotationDAO, QuotationItemDAO
 import argparse
 import subprocess
 
@@ -14,6 +15,8 @@ __version__ = "1.1"
 parser = argparse.ArgumentParser(description='Manage server flask')
 parser.add_argument('--init', action='store_true', help='Init db')
 parser.add_argument('--demo', help='Create user demo with name arg')
+parser.add_argument('--testunit', action='store_true', help='launch unit test program')
+parser.add_argument('--testfunc', action='store_true', help='launch functionnal test program')
 parser.add_argument('--run', action='store_true', help='Run server')
 args = parser.parse_args()
 
@@ -46,7 +49,7 @@ def prt(line):
 if __name__ == "__main__":
     if args.init:
         print(bcolors.BOLD + bcolors.HEADER + 'Starting init db ...' + bcolors.ENDC)
-        l_db = [InsuranceDAO(), InvoiceDAO(), ClientDAO(), ProfileDAO()]
+        l_db = [InsuranceDAO(), InvoiceDAO(), ClientDAO(), ProfileDAO(), QuotationDAO(), QuotationItemDAO()]
         tab = 15
         for l in l_db:
             result = bcolors.OKBLUE + 'OK' + bcolors.ENDC if l.create_table() else bcolors.FAIL + 'KO' + bcolors.ENDC
@@ -80,6 +83,21 @@ if __name__ == "__main__":
             print('Create user {}'.format(profile.name))
         else:
             print('Impossible to create user {}'.format(profile.name))
-
+    elif args.testunit:
+        try:
+            cmd=['python3', 'website/unit_test.py']
+            p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            for line in iter(p.stdout.readline, b''):
+                prt(line)
+        except KeyboardInterrupt:
+            pass
+    elif args.testfunc:
+        try:
+            cmd=['python3', 'website/test_works.py']
+            p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            for line in iter(p.stdout.readline, b''):
+                prt(line)
+        except KeyboardInterrupt:
+            pass
     else:
         parser.print_help()
