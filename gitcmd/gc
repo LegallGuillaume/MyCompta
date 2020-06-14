@@ -1,10 +1,8 @@
 #!/bin/bash
 DIR=$(git rev-parse --show-toplevel)
 cd $DIR
-# python3 website/unit_test.py
-RET=0
-
-#\033[95m
+python3 website/unit_test.py
+RET=$?
 
 if [ $RET -eq 0 ]
 then
@@ -28,5 +26,6 @@ then
   exit 2
 else
   echo -e "\033[1;95munit_test.py\033[0m: \033[0;31mTest valid FAILED\033[0m"
+  echo -e "\033[1;95mtest_works.py\033[0m: Test not executed"
   exit 1
 fi
