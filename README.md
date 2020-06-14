@@ -8,7 +8,7 @@ MyCompta allows you to generate invoices automatically (pdf) thanks to clients d
 # Developpement
 
 > git add \<files\> \
-> gitcmd/gc -m \<message commit\> \
+> gitcmd/gc \<message commit\> \
 > git push 
 
 You can push on the server if test in gitcmd/gc command is OK
