@@ -89,15 +89,19 @@ if __name__ == "__main__":
             p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
             for line in iter(p.stdout.readline, b''):
                 prt(line)
+            p.poll()
+            exit(p.returncode)
         except KeyboardInterrupt:
-            pass
+            exit(1)
     elif args.testfunc:
         try:
             cmd=['python3', 'website/test_works.py']
             p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
             for line in iter(p.stdout.readline, b''):
                 prt(line)
+            p.poll()
+            exit(p.returncode)
         except KeyboardInterrupt:
-            pass
+            exit(1)
     else:
         parser.print_help()

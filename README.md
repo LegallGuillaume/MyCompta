@@ -20,10 +20,14 @@ You can push on the server if test in gitcmd/gc command is OK
 
 > python3 manage.py --testunit : create log in unit_test.log
 
+> echo $? : 0 is OK | >0 is FAILED
+
 ## Funtional test
 *These tests check if there are no regression with the global function (exclude website)*
 
 > python3 manage.py --testfunc : create log in test_works.log
+
+> echo $? : 0 is OK | >0 is FAILED
 
 ## Website
 *To start website, you should use manager.py*

@@ -1,14 +1,14 @@
 #!/bin/bash
 DIR=$(git rev-parse --show-toplevel)
 cd $DIR
-python3 website/unit_test.py
+python3 manage.py --testunit
 RET=$?
 
 if [ $RET -eq 0 ]
 then
   clear
   echo -e "\033[1;95munit_test.py\033[0m: \033[1;32mTest valid OK\033[0m"
-  python3 website/test_works.py
+  python3 manage.py --testfunc
   RET2=$?
   if [ $RET2 -eq 0 ]
   then
