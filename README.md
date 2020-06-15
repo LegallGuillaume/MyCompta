@@ -69,11 +69,12 @@ $ pybabel extract -F website/settings/babel.cfg -k lazy_gettext -o translations/
 $ pybabel init -i translations/messages.pot -d translations -l <LANGUAGE>
 ```
 
-### Update language
+### Update only text language
 *to update language for website*
 ```
 $ pybabel extract -F website/settings/babel.cfg -o translations/messages.pot .
 $ pybabel extract -F website/settings/babel.cfg -k lazy_gettext -o translations/messages.pot .
+$ pybabel compile -d translations
 $ pybabel update -i translations/messages.pot -d translations
 ```
 
