@@ -54,6 +54,29 @@ $ echo $?
 Log file is generate in root of project *(test_works.log)* \
 **if echo $? = 0 is OK else > 0 is FAILED**
 
+## Multi language
+*To use this command, please make sure you are on root gitdir*
+
+**LANGUAGE** type:
+- 'en' for English
+- 'fr' for French
+
+### Init new language
+*to add language*
+```
+$ pybabel extract -F website/settings/babel.cfg -o translations/messages.pot .
+$ pybabel extract -F website/settings/babel.cfg -k lazy_gettext -o translations/messages.pot .
+$ pybabel init -i translations/messages.pot -d translations -l <LANGUAGE>
+```
+
+### Update language
+*to update language for website*
+```
+$ pybabel extract -F website/settings/babel.cfg -o translations/messages.pot .
+$ pybabel extract -F website/settings/babel.cfg -k lazy_gettext -o translations/messages.pot .
+$ pybabel update -i translations/messages.pot -d translations
+```
+
 ## Runing website
 *To start website, you should use manager.py*
 
