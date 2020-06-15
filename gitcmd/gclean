@@ -4,4 +4,4 @@ rm -rf $DIR/test_dir
 rm -rf $DIR/website/models/__pycache__
 rm -rf $DIR/website/settings/__pycache__
 rm -rf $DIR/website/urls/__pycache__
-rm $DIR/*.log
+rm -rf $DIR/*.log
