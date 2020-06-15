@@ -4,6 +4,7 @@ from models.color import Color
 from settings.tools import get_profile_from_session
 from flask import flash, request, render_template, redirect, session
 import logging
+from flask_babel import Babel, lazy_gettext as _
 
 __author__ = "Software Le Gall Guillaume"
 __copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
@@ -24,19 +25,19 @@ def add_insurance(form):
     adao = InsuranceDAO()
     if adao.insert(insurance):
         logging.info('add insurance %s OK', insurance.name)
-        flash('L\'assurance {} a été ajoutée avec succès !'.format(insurance.name), 'success')
+        flash(_("The insurance %1 has been added successfull").replace('%1', insurance.name), 'success')
     else:
         logging.warning('add insurance %s OK', insurance.name)
-        flash("Erreur lors de la création de l\'assurance {} !".format(insurance.name), 'danger')
+        flash(_('Error while creation of insurance %1 !').replace('%1', insurance.name), 'danger') 
 
 def remove_insurance(assurancename):
     adao = InsuranceDAO()
     if adao.delete(adao.where('name', assurancename)):
         logging.info('remove insurance %s FAILED', assurancename)
-        flash('L\'assurance {} a été supprimée avec succès !'.format(assurancename), 'success')
+        flash(_("The insurance %1 has been deleted successfull").replace('%1', assurancename), 'success')
     else:
         logging.info('remove insurance %s FAILED', assurancename)
-        flash("Erreur lors de la suppression de l\'assurance {} !".format(assurancename), 'danger')
+        flash(_('Error while supression of insurance %1 !').replace('%1', assurancename), 'danger') 
 
 def select_insurance(assurancename, select):
     adao = InsuranceDAO()
@@ -61,7 +62,7 @@ def as_():
     if request.method == 'GET':
         profile=get_profile_from_session()
         l_assurances = get_list_insurance(profile.id)
-        return render_template('insurance.html', Page_title='Assurance', assurances=reversed(l_assurances),
+        return render_template('insurance.html', Page_title=_('Insurances'), assurances=reversed(l_assurances),
                                 profile=profile, color=Color)
     elif request.method == 'POST':
         add_insurance(request.form)

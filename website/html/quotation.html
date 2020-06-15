@@ -34,7 +34,7 @@ __version__ = "1.1"
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="newDevisLabel">Nouveau Devis</h5>
+            <h5 class="modal-title" id="newDevisLabel">{{_('New Quotation')}}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -43,37 +43,37 @@ __version__ = "1.1"
           <div class="tabbable">
               <ul class="nav nav-tabs" data-tabs="tabs">
                   <li id="tab1" class="nav-item">
-                      <a class="nav-link active" href="#One" data-toggle="tab">Global</a>
+                      <a class="nav-link active" href="#One" data-toggle="tab">{{_('Global')}}</a>
                   </li>
                   <li id="tab2" class="nav-item">
-                      <a class="nav-link" href="#Two" data-toggle="tab" style="margin-left: 10px;">Elements</a>
+                      <a class="nav-link" href="#Two" data-toggle="tab" style="margin-left: 10px;">{{_('Elements')}}</a>
                   </li>
                   <li id="tab3" class="nav-item">
-                      <a class="nav-link" href="#Three" data-toggle="tab" style="margin-left: 10px;">Fin devis</a>
+                      <a class="nav-link" href="#Three" data-toggle="tab" style="margin-left: 10px;">{{_('End quotation')}}</a>
                   </li>
               </ul>
               <div class="tab-content">
                 <div class="tab-pane active" id="One">
                     <form id="FormOne" role="form" class="container-fluid" action="/devis" method="post">
                         <div class="form-group">
-                            <label for="devis-id" class="col-form-label">N° Devis:</label>
+                            <label for="devis-id" class="col-form-label">{{_('N° Quotation')}}:</label>
                             <input type="text" value="{{new_devis}}" class="form-control" id="devis-id" placeholder="{{last_devis}}">
                         </div>
                         <div class="form-group">
-                            <label for="devis-id" class="col-form-label">Client:</label>
+                            <label for="devis-id" class="col-form-label">{{_('Client')}}:</label>
                             <input type="text" value="{{new_devis}}" class="form-control" id="devis-client">
                         </div>
                         <div class="form-group">
-                            <label for="devis-dateenvoi" class="col-form-label">Date Envoi:</label>
+                            <label for="devis-dateenvoi" class="col-form-label">{{_('Date sent')}}:</label>
                             <input type="date"  class="form-control" id="devis-dateenvoi">
                         </div>
                         <div class="form-group">
-                            <label for="devis-datevalidite" class="col-form-label">Date Validité:</label>
+                            <label for="devis-datevalidite" class="col-form-label">{{_('Validity date')}}:</label>
                             <input type="date"  class="form-control" id="devis-datevalidite">
                         </div>
                         <div class="custom-control custom-switch">
                             <input type="checkbox" class="custom-control-input" id="devis-tva">
-                            <label class="custom-control-label" for="devis-tva">TVA</label>
+                            <label class="custom-control-label" for="devis-tva">{{_('Tax')}}</label>
                         </div>
                     </form>
                 </div>
@@ -81,22 +81,22 @@ __version__ = "1.1"
                     <form id="FormTwo" role="form" class="container-fluid" method="post"  style="margin-top: 10px;">
                         <div class="row devis-line" style="width: 100%; padding: 0;">
                             <div class="col-6 p-0">
-                                <textarea class="form-control" rows="1" placeholder="description"></textarea>
+                                <textarea class="form-control" rows="1" placeholder="{{_('Description')}}"></textarea>
                             </div>
                             <div class="col p-0">
-                                <input type="text" class="form-control" placeholder="Quantité">
+                                <input type="text" class="form-control" placeholder="{{_('Quantity')}}">
                             </div>
                             <div class="col p-0">
-                                <input type="number" step="0.1" min="0" class="form-control" placeholder="Prix U">
+                                <input type="number" step="0.1" min="0" class="form-control" placeholder="{{_('Unit price')}}">
                             </div>
                         </div>
                     </form>
                     <div class="row" style="margin-top: 10px;">
                         <div class="col">
-                            <button type="button" class="btn btn-warning" onclick="addline('devis-line');">Nouvelle ligne</button>
+                            <button type="button" class="btn btn-warning" onclick="addline('devis-line');">{{_('New line')}}</button>
                         </div>
                         <div class="col">
-                            <button type="button" class="btn btn-outline-warning" onclick="removeline('devis-line');">Effacer ligne</button>
+                            <button type="button" class="btn btn-outline-warning" onclick="removeline('devis-line');">{{_('Delete line')}}</button>
                         </div>
                     </div>
                 </div>
@@ -104,16 +104,16 @@ __version__ = "1.1"
                     <form id="FormThree" role="form" class="container-fluid" method="post"  style="margin-top: 10px;">
                         <div class="row devis-end-text" style="width: 100%; padding: 0;">
                             <div class="col-12 p-0">
-                                <textarea class="form-control" rows="1" placeholder="n°TVA, acompte, ..."></textarea>
+                                <textarea class="form-control" rows="1" placeholder="{{_('n° Tax, ..')}}"></textarea>
                             </div>
                         </div>
                     </form>
                     <div class="row" style="margin-top: 10px;">
                         <div class="col">
-                            <button type="button" class="btn btn-warning" onclick="addline('devis-end-text');">Nouvelle ligne</button>
+                            <button type="button" class="btn btn-warning" onclick="addline('devis-end-text');">{{_('New line')}}</button>
                         </div>
                         <div class="col">
-                            <button type="button" class="btn btn-outline-warning" onclick="removeline('devis-end-text');">Effacer ligne</button>
+                            <button type="button" class="btn btn-outline-warning" onclick="removeline('devis-end-text');">{{_('Delete line')}}</button>
                         </div>
                     </div>
                 </div>
@@ -122,10 +122,10 @@ __version__ = "1.1"
               <hr>
               <div class="row">
                   <div class="col-6 text-center">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">{{_('Cancel')}}</button>
                   </div>
                   <div class="col-6 text-center">
-                      <button type="button" class="btn btn-success" id="btn_new_devis">Ajouter</button>
+                      <button type="button" class="btn btn-success" id="btn_new_devis">{{_('Add')}}</button>
                   </div>
               </div>
           </div>
@@ -138,7 +138,7 @@ __version__ = "1.1"
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="confirmModelLabel">Cofirmation !</h5>
+            <h5 class="modal-title" id="confirmModelLabel">{{_('Comfirm !')}}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -146,8 +146,8 @@ __version__ = "1.1"
         <div class="modal-body"><p></p>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
-            <button type="button" class="btn btn-danger" id="btn_supp_devis" data-devisid="">Oui, supprimer</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{_('No')}}</button>
+            <button type="button" class="btn btn-danger" id="btn_supp_devis" data-devisid="">{{_('Yes, deleted')}}</button>
         </div>
         </div>
     </div>
@@ -167,7 +167,7 @@ __version__ = "1.1"
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between" style="color: {{color.col7}}; background-color: {{color.col1}};">
                 <div class="row" style="width: 100%;">
                     <div class="col-9 text-left">
-                        <h6 class="m-0 font-weight-bold text-white">Devis N°{{d.numero}} - Total {{d.total}} € H.T</h6>
+                        <h6 class="m-0 font-weight-bold text-white">{{_('Quotation N°')}}{{d.numero}} - {{_('Total')}} {{d.total}} € {{_('without tax')}}</h6>
                     </div>
                     <div class="col-1">
                         <button class="btn btn-primary btn-circle btn-sm" onclick="window.open(window.location.origin + '/devis/{{d.numero}}', '_blank')">
@@ -184,7 +184,7 @@ __version__ = "1.1"
             <div class="card-body">
                 <div class="row" style="margin-top: -5px;">
                     <div class="col-sm-6">
-                        <p class="font-weight-bold text-white">Date d'envoi: </p>
+                        <p class="font-weight-bold text-white">{{_('Date sent')}}: </p>
                     </div>
                     <div class="col-sm-6">
                         <p class="text-white">{{convert_date(d.date_envoi)}}</p>
@@ -192,7 +192,7 @@ __version__ = "1.1"
                 </div>
                 <div class="row" style="margin-top: -5px;">
                     <div class="col-sm-6">
-                        <p class="font-weight-bold text-white">Date de validité: </p>
+                        <p class="font-weight-bold text-white">{{_('Validity date')}}: </p>
                     </div>
                     <div class="col-sm-6">
                         <p class="text-white">{{convert_date(d.date_validite)}}</p>
@@ -200,7 +200,7 @@ __version__ = "1.1"
                 </div>
                 <div class="row" style="margin-top: -5px;">
                     <div class="col-sm-6">
-                        <p class="font-weight-bold text-white">Total H.T: </p>
+                        <p class="font-weight-bold text-white">{{_('Total without tax')}}: </p>
                     </div>
                     <div class="col-sm-6">
                         <p class="text-white">{{d.total}} € <span class="badge badge-pill badge-info">HT</span></p>
@@ -209,7 +209,7 @@ __version__ = "1.1"
                 {% if d.tva_price > 0 %}
                 <div class="row" style="margin-top: -5px;">
                     <div class="col-sm-6">
-                        <p class="font-weight-bold text-white">TVA: </p>
+                        <p class="font-weight-bold text-white">{{_('Tax')}}: </p>
                     </div>
                     <div class="col-sm-6">
                         <p class="text-white">{{d.tva_price}} €</p>
@@ -217,10 +217,10 @@ __version__ = "1.1"
                 </div>
                 <div class="row" style="margin-top: -5px;">
                     <div class="col-sm-6">
-                        <p class="font-weight-bold text-white">Devis de: </p>
+                        <p class="font-weight-bold text-white">{{_('Quotation')}}: </p>
                     </div>
                     <div class="col-sm-6">
-                        <p class="text-white">{{d.total+d.tva_price}} € <span class="badge badge-pill badge-info">TTC</span></p>
+                        <p class="text-white">{{d.total+d.tva_price}} € <span class="badge badge-pill badge-info">{{_('incl. tax')}}</span></p>
                     </div>
                 </div>
                 {% endif %}
@@ -230,7 +230,7 @@ __version__ = "1.1"
                             <span class="icon text-white-50">
                                 <i class="fas fa-check"></i>
                             </span>
-                            <span class="text">Convertir ce devis en facture</span>
+                            <span class="text">{{_('To convert quotation to invoice')}}</span>
                         </a>
                     </div>
                 </div>

@@ -124,7 +124,7 @@ __version__ = "1.1"
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="newAssurranceLabel">Nouvelle Assurance</h5>
+            <h5 class="modal-title" id="newAssurranceLabel">{{_("New insurance")}}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -132,26 +132,26 @@ __version__ = "1.1"
         <div class="modal-body">
             <form>
                 <div class="form-group">
-                    <label for="assurance-name" class="col-form-label">Nom assurance:</label>
+                    <label for="assurance-name" class="col-form-label">{{_("Name")}}:</label>
                     <input type="text" class="form-control" id="assurance-name">
                 </div>
                 <div class="form-group">
-                    <label for="assurance-type" class="col-form-label">Type d'assurance:</label>
+                    <label for="assurance-type" class="col-form-label">{{_("Type")}}:</label>
                     <input type="text" class="form-control" id="assurance-type">
                 </div>
                 <div class="form-group">
-                    <label for="assurance-region" class="col-form-label">Region démographique:</label>
+                    <label for="assurance-region" class="col-form-label">{{_("Country")}}:</label>
                     <input type="text" class="form-control" id="assurance-region">
                 </div>
                 <div class="form-group">
-                    <label for="assurance-contrat" class="col-form-label">Numéro contrat:</label>
+                    <label for="assurance-contrat" class="col-form-label">{{_("Contract number")}}:</label>
                     <input type="text"  class="form-control" id="assurance-contrat">
                 </div>
             </form>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-            <button type="button" class="btn btn-success" id="btn_new_assurance">Ajouter</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{_("Cancel")}}</button>
+            <button type="button" class="btn btn-success" id="btn_new_assurance">{{_("Add")}}</button>
         </div>
         </div>
     </div>
@@ -161,7 +161,7 @@ __version__ = "1.1"
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="confirmModelLabel">Cofirmation !</h5>
+              <h5 class="modal-title" id="confirmModelLabel">{{_("Comfirm !")}}</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -169,8 +169,8 @@ __version__ = "1.1"
             <div class="modal-body"><p class="text-white"></p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
-              <button type="button" class="btn btn-danger" id="btn_supp_assurance" data-assurancename="">Oui, supprimer</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">{{_("No")}}</button>
+              <button type="button" class="btn btn-danger" id="btn_supp_assurance" data-assurancename="">{{_("Yes, deleted")}}</button>
             </div>
           </div>
         </div>
@@ -202,7 +202,7 @@ __version__ = "1.1"
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-6">
-                        <p class="font-weight-bold text-white">Type d'assurance: </p>
+                        <p class="font-weight-bold text-white">{{_("Type")}}: </p>
                     </div>
                     <div class="col-sm-6">
                         <p class="text-white">{{c.type}}</p>
@@ -210,7 +210,7 @@ __version__ = "1.1"
                 </div>
                 <div class="row" style="margin-top: -5px;">
                     <div class="col-sm-6">
-                        <p class="font-weight-bold text-white">Nom société: </p>
+                        <p class="font-weight-bold text-white">{{_("Name")}}: </p>
                     </div>
                     <div class="col-sm-6">
                         <p class="text-white">{{c.name}}</p>
@@ -218,7 +218,7 @@ __version__ = "1.1"
                 </div>
                 <div class="row" style="margin-top: -5px;">
                     <div class="col-sm-6">
-                        <p class="font-weight-bold text-white">Numéro contrat: </p>
+                        <p class="font-weight-bold text-white">{{_("Contract number")}}: </p>
                     </div>
                     <div class="col-sm-6">
                         <p class="text-white">{{c.n_contrat}}</p>
@@ -226,7 +226,7 @@ __version__ = "1.1"
                 </div>
                 <div class="row" style="margin-top: -5px;">
                     <div class="col-sm-6">
-                        <p class="font-weight-bold text-white">Région: </p>
+                        <p class="font-weight-bold text-white">{{_("Country")}}: </p>
                     </div>
                     <div class="col-sm-6">
                         <p class="text-white">{{c.region}}</p>
@@ -239,7 +239,7 @@ __version__ = "1.1"
                             <span class="icon text-white-50">
                                 <i class="fas fa-times"></i>
                             </span>
-                            <span class="text">L'assurance n'est pas sélectionnée</span>
+                            <span class="text">{{_("The insurance is not selected")}}</span>
                         </a>
                     </div>
                     {% else %}
@@ -248,7 +248,7 @@ __version__ = "1.1"
                             <span class="icon text-white-50">
                                 <i class="fas fa-check"></i>
                             </span>
-                            <span class="text">L'assurance est sélectionnée</span>
+                            <span class="text">{{_("The insurance is selected")}}</span>
                         </a>
                     </div>
                     {% endif %}

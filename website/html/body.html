@@ -45,25 +45,25 @@ __version__ = "1.1"
         style="background-image: linear-gradient(to left,{{color.col2}}, {{color.col2}}); box-shadow: 1px 1px 1px {{color.col1}};">
             <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item {% if Page_title == "Accueil"%}active font-weight-bold{% endif%}">
+                    <li class="nav-item {% if Page_title == _('Home')%}active font-weight-bold{% endif%}">
                       <a class="nav-link" href="/" style="color: {{color.col5}}; text-shadow: 1px 1px 2px {{color.col1}};"
-                      >Accueil {% if Page_title == "Accueil"%}(actuel){% endif%}</a>
+                      >{{_('Home')}} {% if Page_title == _('Home')%}{{_('(current)')}}{% endif%}</a>
                     </li>
-                    <li class="nav-item {% if Page_title == "Factures"%}active font-weight-bold{% endif%}">
+                    <li class="nav-item {% if Page_title == _('Invoices')%}active font-weight-bold{% endif%}">
                       <a class="nav-link" href="/invoices" style="color: {{color.col5}}; text-shadow: 1px 1px 2px {{color.col1}};"
-                      >Factures {% if Page_title == "Factures"%}(actuel){% endif%}</a>
+                      >{{_('Invoices')}} {% if Page_title == _('Invoices')%}{{_('(current)')}}{% endif%}</a>
                     </li>
-                    <li class="nav-item {% if Page_title == "Clients"%}active font-weight-bold{% endif%}">
+                    <li class="nav-item {% if Page_title == _('Clients')%}active font-weight-bold{% endif%}">
                       <a class="nav-link" href="/clients" style="color: {{color.col5}}; text-shadow: 1px 1px 2px {{color.col1}};"
-                      >Clients {% if Page_title == "Clients"%}(actuel){% endif%}</a>
+                      >{{_('Clients')}} {% if Page_title == _('Clients')%}{{_('(current)')}}{% endif%}</a>
                     </li>
-                    <li class="nav-item {% if Page_title == "Assurance"%}active font-weight-bold{% endif%}">
+                    <li class="nav-item {% if Page_title == _('Insurances')%}active font-weight-bold{% endif%}">
                       <a class="nav-link" href="/insurance" style="color: {{color.col5}}; text-shadow: 1px 1px 2px {{color.col1}};"
-                      >Assurance {% if Page_title == "Assurance"%}(actuel){% endif%}</a>
+                      >{{_('Insurances')}} {% if Page_title == _('Insurances')%}{{_('(current)')}}{% endif%}</a>
                     </li>
-                    <li class="nav-item {% if Page_title == "Devis"%}active font-weight-bold{% endif%}">
+                    <li class="nav-item {% if Page_title == _('Quotations')%}active font-weight-bold{% endif%}">
                       <a class="nav-link" href="/quotation" style="color: {{color.col5}}; text-shadow: 1px 1px 2px {{color.col1}};"
-                      >Devis {% if Page_title == "Devis"%}(actuel){% endif%}</a>
+                      >{{_('Quotations')}} {% if Page_title == _('Quotations')%}{{_('(current)')}}{% endif%}</a>
                     </li>
                 </ul>
             </div>
@@ -76,7 +76,7 @@ __version__ = "1.1"
             </div>
             <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item dropdown no-arrow {% if Page_title == "Profile"%}active{% endif%}">
+                    <li class="nav-item dropdown no-arrow {% if Page_title == _('Profile')%}active{% endif%}">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="mr-2 d-none d-lg-inline"  style="color: {{color.col5}}; text-shadow: 1px 1px 2px {{color.col1}};"
                             >{{profile.name}} {{profile.prenom}}</span>
@@ -85,7 +85,7 @@ __version__ = "1.1"
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                             <a class="dropdown-item" href="/logout">
                               <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Se déconnecter
+                                {{_('logout')}}
                             </a>
                         </div>
                     </li>
