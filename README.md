@@ -12,10 +12,11 @@ You need to have installed the list bellow on your system:
 - python3
 - flask
 - pdfkit
+- flask_babel
 
 ```
 $ sudo apt install python3 python3-pip
-$ pip3 install flask pdfkit
+$ pip3 install flask pdfkit flask_babel
 ```
 
 ### Installing
