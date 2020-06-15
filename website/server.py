@@ -10,7 +10,7 @@ from urls.urls_profile import manager_profile
 from urls.urls_quotation import manager_quotation
 import datetime
 import logging
-from flask_babel import Babel
+from flask_babel import Babel, lazy_gettext as _
 
 __author__ = "Software Le Gall Guillaume"
 __copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
@@ -18,9 +18,9 @@ __license__ = "Private Domain"
 __version__ = "1.1"
 
 app = Flask(__name__, static_folder='static/', template_folder='html/')
-babel = Babel(app)
+app.config['BABEL_TRANSLATION_DIRECTORIES'] = '../translations'
+babel = Babel(app, default_locale='en')
 app.secret_key = "dsd999fsdf78zeSDez25ré(Fàç!uy23hGg¨*%H£23)"
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 app.register_blueprint(manager_invoice, url_prefix="/")
 app.register_blueprint(manager_client, url_prefix="/")
 app.register_blueprint(manager_insurance, url_prefix="/")
@@ -28,8 +28,8 @@ app.register_blueprint(manager_profile, url_prefix="/")
 app.register_blueprint(manager_quotation, url_prefix="/")
 
 LANGUAGES = {
-    'fr': 'Français',
-    'en': 'English'
+    'en': 'English',
+    'fr': 'Français'
 }
 
 @babel.localeselector
@@ -112,7 +112,7 @@ def accueil():
     logging.warning('display home.html')
     return render_template(
         'home.html', convert_date=convert_date, 
-        Page_title='Accueil', factures=reversed(l_factures), 
+        Page_title=_('Home'), factures=reversed(l_factures), 
         solde_encaissee=sold_en, last_facture=last_f, 
         solde_non_payee=attent_f, annee=annee, get_client_name=get_client_name,
         profile=profile, tva_total=tva_total, ttc_encaissee=ttc_encaissee, 
