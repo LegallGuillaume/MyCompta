@@ -80,7 +80,7 @@ __version__ = "1.1"
                   <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                         <div class="text-center">
-                          <h1 class="h4 text-gray-900 mb-4">Se connecter !</h1>
+                          <h1 class="h4 text-gray-900 mb-4">{{_("sign in !")}}</h1>
                         </div>
                         <form class="user" name="user_form_login">
                           <div class="form-group">
@@ -90,62 +90,62 @@ __version__ = "1.1"
                             <input type="password" class="form-control form-control-user" id="user-pass" placeholder="Password">
                           </div>
                           <button type="submit" onclick="$.ajax({method: 'POST',url: '/',data: {'user-password' : $('#user-pass').val(), 'user-name': $('#user-name').val()}})" class="btn btn-primary btn-user btn-block">
-                            Connexion
+                            {{_("Connexion")}}
                           </button>
                         </form>
                     </div>
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                         <div class="text-center">
-                          <h1 class="h4 text-gray-900 mb-4">S'enregistrer !</h1>
+                          <h1 class="h4 text-gray-900 mb-4">{{_("Sign up")}}</h1>
                         </div>
                         <div class="form-group row">
                           <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="text" class="form-control form-control-user" id="profile-name" placeholder="Nom">
+                            <input type="text" class="form-control form-control-user" id="profile-name" placeholder="{{_('First name')}}">
                           </div>
                           <div class="col-sm-6">
-                            <input type="text" class="form-control form-control-user" id="profile-prenom" placeholder="Prénom">
+                            <input type="text" class="form-control form-control-user" id="profile-prenom" placeholder="{{_('Last name')}}">
                           </div>
                         </div>
                         <div class="form-group row">
                           <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="text" class="form-control form-control-user" id="profile-adresse" placeholder="Adresse">
+                            <input type="text" class="form-control form-control-user" id="profile-adresse" placeholder="{{_('Address')}}">
                           </div>
                           <div class="col-sm-6">
-                            <input type="text" class="form-control form-control-user" id="profile-comp_adresse" placeholder="Complément Adresse">
+                            <input type="text" class="form-control form-control-user" id="profile-comp_adresse" placeholder="{{_('Compl. address')}}">
                           </div>
                         </div>
                         <div class="form-group row">
                           <div class="col-sm-3 mb-3 mb-sm-0">
-                            <input type="text" class="form-control form-control-user" id="profile-cp" placeholder="Code postal">
+                            <input type="text" class="form-control form-control-user" id="profile-cp" placeholder="{{_('Zip code')}}">
                           </div>
                           <div class="col-sm-6">
-                            <input type="text" class="form-control form-control-user" id="profile-ville" placeholder="Ville">
+                            <input type="text" class="form-control form-control-user" id="profile-ville" placeholder="{{_('City')}}">
                           </div>
                           <div class="col-sm-3">
-                            <input type="text" class="form-control form-control-user" id="profile-pays" placeholder="Pays">
+                            <input type="text" class="form-control form-control-user" id="profile-pays" placeholder="{{_('Country')}}">
                           </div>
                         </div>
                         <div class="form-group row">
                           <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="email" class="form-control form-control-user" id="profile-email" placeholder="Email">
+                            <input type="email" class="form-control form-control-user" id="profile-email" placeholder="{{_('Email')}}">
                           </div>
                           <div class="col-sm-6">
-                            <input type="text" class="form-control form-control-user" id="profile-tel" placeholder="Téléphone">
+                            <input type="text" class="form-control form-control-user" id="profile-tel" placeholder="{{_('Phone')}}">
                           </div>
                         </div>
                         <div class="form-group">
-                          <input type="text" class="form-control form-control-user" id="profile-siret" placeholder="Siret">
+                          <input type="text" class="form-control form-control-user" id="profile-siret" placeholder="{{_('Siret')}}">
                         </div>
                         <div class="form-group row">
                           <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="password" class="form-control form-control-user" id="profile-password" placeholder="Password">
+                            <input type="password" class="form-control form-control-user" id="profile-password" placeholder="{{_('Password')}}">
                           </div>
                           <div class="col-sm-6">
-                            <input type="password" class="form-control form-control-user" id="profile-repassword" placeholder="Password">
+                            <input type="password" class="form-control form-control-user" id="profile-repassword" placeholder="{{_('Password')}}">
                           </div>
                         </div>
                         <button class="btn btn-primary btn-user btn-block" onclick="send_profile();">
-                          Register Account
+                          {{_("Register Account")}}
                         </button>
                       </form>
                     </div>

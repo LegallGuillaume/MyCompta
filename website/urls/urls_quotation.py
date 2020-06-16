@@ -6,6 +6,7 @@ from flask import flash, request, render_template, redirect, make_response, sess
 import datetime
 import re
 import logging
+from flask_babel import Babel, lazy_gettext as _
 
 __author__ = "Software Le Gall Guillaume"
 __copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
@@ -20,7 +21,7 @@ def add_quotation(form):
         id_profile = profileSession.id
     else:
         logging.warning('(Quotation) Session closed: ' + profileSession.id)
-        flash("Impossible d'ajouter ce devis, car votre session a expirée", 'danger')
+        flash(_("Impossible to add Quotation, Your session has been expired"), 'danger')
         return
 
     ddao = QuotationDAO()
@@ -28,7 +29,7 @@ def add_quotation(form):
 
     if ddao.exist(ddao.where('numero', n_devis)):
         logging.info('quotation exist with numero: ' + n_devis)
-        flash("Impossible d'ajouter ce devis, car le numero de devis existe déjà", 'danger')
+        flash(_("Impossible to add Quotation, the number of quotation is ever used"), 'danger')
         return
 
     client = form['client']
@@ -70,7 +71,7 @@ def add_quotation(form):
 
     if not ddao.insert(devis_obj):
         logging.info('add quotation %s FAILED' + n_devis)
-        flash("Impossible d'ajouter le devis n°{}".format(n_devis), 'danger')
+        flash(_("Impossible to add quotation n°%1").replace('%1', n_devis), 'danger')
         return
     else:
         logging.info('add quotation %s OK' + n_devis)
@@ -83,27 +84,27 @@ def add_quotation(form):
         logging.warning('add quotation item %s FAILED' + n_devis)
         didao.delete(didao.where('id_devis', n_devis))  
         ddao.delete(ddao.where('id', n_devis))   
-        flash("Impossible d'ajouter le devis n°{}".format(n_devis), 'danger')
+        flash(_("Impossible to add quotation n°%1").replace('%1', n_devis), 'danger')
     else:
         logging.info('add quotation item %s OK' + n_devis)
-        flash("Le devis n°{} a été ajouté avec succès !".format(n_devis), 'success')
+        flash(_("The quotation n°%1 has been added successfull").replace('%1', n_devis), 'success')
 
 def remove_quotation(n_devis):
     ddao = QuotationDAO()
     didao = QuotationItemDAO()
     if didao.delete(didao.where('id_devis', n_devis)): 
         ddao.delete(ddao.where('numero', n_devis))
-        flash('Le devis n°{} a été supprimé avec succès !'.format(n_devis), 'success')
+        flash(_("The quotation n°%1 has been deleted successfull").replace('%1', n_devis), 'success')
         logging.info('remove quotation %s OK' + n_devis)
     else:
-        flash("Erreur lors de la suppression du devis n° {} !".format(n_devis), 'danger')
+        flash(_('Error while suppression of quotation n°%1 !').replace('%1', n_devis), 'danger')
         logging.info('remove quotation %s FAILED' + n_devis)
 
 def convert_date(date):
     if not date:
         return 'Aucune'
     date = date.replace('-', '/')
-    l_mois = ['', 'Jan.', 'Fev.', 'Mars', 'Avr.', 'Mai', 'Juin', 'Juil.', 'Aou.', 'Sep.', 'Oct.', 'Nov.', 'Dec.']
+    l_mois = ['', _('Jan.'), _('Feb.'), _('Mar'), _('Apr.'), _('May'), _('Juin'), _('Jul.'), _('Agu.'), _('Sep.'), _('Oct.'), _('Nov.'), _('Dec.')]
     l_date = date.split('/')
     month = l_date[1]
     return '{} {} {}'.format(l_date[2], l_mois[int(month)], l_date[0])
@@ -120,7 +121,7 @@ def devis():
 
     return render_template(
         'quotation.html', convert_date=convert_date, 
-        Page_title='Devis', devis=reversed(l_devis), last_devis=last_devis,
+        Page_title=_('Quotation'), devis=reversed(l_devis), last_devis=last_devis,
         profile=profile, len=len, color=Color
     )
 

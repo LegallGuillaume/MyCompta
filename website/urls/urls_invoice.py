@@ -9,6 +9,7 @@ from flask import flash, request, render_template, redirect, make_response, sess
 import pdfkit
 import datetime
 import logging
+from flask_babel import Babel, lazy_gettext as _
 
 __author__ = "Software Le Gall Guillaume"
 __copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
@@ -21,14 +22,14 @@ def add_invoice(form):
     cdao = ClientDAO()
     if not cdao.exist(cdao.where('name', form['facture-client'])):
         logging.warning('(Invoice) This client doesnt exist: ' + form['facture-client'])
-        flash("Ce client n'existe plus, veuillez recharger la page !", 'danger')
+        flash(_('This client no longer exists, please reload the page !'), 'danger')
         return
     profileSession = get_profile_from_session()
     if profileSession.id:
         id_profile = profileSession.id
     else:
         logging.warning('(Invoice) Session closed: ' + profileSession.id)
-        flash("Impossible d'ajouter cette facture, car votre session a expirée", 'danger')
+        flash(_("Impossible to add this invoice, Your session has been expired"), 'danger')
         return
     facture = Invoice()
     facture.name = form['facture-name']
@@ -46,12 +47,12 @@ def add_invoice(form):
 
     if fdao.insert(facture):
         logging.info('add invoice %s OK', facture.name)
-        flash('La facture {} a été ajoutée avec succès !'.format(facture.name), 'success')
+        flash(_('The invoice %1 has been added successfull').replace('%1', facture.name), 'success')
         if id_profile in CACHE_INVOICE.keys():
             del CACHE_INVOICE[id_profile]
     else:
         logging.info('add invoice %s FAILED', facture.name)
-        flash("Erreur lors de la création de la facture {} !".format(facture.name), 'danger')
+        flash(_('Error while creation of invoice %1 !').replace('%1', facture.name), 'danger') 
 
 def remove_invoice(facturename):
     profileSession = get_profile_from_session()
@@ -59,17 +60,17 @@ def remove_invoice(facturename):
         id_profile = profileSession.id
     else:
         logging.warning('(Invoice) Session closed: ' + profileSession.id)
-        flash("Impossible de supprimer cette facture, car votre session a expirée", 'danger')
+        flash(_("Impossible to add this invoice, Your session has been expired"), 'danger')
         return
     fdao = InvoiceDAO()
     if fdao.delete(fdao.where('name', facturename)):
         logging.info('remove invoice %s OK', facturename)
-        flash('La facture {} a été supprimée avec succès !'.format(facturename), 'success')
+        flash(_('The invoice %1 has been deleted successfull').replace('%1', facturename), 'success')
         if id_profile in CACHE_INVOICE.keys():
             del CACHE_INVOICE[id_profile]
     else:
         logging.info('remove invoice %s OK', facturename)
-        flash("Erreur lors de la suppression de la facture {} !".format(facturename), 'danger')
+        flash(_('Error while suppression of invoice %1 !').replace('%1', facturename), 'danger') 
 
 def bill(facturename, payer):
     profileSession = get_profile_from_session()
@@ -77,7 +78,7 @@ def bill(facturename, payer):
         id_profile = profileSession.id
     else:
         logging.warning('(Invoice) Session closed: ' + profileSession.id)
-        flash("Impossible de payée cette facture, car votre session a expirée", 'danger')
+        flash(_("Impossible to add this invoice, Your session has been expired"), 'danger')
         return
     fdao = InvoiceDAO()
     fac = fdao.get(fdao.where('name', facturename))[0]
@@ -85,12 +86,18 @@ def bill(facturename, payer):
     del fac.total_ttc
     if fdao.update(fac):
         logging.info('bill invoice sold %s %s OK', payer, facturename)
-        flash('La facture {} {} avec succès !'.format(facturename, 'a été payée' if payer else 'a été rééditée'), 'success')
+        if payer:
+            flash(_("The invoice %1 has been sold successfull").replace('%1', facturename), 'success')
+        else:
+            flash(_("The invoice %1 has been reedit successfull").replace('%1', facturename), 'success')
         if id_profile in CACHE_INVOICE.keys():
             del CACHE_INVOICE[id_profile]
     else:
         logging.info('bill invoice sold %s %s FAILED', payer, facturename)
-        flash("Erreur lors de la {} du paiement de la facture {} !".format('validation' if payer else 'réédition', facturename), 'danger')
+        if payer:
+            flash(_("Error while invoice %1 has been sold").replace('%1', facturename), 'danger')
+        else:
+            flash(_("Error while reedit %1").replace('%1', facturename), 'danger')
 
 def get_list_invoice(id_profile):
     fdao = InvoiceDAO()
@@ -120,7 +127,7 @@ def get_list_invoice(id_profile):
 def convert_date(date):
     if not date:
         return 'Aucune'
-    l_mois = ['', 'Jan.', 'Fev.', 'Mars', 'Avr.', 'Mai', 'Juin', 'Juil.', 'Aou.', 'Sep.', 'Oct.', 'Nov.', 'Dec.']
+    l_mois = ['', _('Jan.'), _('Feb.'), _('Mar'), _('Apr.'), _('May'), _('Juin'), _('Jul.'), _('Agu.'), _('Sep.'), _('Oct.'), _('Nov.'), _('Dec.')]
     l_date = date.split('/')
     month = l_date[1]
     return '{} {} {}'.format(l_date[0], l_mois[int(month)], l_date[2])
@@ -186,9 +193,9 @@ def pdf_file(factname, download):
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'
     if download:
-        response.headers['Content-Disposition'] = 'attachment; filename=Facture_{}.pdf'.format(factname)
+        response.headers['Content-Disposition'] = 'attachment; filename={}_{}.pdf'.format(_('Invoice'), factname)
     else:
-        response.headers['Content-Disposition'] = 'inline; filename=Facture_{}.pdf'.format(factname)
+        response.headers['Content-Disposition'] = 'inline; filename={}_{}.pdf'.format(_('Invoice'), factname)
     logging.info('Invoice create pdf download: %s', str(download))
     return response
 
@@ -203,7 +210,7 @@ def facts():
         l_clients = get_list_client(profile.id)
         return render_template(
             'invoice.html', convert_date=convert_date, 
-            Page_title='Factures', factures=reversed(l_factures), 
+            Page_title=_('Invoices'), factures=reversed(l_factures), 
             solde_encaissee=sold_en, last_facture=last_f, 
             solde_non_payee=attent_f, clients=l_clients, new_facture=get_new_invoice(),
             get_client_name=get_client_name, profile=profile, len=len, color=Color

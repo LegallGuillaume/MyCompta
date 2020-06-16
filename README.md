@@ -12,10 +12,11 @@ You need to have installed the list bellow on your system:
 - python3
 - flask
 - pdfkit
+- flask_babel
 
 ```
 $ sudo apt install python3 python3-pip
-$ pip3 install flask pdfkit
+$ pip3 install flask pdfkit flask_babel
 ```
 
 ### Installing
@@ -52,6 +53,41 @@ $ echo $?
 ```
 Log file is generate in root of project *(test_works.log)* \
 **if echo $? = 0 is OK else > 0 is FAILED**
+
+## Multi language
+*To use this command, please make sure you are on root gitdir*
+
+**LANGUAGE** type in server.py:
+- 'en' for English
+- 'fr' for French
+
+### Init new language
+*to add language*
+```
+$ pybabel extract -F website/settings/babel.cfg -o translations/messages.pot .
+$ pybabel extract -F website/settings/babel.cfg -k lazy_gettext -o translations/messages.pot .
+$ pybabel init -i translations/messages.pot -d translations -l <LANGUAGE>
+```
+
+### Update only text language
+*to update language for website*
+```
+$ pybabel extract -F website/settings/babel.cfg -o translations/messages.pot .
+$ pybabel extract -F website/settings/babel.cfg -k lazy_gettext -o translations/messages.pot .
+$ pybabel compile -d translations
+$ pybabel update -i translations/messages.pot -d translations
+```
+
+### Example to add new language
+*I want to add the Italian language* \
+
+> add "'it': 'Italian'" to dict LANGUAGES in server.py
+> ```
+> $ pybabel extract -F website/settings/babel.cfg -o translations/messages.pot .
+> $ pybabel extract -F website/settings/babel.cfg -k lazy_gettext -o translations/messages.pot .
+> $ pybabel init -i translations/messages.pot -d translations -l it
+> ```
+
 
 ## Runing website
 *To start website, you should use manager.py*

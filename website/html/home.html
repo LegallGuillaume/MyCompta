@@ -11,7 +11,7 @@ __version__ = "1.1"
 <div class="row">
     <div class="col-3">
         <div class="card mb-3 shadow" style="max-width: 18rem; border: 0.10rem solid {{color.col7}}; background-color: transparent;">
-            <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col7}}; background-color: {{color.col1}};">FACTURATION ENCAISSÉE TTC {{annee}}</div>
+            <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col7}}; background-color: {{color.col1}};">{{_('INVOICE RECEIVED incl. Tax')}} {{annee}}</div>
             <div class="card-body text-info">
                 <h5 class="card-title text-right font-weight-bold text-white" style="text-shadow: 1px 1px 2px {{color.col1}};">{{ttc_encaissee}} €</h5>
             </div>
@@ -19,7 +19,7 @@ __version__ = "1.1"
     </div>
     <div class="col-3">
         <div class="card mb-3 shadow" style="max-width: 18rem; border: 0.10rem solid {{color.col6}}; background-color: transparent;">
-            <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col6}}; background-color: {{color.col1}};">Facture en Attente</div>
+            <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col6}}; background-color: {{color.col1}};">{{_('Pending Invoice')}}</div>
             <div class="card-body text-info">
                 <h5 class="card-title text-right font-weight-bold text-white" style="text-shadow: 1px 1px 2px {{color.col1}};">{{solde_non_payee}} €</h5>
             </div>
@@ -27,7 +27,7 @@ __version__ = "1.1"
     </div>
     <div class="col-3">
         <div class="card mb-3 shadow" style="max-width: 18rem; border: 0.10rem solid {{color.col5}}; background-color: transparent;">
-            <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col5}}; background-color: {{color.col1}};">Facturation disponible {{annee}}</div>
+            <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col5}}; background-color: {{color.col1}};">{{_('Billing available')}} {{annee}}</div>
             <div class="card-body text-info">
                 <h5 class="card-title text-right font-weight-bold text-white" style="text-shadow: 1px 1px 2px {{color.col1}};">{{facturation_available}} € (72000 €)</h5>
             </div>
@@ -35,7 +35,7 @@ __version__ = "1.1"
     </div>
     <div class="col-3">
         <div class="card mb-3 shadow" style="max-width: 18rem; border: 0.10rem solid {{color.col4}}; background-color: transparent;">
-            <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col4}}; background-color: {{color.col1}};">Facture encaissée HT (2019-20XX)</div>
+            <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col4}}; background-color: {{color.col1}};">{{_('Invoice collected without Tax')}} (2019-20XX)</div>
             <div class="card-body text-info">
                 <h5 class="card-title text-right font-weight-bold text-white" style="text-shadow: 1px 1px 2px {{color.col1}};">{{solde_encaissee}} €</h5>
             </div>
@@ -43,7 +43,7 @@ __version__ = "1.1"
     </div>
     <div class="col-3">
         <div class="card mb-3 shadow" style="max-width: 18rem; border: 0.10rem solid {{color.col7}}; background-color: transparent;">
-            <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col7}}; background-color: {{color.col1}};">Dernière facture</div>
+            <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col7}}; background-color: {{color.col1}};">{{_('Last invoice')}}</div>
             <div class="card-body text-info">
                 <h5 class="card-title text-right font-weight-bold text-white" style="text-shadow: 1px 1px 2px {{color.col1}};">{{convert_date(last_facture)}}</h5>
             </div>
@@ -51,7 +51,7 @@ __version__ = "1.1"
     </div>
     <div class="col-3">
         <div class="card mb-3 shadow" style="max-width: 18rem; border: 0.10rem solid {{color.col6}}; background-color: transparent;">
-            <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col6}}; background-color: {{color.col1}};">TVA Récoltée (2019-20xx)</div>
+            <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col6}}; background-color: {{color.col1}};">{{_('Tax collected')}} (2019-20xx)</div>
             <div class="card-body text-info">
                 <h5 class="card-title text-right font-weight-bold text-white" style="text-shadow: 1px 1px 2px {{color.col1}};">{{tva_total}} € TTC</h5>
             </div>
@@ -59,7 +59,7 @@ __version__ = "1.1"
     </div>
     <div class="col-3">
         <div class="card mb-3 shadow" style="max-width: 18rem; border: 0.10rem solid {{color.col5}}; background-color: transparent;">
-            <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col5}}; background-color: {{color.col1}};">Facturation encaissée TTC {{annee_1}}</div>
+            <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col5}}; background-color: {{color.col1}};">{{_('Invoice collected incl. Tax')}} {{annee_1}}</div>
             <div class="card-body text-info">
                 <h5 class="card-title text-right font-weight-bold text-white" style="text-shadow: 1px 1px 2px {{color.col1}};">{{fact_enc_last_year}} €</h5>
             </div>
