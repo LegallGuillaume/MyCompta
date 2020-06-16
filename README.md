@@ -79,7 +79,7 @@ $ pybabel update -i translations/messages.pot -d translations
 ```
 
 ### Example to add new language
-*I want to add the Italian language* \
+*I want to add the Italian language*
 
 > add "'it': 'Italian'" to dict LANGUAGES in server.py
 > ```
