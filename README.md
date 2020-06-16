@@ -57,7 +57,7 @@ Log file is generate in root of project *(test_works.log)* \
 ## Multi language
 *To use this command, please make sure you are on root gitdir*
 
-**LANGUAGE** type:
+**LANGUAGE** type in server.py:
 - 'en' for English
 - 'fr' for French
 
@@ -77,6 +77,17 @@ $ pybabel extract -F website/settings/babel.cfg -k lazy_gettext -o translations/
 $ pybabel compile -d translations
 $ pybabel update -i translations/messages.pot -d translations
 ```
+
+### Example to add new language
+*I want to add the Italian language* \
+
+> add "'it': 'Italian'" to dict LANGUAGES in server.py
+> ```
+> $ pybabel extract -F website/settings/babel.cfg -o translations/messages.pot .
+> $ pybabel extract -F website/settings/babel.cfg -k lazy_gettext -o translations/messages.pot .
+> $ pybabel init -i translations/messages.pot -d translations -l it
+> ```
+
 
 ## Runing website
 *To start website, you should use manager.py*
