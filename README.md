@@ -134,7 +134,7 @@ There are no contributor for the moment.
 This project is protected by copyright, for the moment nobody can't touch this repository
 
 ## Todo
-* Multilang (Priority - HIGH to share code)
+* ~~Multilang (Priority - HIGH to share code)~~
 * Forecast cash (AI)
 * Forecast day
 * Chart (Graph bar & line)
