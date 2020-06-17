@@ -13,16 +13,16 @@ class Invoice:
     def __init__(self):
         self.name = ''
         self.id_client = 0
-        self.projet = ''
-        self.date_envoi = ''
-        self.date_echeance = ''
-        self.delai_max = ''
+        self.project = ''
+        self.date_sent = ''
+        self.date_expiry = ''
+        self.max_delay = ''
         self.total = ''
-        self.total_ttc = ''
-        self.tva = False
+        self.total_tax = ''
+        self.tax = False
         self.days = 0
-        self.tjm = 0
-        self.payee = False
+        self.day_rate = 0
+        self.sold = False
         self.created = ''
         self.id_profile = -1
     def __str__(self):
@@ -32,21 +32,21 @@ class Invoice:
 
 class InvoiceDAO(DbDAO):
     def __init__(self, dbpath=None):
-        super().__init__('facture',db_path=dbpath)
+        super().__init__('invoice',db_path=dbpath)
         self.obj_type = Invoice
         self.table_create = {
             'id': 'INTEGER PRIMARY KEY AUTOINCREMENT',
             'name': 'text  NOT NULL',
             'id_client': 'INTEGER NOT NULL',
-            'projet': 'TEXT',
-            'date_envoi': 'TEXT',
-            'date_echeance': 'TEXT',
-            'delai_max': 'TEXT',
-            'tva': 'BOOLEAN',
+            'project': 'TEXT',
+            'date_sent': 'TEXT',
+            'date_expiry': 'TEXT',
+            'max_delay': 'TEXT',
+            'tax': 'BOOLEAN',
             'days': 'INTEGER',
-            'tjm': 'FLOAT',
+            'day_rate': 'FLOAT',
             'total': 'TEXT',
-            'payee': 'BOOLEAN',
+            'sold': 'BOOLEAN',
             'created': 'TEXT',
             'id_profile': 'INTEGER NOT NULL'
         }
@@ -64,17 +64,17 @@ class InvoiceDAO(DbDAO):
             return super().exist(obj)
 
     def insert(self, obj):
-        cpy = obj.total_ttc
-        del obj.total_ttc
+        cpy = obj.total_tax
+        del obj.total_tax
         ret = super().insert(obj)
-        obj.total_ttc = cpy
+        obj.total_tax = cpy
         return ret
 
     def update(self, obj):
-        cpy = obj.total_ttc
-        del obj.total_ttc
+        cpy = obj.total_tax
+        del obj.total_tax
         ret = super().update(obj, self.where('name', obj.name))
-        obj.total_ttc = cpy
+        obj.total_tax = cpy
         return ret
 
     def delete(self, obj):

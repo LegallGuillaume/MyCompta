@@ -16,15 +16,15 @@ class QuotationItem:
         self.quantity = 0.0
         self.quantity_text = ''
         self.reduction = False
-        self.id_devis = -1
+        self.id_quotation = -1
     def __str__(self):
         return str(self.__dict__)
     def __repr__(self):
-        return "<QuotationItem pour N°{}>".format(self.id_devis)
+        return "<QuotationItem N°{}>".format(self.id_quotation)
 
 class QuotationItemDAO(DbDAO):
     def __init__(self, dbpath=None):
-        super().__init__('devis_item', db_path=dbpath)
+        super().__init__('quotation_item', db_path=dbpath)
         self.obj_type = QuotationItem
         self.table_create = {
             'id': 'INTEGER PRIMARY KEY AUTOINCREMENT',
@@ -34,7 +34,7 @@ class QuotationItemDAO(DbDAO):
             'quantity_text': 'TEXT NOT NULL',
             'reduction': 'BOOLEAN NOT NULL',
             'created': 'TEXT NOT NULL',
-            'id_devis': 'INTEGER NOT NULL'
+            'id_quotation': 'INTEGER NOT NULL'
         }
 
     def exist(self, obj):

@@ -13,22 +13,22 @@ __version__ = "1.1"
 class Profile:
     def __init__(self):
         self.name = ''
-        self.prenom = ''
+        self.firstname = ''
         self.password = ''
-        self.adresse = ''
-        self.comp_adresse = ''
-        self.cp = ''
-        self.ville = ''
-        self.pays = ''
+        self.address = ''
+        self.comp_address = ''
+        self.zipcode = ''
+        self.city = ''
+        self.country = ''
         self.siret = ''
-        self.tel = ''
+        self.phone = ''
         self.email = ''
         self.created = ''
 
     def __str__(self):
         return str(self.__dict__)
     def __repr__(self):
-        return "<Profile nom: '{}' prenom: '{}'>".format(self.name, self.prenom)
+        return "<Profile lastname: '{}' firstname: '{}'>".format(self.name, self.firstname)
 
     def __setattr__(self, name, value):
         if name == 'password' and len(value) != 64:
@@ -42,15 +42,15 @@ class ProfileDAO(DbDAO):
         self.table_create = {
             'id': 'INTEGER PRIMARY KEY AUTOINCREMENT', 
             'name': 'TEXT NOT NULL',
-            'prenom': 'TEXT NOT NULL',
+            'firstname': 'TEXT NOT NULL',
             'password': 'TEXT',
-            'adresse': 'TEXT',
-            'comp_adresse': 'TEXT',
-            'cp': 'TEXT',
-            'ville': 'TEXT',
-            'pays': 'TEXT',
+            'address': 'TEXT',
+            'comp_address': 'TEXT',
+            'zipcode': 'TEXT',
+            'city': 'TEXT',
+            'country': 'TEXT',
             'siret': 'TEXT UNIQUE',
-            'tel': 'TEXT',
+            'phone': 'TEXT',
             'email': 'TEXT',
             'created': 'TEXT'
         }

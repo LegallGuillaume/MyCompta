@@ -13,7 +13,7 @@ class Insurance:
     def __init__(self):
         self.name = ''
         self.type = ''
-        self.n_contrat = ''
+        self.n_contract = ''
         self.region = ''
         self.created = ''
         self.sel = False
@@ -25,13 +25,13 @@ class Insurance:
 
 class InsuranceDAO(DbDAO):
     def __init__(self, dbpath=None):
-        super().__init__('assurance', db_path=dbpath)
+        super().__init__('insurance', db_path=dbpath)
         self.obj_type = Insurance
         self.table_create = {
             'id': 'INTEGER PRIMARY KEY AUTOINCREMENT', 
             'name': 'TEXT NOT NULL',
             'type': 'TEXT NOT NULL',
-            'n_contrat': 'TEXT NOT NULL',
+            'n_contract': 'TEXT NOT NULL',
             'region': 'TEXT NOT NULL',
             'sel': 'BOOLEAN NOT NULL',
             'created': 'TEXT',
@@ -44,8 +44,8 @@ class InsuranceDAO(DbDAO):
                 logging.info('InsuranceDAO use exist with id')
                 return super().exist(self.where('id', obj.id))
             else:
-                logging.info('InsuranceDAO use existe with n_contrat')
-                return super().exist(self.where('n_contrat', obj.n_contrat))
+                logging.info('InsuranceDAO use existe with n_contract')
+                return super().exist(self.where('n_contract', obj.n_contract))
         else:
             logging.info('InsuranceDAO use delete with WHERE')
             return super().exist(obj)
@@ -54,16 +54,16 @@ class InsuranceDAO(DbDAO):
             logging.info('InsuranceDAO use update with id')
             return super().update(obj, self.where('id', obj.id))
         else:
-            logging.info('InsuranceDAO use update with n_contrat')
-            return super().update(obj, self.where('n_contrat', obj.n_contrat))
+            logging.info('InsuranceDAO use update with n_contract')
+            return super().update(obj, self.where('n_contract', obj.n_contract))
     def delete(self, obj):
         if isinstance(obj, Insurance):
             if hasattr(obj, 'id'):
                 logging.info('InsuranceDAO use delete with id')
                 return super().delete(self.where('id', obj.id))
             else:
-                logging.info('InsuranceDAO use delete with n_contrat')
-                return super().delete(self.where('n_contrat', obj.n_contrat))
+                logging.info('InsuranceDAO use delete with n_contract')
+                return super().delete(self.where('n_contract', obj.n_contract))
         else:
             logging.info('InsuranceDAO use delete with WHERE')
             return super().delete(obj)
