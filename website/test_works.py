@@ -70,17 +70,17 @@ class Test:
     def __profile_db(self):
         print(bcolors.BOLD + '---------- Profile DB ----------' + bcolors.ENDC)
         self.profile = Profile()
-        self.profile.adresse = 'TEST 1'
-        self.profile.comp_adresse = 'TEST 2'
-        self.profile.cp = '13132'
+        self.profile.address = 'TEST 1'
+        self.profile.comp_address = 'TEST 2'
+        self.profile.zipcode = '13132'
         self.profile.email = 'TEST1@TEST2.TEST3'
         self.profile.name = 'TEST 3'
-        self.profile.prenom = 'TEST 4'
+        self.profile.firstname = 'TEST 4'
         self.profile.password = 'CECIESTUNTEST'
-        self.profile.pays = 'FRANCE'
+        self.profile.country = 'FRANCE'
         self.profile.siret = '0292029102'
-        self.profile.tel = '0439403920'
-        self.profile.ville = 'MARSEILLE'
+        self.profile.phone = '0439403920'
+        self.profile.city = 'MARSEILLE'
 
         inspdao = self.pdao.insert(self.profile)
         print(bcolors.HEADER + 'insert profile ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if inspdao else bcolors.FAIL + "KO", bcolors.ENDC)
@@ -104,7 +104,7 @@ class Test:
             return
         self.insurance = Insurance()
         self.insurance.id_profile = self.profile.id
-        self.insurance.n_contrat = "1234567891011121314"
+        self.insurance.n_contract = "1234567891011121314"
         self.insurance.name = "TEST 1"
         self.insurance.region = "FRANCE"
         self.insurance.sel = False
@@ -115,7 +115,7 @@ class Test:
         self.insurance.sel = True
         chselidao = self.idao.update(self.insurance)
         print(bcolors.HEADER + 'update insurance ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if chselidao else bcolors.FAIL + "KO", bcolors.ENDC)
-        get_insurance_list = self.idao.get(self.idao.where('n_contrat', self.insurance.n_contrat))
+        get_insurance_list = self.idao.get(self.idao.where('n_contract', self.insurance.n_contract))
         print(bcolors.HEADER + 'get insurance ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if get_insurance_list else bcolors.FAIL + "KO", bcolors.ENDC)
         if not get_insurance_list:
             return False
@@ -129,27 +129,27 @@ class Test:
             print(bcolors.HEADER + 'no profile ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if False else bcolors.FAIL + "Please call __profile_db()", bcolors.ENDC)
             return
         self.client = Client()
-        self.client.adresse = "TEST 1"
-        self.client.comp_adresse = "TEST 2"
-        self.client.cp = "TEST 3"
+        self.client.address = "TEST 1"
+        self.client.comp_address = "TEST 2"
+        self.client.zipcode = "TEST 3"
         self.client.id_profile = self.profile.id
         self.client.name = "TEST 4"
-        self.client.pays = "TEST 5"
-        self.client.ville = "TEST 6"
+        self.client.country = "TEST 5"
+        self.client.city = "TEST 6"
 
         inscdao = self.cdao.insert(self.client)
         print(bcolors.HEADER + 'insert client ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if inscdao else bcolors.FAIL + "KO", bcolors.ENDC)
-        self.client.cp = "13013"
-        chcpcdao = self.cdao.update(self.client)
-        print(bcolors.HEADER + 'update client ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if chcpcdao else bcolors.FAIL + "KO", bcolors.ENDC)
+        self.client.zipcode = "13013"
+        chzipcodecdao = self.cdao.update(self.client)
+        print(bcolors.HEADER + 'update client ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if chzipcodecdao else bcolors.FAIL + "KO", bcolors.ENDC)
         get_client_list = self.cdao.get(self.cdao.where('name', self.client.name))
         print(bcolors.HEADER + 'get client ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if get_client_list else bcolors.FAIL + "KO", bcolors.ENDC)
         if not get_client_list:
             return False
         self.client = get_client_list[0]
-        is_change_cp = (self.client.cp == "13013")
-        print(bcolors.HEADER + 'change zip code client ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if is_change_cp else bcolors.FAIL + "KO", bcolors.ENDC)
-        return (inscdao and chcpcdao and is_change_cp)
+        is_change_zipcode = (self.client.zipcode == "13013")
+        print(bcolors.HEADER + 'change zip code client ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if is_change_zipcode else bcolors.FAIL + "KO", bcolors.ENDC)
+        return (inscdao and chzipcodecdao and is_change_zipcode)
 
     def __invoice_db(self):
         print(bcolors.BOLD + '---------- Invoice DB ----------' + bcolors.ENDC)
@@ -160,22 +160,22 @@ class Test:
             print(bcolors.HEADER + 'no client ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if False else bcolors.FAIL + "Please call __client_db()", bcolors.ENDC)
             return
         self.invoice = Invoice()
-        self.invoice.date_echeance = '01/01/2020'
-        self.invoice.date_envoi = '01/01/2020'
+        self.invoice.date_expiry = '01/01/2020'
+        self.invoice.date_sent = '01/01/2020'
         self.invoice.days = 10
-        self.invoice.delai_max = '01/01/2020'
+        self.invoice.max_delay = '01/01/2020'
         self.invoice.id_client = self.client.id
         self.invoice.id_profile = self.profile.id
         self.invoice.name = 'Invoice TEST 1'
-        self.invoice.payee = False
-        self.invoice.projet = 'TEST 1 2 3'
-        self.invoice.tjm = 5000
+        self.invoice.sold = False
+        self.invoice.project = 'TEST 1 2 3'
+        self.invoice.day_rate = 5000
         self.invoice.total = '50000'
-        self.invoice.tva = False
+        self.invoice.tax = False
 
         insindao = self.fdao.insert(self.invoice)
         print(bcolors.HEADER + 'insert invoice ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if insindao else bcolors.FAIL + "KO", bcolors.ENDC)
-        self.invoice.payee = True
+        self.invoice.sold = True
         chpyfdao = self.fdao.update(self.invoice)
         print(bcolors.HEADER + 'update invoice ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if chpyfdao else bcolors.FAIL + "KO", bcolors.ENDC)
         get_invoice_list = self.fdao.get(self.fdao.where('id_client', self.invoice.id_client))
@@ -183,9 +183,9 @@ class Test:
         if not get_invoice_list:
             return False
         self.invoice = get_invoice_list[0]
-        is_change_payee = self.invoice.payee
-        print(bcolors.HEADER + 'change to bill invoice ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if is_change_payee else bcolors.FAIL + "KO", bcolors.ENDC)
-        return (insindao and chpyfdao and is_change_payee)
+        is_change_sold = self.invoice.sold
+        print(bcolors.HEADER + 'change to bill invoice ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if is_change_sold else bcolors.FAIL + "KO", bcolors.ENDC)
+        return (insindao and chpyfdao and is_change_sold)
 
     def __quotation_db(self):
         print(bcolors.BOLD + '---------- Quotation DB ----------' + bcolors.ENDC)
@@ -194,20 +194,20 @@ class Test:
             return
         self.quotation = Quotation()
         self.quotation.client = "TEST 1"
-        self.quotation.date_envoi = "01/01/2020"
-        self.quotation.date_validite = "01/01/2021"
+        self.quotation.date_sent = "01/01/2020"
+        self.quotation.date_validity = "01/01/2021"
         self.quotation.end_text = "TEST 2\nTEST 3\nTEST 4"
         self.quotation.id_profile = self.profile.id
-        self.quotation.numero = 203
+        self.quotation.number = 203
         self.quotation.total = 2030.20
-        self.quotation.tva_price = (2030.20*0.2)
+        self.quotation.tax_price = (2030.20*0.2)
 
         insqdao = self.qdao.insert(self.quotation)
         print(bcolors.HEADER + 'insert quotation ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if insqdao else bcolors.FAIL + "KO", bcolors.ENDC)
         self.quotation.end_text = "TEST 1\nTEST 2"
         chpyqdao = self.qdao.update(self.quotation)
         print(bcolors.HEADER + 'update quotation ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if chpyqdao else bcolors.FAIL + "KO", bcolors.ENDC)
-        get_quotation_list = self.qdao.get(self.qdao.where('numero', self.quotation.numero))
+        get_quotation_list = self.qdao.get(self.qdao.where('number', self.quotation.number))
         print(bcolors.HEADER + 'get quotation ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if get_quotation_list else bcolors.FAIL + "KO", bcolors.ENDC)
         if not get_quotation_list:
             return False
@@ -223,7 +223,7 @@ class Test:
             return
         self.quotation_item = QuotationItem()
         self.quotation_item.description = ""
-        self.quotation_item.id_devis = self.quotation.id
+        self.quotation_item.id_quotation = self.quotation.id
         self.quotation_item.quantity = 12
         self.quotation_item.quantity_text = "12m2"
         self.quotation_item.reduction = False
