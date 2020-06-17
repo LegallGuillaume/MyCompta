@@ -79,6 +79,10 @@ def accueil():
         logging.warning('redirect /, no session enable')
         return redirect('/')
     profile = get_profile_from_session()
+    if not profile:
+        logging.warning('redirect /, no session enable')
+        del session['logged_in']
+        return redirect('/')
     dic_profile = get_element_profile_invoice(profile.id)
     l_invoice = dic_profile['l_invoice']
     sold_collected = dic_profile['sold_collected']

@@ -18,7 +18,6 @@ class Invoice:
         self.date_expiry = ''
         self.max_delay = ''
         self.total = ''
-        self.total_tax = ''
         self.tax = False
         self.days = 0
         self.day_rate = 0
@@ -64,17 +63,23 @@ class InvoiceDAO(DbDAO):
             return super().exist(obj)
 
     def insert(self, obj):
-        cpy = obj.total_tax
-        del obj.total_tax
+        cpy = None
+        if hasattr(obj, 'total_tax'):
+            cpy = obj.total_tax
+            del obj.total_tax
         ret = super().insert(obj)
-        obj.total_tax = cpy
+        if cpy:
+            obj.total_tax = cpy
         return ret
 
     def update(self, obj):
-        cpy = obj.total_tax
-        del obj.total_tax
+        cpy = None
+        if hasattr(obj, 'total_tax'):
+            cpy = obj.total_tax
+            del obj.total_tax
         ret = super().update(obj, self.where('name', obj.name))
-        obj.total_tax = cpy
+        if cpy:
+            obj.total_tax = cpy
         return ret
 
     def delete(self, obj):
