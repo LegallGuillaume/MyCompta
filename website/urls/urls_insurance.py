@@ -65,6 +65,7 @@ def as_():
         return render_template('insurance.html', Page_title=_('Insurances'), insurances=reversed(l_insurances),
                                 profile=profile, color=Color)
     elif request.method == 'POST':
+        logging.debug('add insurance form : %s', str(request.form))
         add_insurance(request.form)
         return ''
     else:
@@ -74,6 +75,7 @@ def as_():
 def as_del():
     if not session.get('logged_in'):
         return redirect('/')
+    logging.debug('delete insurance form : %s', str(request.form))
     logging.info('receive socket from /insurance-delete')
     remove_insurance(request.form['insurance-name'])
     return redirect('/insurance')
@@ -82,6 +84,7 @@ def as_del():
 def as_select():
     if not session.get('logged_in'):
         return redirect('/')
+    logging.debug('sel insurance form : %s', str(request.form))
     logging.info('receive socket from /insurance-select')
     select_insurance(request.form['insurance-name'], request.form['insurance-select'])
     return redirect('/insurance')

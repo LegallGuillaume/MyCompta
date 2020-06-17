@@ -62,8 +62,9 @@ def cl():
         return render_template('client.html', Page_title=_('Clients'), clients=reversed(l_clients),
                                 profile=profile, color=Color)
     elif request.method == 'POST':
+        logging.debug('add client form : %s', str(request.form))
         add_client(request.form)
-        return ''
+        return redirect('/clients')
     else:
         return redirect('/home')
 
@@ -72,5 +73,6 @@ def cl_del():
     if not session.get('logged_in'):
         return redirect('/')
     logging.info('receive socket from /client-delete')
+    logging.debug('delete client form : %s', str(request.form))
     remove_client(request.form['client-name'])
     return redirect('/clients')

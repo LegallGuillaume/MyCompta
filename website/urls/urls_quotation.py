@@ -20,7 +20,7 @@ def add_quotation(form):
     if profileSession.id:
         id_profile = profileSession.id
     else:
-        logging.warning('(Quotation) Session closed: ' + profileSession.id)
+        logging.warning('(Quotation) Session closed: %s', profileSession.id)
         flash(_("Impossible to add Quotation, Your session has been expired"), 'danger')
         return
 
@@ -28,7 +28,7 @@ def add_quotation(form):
     n_quotation = form['quotation']
 
     if ddao.exist(ddao.where('number', n_quotation)):
-        logging.info('quotation exist with number: ' + n_quotation)
+        logging.info('quotation exist with number: %s', n_quotation)
         flash(_("Impossible to add Quotation, the number of quotation is ever used"), 'danger')
         return
 
@@ -70,23 +70,23 @@ def add_quotation(form):
             quotation_obj.tax_price += ((quotationItem.quantity*quotationItem.unit_price)*20/100)
 
     if not ddao.insert(quotation_obj):
-        logging.info('add quotation %s FAILED' + n_quotation)
+        logging.info('add quotation %s FAILED', n_quotation)
         flash(_("Impossible to add quotation n°%1").replace('%1', n_quotation), 'danger')
         return
     else:
-        logging.info('add quotation %s OK' + n_quotation)
+        logging.info('add quotation %s OK', n_quotation)
     
     for quotationItem in list_quotation_item:
         quotationItem.id_quotation = quotation_obj.id
         success &= didao.insert(quotationItem)
 
     if not success:
-        logging.warning('add quotation item %s FAILED' + n_quotation)
+        logging.warning('add quotation item %s FAILED', n_quotation)
         didao.delete(didao.where('id_quotation', n_quotation))  
         ddao.delete(ddao.where('id', n_quotation))   
         flash(_("Impossible to add quotation n°%1").replace('%1', n_quotation), 'danger')
     else:
-        logging.info('add quotation item %s OK' + n_quotation)
+        logging.info('add quotation item %s OK', n_quotation)
         flash(_("The quotation n°%1 has been added successfull").replace('%1', n_quotation), 'success')
 
 def remove_quotation(n_quotation):
@@ -95,10 +95,10 @@ def remove_quotation(n_quotation):
     if didao.delete(didao.where('id_quotation', n_quotation)): 
         ddao.delete(ddao.where('number', n_quotation))
         flash(_("The quotation n°%1 has been deleted successfull").replace('%1', n_quotation), 'success')
-        logging.info('remove quotation %s OK' + n_quotation)
+        logging.info('remove quotation %s OK', n_quotation)
     else:
         flash(_('Error while suppression of quotation n°%1 !').replace('%1', n_quotation), 'danger')
-        logging.info('remove quotation %s FAILED' + n_quotation)
+        logging.info('remove quotation %s FAILED', n_quotation)
 
 def convert_date(date):
     if not date:
@@ -133,10 +133,10 @@ def quotation_id(number = None):
     profile = get_profile_from_session()
     ddao = QuotationDAO()
     if not ddao.exist(ddao.where('number', number)):
-        logging.info('redirect if quotation doesnt exist number: %s' + number)
+        logging.info('redirect if quotation doesnt exist number: %s', number)
         return redirect('/quotation')
     quotation = ddao.get(ddao.where('number', number))[0]
-    logging.info('display pdf_template_quotation.html with quotation number: ' + number)
+    logging.info('display pdf_template_quotation.html with quotation number: %s', number)
     return render_template('template/pdf_template_quotation.html', profile=profile, convert_date=convert_date, quotation=quotation)
 
 @manager_quotation.route('/quotation-delete', methods=['POST'])
@@ -144,6 +144,7 @@ def quotation_del():
     if not session.get('logged_in'):
         return redirect('/')
     logging.info('receive socket from /quotation-delete %s', request.form['quotation-id'])
+    logging.debug('delete quotation form : %s', str(request.form))
     remove_quotation(request.form['quotation-id'])
     return redirect('/quotation')
 
@@ -153,5 +154,6 @@ def quotation_add():
         return redirect('/')
     logging.info('receive socket from /quotation-add')
     if request.method == 'POST':
+        logging.debug('add quotation form : %s', str(request.form))
         add_quotation(request.form)
     return redirect('/quotation')

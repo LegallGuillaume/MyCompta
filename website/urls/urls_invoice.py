@@ -19,11 +19,14 @@ __version__ = "1.1"
 manager_invoice = Blueprint("invoice", __name__)
 
 def add_invoice(form):
+    print(form)
     cdao = ClientDAO()
-    if not cdao.exist(cdao.where('name', form['invoice-client'])):
+    client = cdao.get(cdao.where('name', form['invoice-client']))
+    if not client:
         logging.warning('(Invoice) This client doesnt exist: ' + form['invoice-client'])
         flash(_('This client no longer exists, please reload the page !'), 'danger')
         return
+    client = client[0]
     profileSession = get_profile_from_session()
     if profileSession.id:
         id_profile = profileSession.id
@@ -34,14 +37,14 @@ def add_invoice(form):
     invoice = Invoice()
     invoice.name = form['invoice-name']
     invoice.project = form['invoice-project']
-    invoice.day_rate = float(form['invoice-days_rate'])
-    invoice.days = int(form['invoice-jour'])
+    invoice.day_rate = float(form['invoice-day_rate'])
+    invoice.days = int(form['invoice-days'])
     invoice.date_sent = '/'.join(reversed(form['invoice-datesent'].split('-')))
     invoice.date_expiry = '/'.join(reversed(form['invoice-dateexpiry'].split('-')))
     invoice.max_delay = '/'.join(reversed(form['invoice-delay'].split('-')))
     invoice.tax = form['invoice-tax'] == 'True'
-    invoice.total = (invoice.days_rate * invoice.days)
-    invoice.id_client = cdao.get(cdao.where('name', form['invoice-client']))[0].id
+    invoice.total = (invoice.day_rate * invoice.days)
+    invoice.id_client = client.id
     invoice.id_profile = id_profile
     fdao = InvoiceDAO()
 
@@ -83,7 +86,8 @@ def bill(invoicename, is_sold):
     fdao = InvoiceDAO()
     invo = fdao.get(fdao.where('name', invoicename))[0]
     invo.sold = is_sold
-    del invo.total_tax
+    if hasattr(invo, 'total_tax'):
+        del invo.total_tax
     if fdao.update(invo):
         logging.info('bill invoice sold %s %s OK', is_sold, invoicename)
         if is_sold:
@@ -216,6 +220,7 @@ def invs():
             get_client_name=get_client_name, profile=profile, len=len, color=Color
         )
     elif request.method == 'POST':
+        logging.debug('add invoice form : %s', str(request.form))
         add_invoice(request.form)
         return redirect('/invoices')
     else:
@@ -240,6 +245,7 @@ def invoice_del():
     if not session.get('logged_in'):
         return redirect('/')
     logging.info('receive socket from /invoice-delete %s' + request.form['invoice-name'])
+    logging.debug('delete invoice form : %s', str(request.form))
     remove_invoice(request.form['invoice-name'])
     return redirect('/invoices')
 
@@ -247,7 +253,8 @@ def invoice_del():
 def invoice_sold():
     if not session.get('logged_in'):
         return redirect('/')
-    logging.info('receive socket from /invoice-sold %s %s' + request.form['invoice-name'], request.form['invoice-sold'] == 'True')
+    logging.debug('sold invoice form : %s', str(request.form))
+    logging.info('receive socket from /invoice-sold %s %s', request.form['invoice-name'], request.form['invoice-sold'] == 'True')
     bill(request.form['invoice-name'], request.form['invoice-sold'] == 'True')
     return redirect('/invoices')
 
@@ -257,5 +264,6 @@ def invoice_add():
         return redirect('/')
     logging.info('receive socket from /invoice-add')
     if request.method == 'POST':
+        logging.debug('add invoice form : %s', str(request.form))
         add_invoice(request.form)
     return redirect('/invoices')

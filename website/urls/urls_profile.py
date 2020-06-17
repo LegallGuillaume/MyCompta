@@ -16,6 +16,7 @@ manager_profile = Blueprint("profile", __name__)
 def register():
     if request.method == 'GET':
         return redirect('/')
+    logging.debug('add profile form : %s', str(request.form))
     logging.info('receive socket from /register-data -> profile: %s', request.form['profile-name'])
     form = request.form
     profile = Profile()
