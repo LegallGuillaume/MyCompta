@@ -112,11 +112,11 @@ __version__ = "1.1"
                 {%endif%}
                     <td class="accueil-td text-center">{{get_client_name(f.id_client)}}</td>
                     <td class="accueil-td text-center">{{f.project}}</td>
-                    <td class="accueil-td text-center">{{convert_date(f.date_envoi)}}</td>
+                    <td class="accueil-td text-center">{{convert_date(f.date_sent)}}</td>
                     <td class="accueil-td text-center">{{f.days}}</td>
                     <td class="accueil-td text-center">{{f.day_rate}} €</td>
                     <td class="accueil-td text-center">{%if f.tax %}{{_('Yes')}}{%else%}{{_('No')}}{%endif%}</td>
-                    <td class="accueil-td text-center">{{convert_date(f.date_echeance)}}</td>
+                    <td class="accueil-td text-center">{{convert_date(f.date_expiry)}}</td>
                     <td class="accueil-td text-center">{{f.total}} €</td>
                     {% if f.tax %}
                     <td class="accueil-td text-center">{{f.total_tax}} €</td>
