@@ -16,13 +16,13 @@ __version__ = "1.1"
 
     $(document).ready(function()
     {
-        $('#btn_new_assurance').click(function(e)
+        $('#btn_new_insurance').click(function(e)
         {
-            $('#newAssurrance').modal('hide');
+            $('#newInsurance').modal('hide');
             var objs = {};
             var empty = false
             var l_array = []
-            $('#newAssurrance :input').each(function()
+            $('#newInsurance :input').each(function()
             {
                 if($(this).attr('type') == 'checkbox')
                 {
@@ -41,7 +41,7 @@ __version__ = "1.1"
             });
             if(empty)
             {
-                alert('Liste des champs non remplis: ' + l_array);
+                alert("{{_('List of unfilled fields')}}:" + l_array);
                 return;
             }
             $.ajax({
@@ -50,7 +50,7 @@ __version__ = "1.1"
                 data: objs
             }).done(function()
             {
-                $('#newAssurrance :input').each(function()
+                $('#newInsurance :input').each(function()
                 {
                     if($(this).attr('type') == 'checkbox')
                     {
@@ -67,19 +67,19 @@ __version__ = "1.1"
 
         $('#confirmModel').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
-            var recipient = button.data('assurancename') // Extract info from data-* attributes
+            var recipient = button.data('insurancename') // Extract info from data-* attributes
             var modal = $(this);
-            modal.find('.modal-body p').text('Etês-vous sùr de vouloir supprimer le assurance: ' + recipient + ' ?');
-            modal.find('#btn_supp_assurance').data('assurancename', recipient);
+            modal.find('.modal-body p').text("{{_('Are you sure you want to take out the insurance')}}: " + recipient + ' ?');
+            modal.find('#btn_del_insurance').data('insurancename', recipient);
         });
 
-        $('#btn_supp_assurance').click(function()
+        $('#btn_del_insurance').click(function()
         {
-            var assurancename = $(this).data('assurancename');
-            if(assurancename != '')
+            var insurancename = $(this).data('insurancename');
+            if(insurancename != '')
             {
-                remove_assurance(assurancename);
-                $(this).data('assurancename', '');
+                remove_insurance(insurancename);
+                $(this).data('insurancename', '');
             }
 
             $('#confirmModel').modal('hide');
@@ -92,23 +92,23 @@ __version__ = "1.1"
         });
     });
 
-    function remove_assurance(assurancename)
+    function remove_insurance(insurancename)
     {
         $.ajax({
             method: 'POST',
             url: '/insurance-delete',
-            data: {'assurance-name' : assurancename}
+            data: {'insurance-name' : insurancename}
         }).done(function()
         {
             reload_page();
         });
     }
-    function select_assurance(assurancename, select)
+    function select_insurance(insurancename, select)
     {
         $.ajax({
             method: 'POST',
             url: '/insurance-select',
-            data: {'assurance-name' : assurancename, 'assurance-select' : select}
+            data: {'insurance-name' : insurancename, 'insurance-select' : select}
         }).done(function()
         {
             reload_page();
@@ -120,11 +120,11 @@ __version__ = "1.1"
 
 {%block body%}
 
-<div class="modal fade" id="newAssurrance" tabindex="-1" role="dialog" aria-labelledby="newAssurranceLabel" aria-hidden="true">
+<div class="modal fade" id="newInsurance" tabindex="-1" role="dialog" aria-labelledby="newInsuranceLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="newAssurranceLabel">{{_("New insurance")}}</h5>
+            <h5 class="modal-title" id="newInsuranceLabel">{{_("New insurance")}}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -132,26 +132,26 @@ __version__ = "1.1"
         <div class="modal-body">
             <form>
                 <div class="form-group">
-                    <label for="assurance-name" class="col-form-label">{{_("Name")}}:</label>
-                    <input type="text" class="form-control" id="assurance-name">
+                    <label for="insurance-name" class="col-form-label">{{_("Name")}}:</label>
+                    <input type="text" class="form-control" id="insurance-name">
                 </div>
                 <div class="form-group">
-                    <label for="assurance-type" class="col-form-label">{{_("Type")}}:</label>
-                    <input type="text" class="form-control" id="assurance-type">
+                    <label for="insurance-type" class="col-form-label">{{_("Type")}}:</label>
+                    <input type="text" class="form-control" id="insurance-type">
                 </div>
                 <div class="form-group">
-                    <label for="assurance-region" class="col-form-label">{{_("Country")}}:</label>
-                    <input type="text" class="form-control" id="assurance-region">
+                    <label for="insurance-region" class="col-form-label">{{_("Country")}}:</label>
+                    <input type="text" class="form-control" id="insurance-region">
                 </div>
                 <div class="form-group">
-                    <label for="assurance-contrat" class="col-form-label">{{_("Contract number")}}:</label>
-                    <input type="text"  class="form-control" id="assurance-contrat">
+                    <label for="insurance-contract" class="col-form-label">{{_("Contract number")}}:</label>
+                    <input type="text"  class="form-control" id="insurance-contract">
                 </div>
             </form>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">{{_("Cancel")}}</button>
-            <button type="button" class="btn btn-success" id="btn_new_assurance">{{_("Add")}}</button>
+            <button type="button" class="btn btn-success" id="btn_new_insurance">{{_("Add")}}</button>
         </div>
         </div>
     </div>
@@ -161,7 +161,7 @@ __version__ = "1.1"
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="confirmModelLabel">{{_("Comfirm !")}}</h5>
+              <h5 class="modal-title" id="confirmModelLabel">{{_("Confirm !")}}</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -170,7 +170,7 @@ __version__ = "1.1"
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">{{_("No")}}</button>
-              <button type="button" class="btn btn-danger" id="btn_supp_assurance" data-assurancename="">{{_("Yes, deleted")}}</button>
+              <button type="button" class="btn btn-danger" id="btn_del_insurance" data-insurancename="">{{_("Yes, deleted")}}</button>
             </div>
           </div>
         </div>
@@ -179,12 +179,12 @@ __version__ = "1.1"
 <div class="row">
 
     <div class="col-lg-6 my-auto text-center">
-        <button type="button" style="width:120px; height:120px;" class="btn btn-outline-success" data-toggle="modal" data-target="#newAssurrance"><i style="font-size: 40px" class="fa fa-address-card"></i></button>
+        <button type="button" style="width:120px; height:120px;" class="btn btn-outline-success" data-toggle="modal" data-target="#newInsurance"><i style="font-size: 40px" class="fa fa-address-card"></i></button>
     </div>
-    {% if not assurances %}
+    {% if not insurances %}
     <div class="col-lg-6"></div>
     {%endif%}
-    {%for c in assurances%}
+    {%for c in insurances%}
     <div class="col-lg-6">
         <div class="card mb-4 shadow" style="border: 0.10rem solid {{color.col7}}; background-color: transparent;">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between" style="color: {{color.col7}}; background-color: {{color.col1}};">
@@ -193,7 +193,7 @@ __version__ = "1.1"
                         <h6 class="m-0 font-weight-bold text-white ">{{c.name}} <span class="badge badge-info"></span></h6>
                     </div>
                     <div class="col-1">
-                        <button data-toggle="modal" data-target="#confirmModel" data-assurancename="{{c.name}}" class="btn btn-danger btn-circle btn-sm">
+                        <button data-toggle="modal" data-target="#confirmModel" data-insurancename="{{c.name}}" class="btn btn-danger btn-circle btn-sm">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
@@ -221,7 +221,7 @@ __version__ = "1.1"
                         <p class="font-weight-bold text-white">{{_("Contract number")}}: </p>
                     </div>
                     <div class="col-sm-6">
-                        <p class="text-white">{{c.n_contrat}}</p>
+                        <p class="text-white">{{c.n_contract}}</p>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -5px;">
@@ -235,7 +235,7 @@ __version__ = "1.1"
                 <div class="row" style="margin-top: -5px;">
                     {% if c.sel == "False"%}
                     <div class="col-8 text-center">
-                        <a href="/assurance" onclick="select_assurance('{{c.name}}', 'True');" class="btn btn-danger btn-icon-split">
+                        <a href="/insurance" onclick="select_insurance('{{c.name}}', 'True');" class="btn btn-danger btn-icon-split">
                             <span class="icon text-white-50">
                                 <i class="fas fa-times"></i>
                             </span>
@@ -244,7 +244,7 @@ __version__ = "1.1"
                     </div>
                     {% else %}
                     <div class="col-8 text-center">
-                        <a href="/assurance" onclick="select_assurance('{{c.name}}', 'False');" class="btn btn-success btn-icon-split">
+                        <a href="/insurance" onclick="select_insurance('{{c.name}}', 'False');" class="btn btn-success btn-icon-split">
                             <span class="icon text-white-50">
                                 <i class="fas fa-check"></i>
                             </span>
