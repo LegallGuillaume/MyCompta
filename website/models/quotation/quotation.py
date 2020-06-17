@@ -13,25 +13,25 @@ __version__ = "1.1"
 
 class Quotation:
     def __init__(self):
-        self.numero = -1
-        self.date_envoi = ''
-        self.date_validite = ''
+        self.number = -1
+        self.date_sent = ''
+        self.date_validity = ''
         self.client = ''
         self.id_profile = -1
         self.total = 0.0
-        self.tva_price = 0.0
+        self.tax_price = 0.0
         self.end_text = '' # comme acompte, n°TVA
     def __str__(self):
         return str(self.__dict__)
     def __repr__(self):
-        return "<Quotation N°{}>".format(self.numero)
+        return "<Quotation N°{}>".format(self.number)
 
     def add_item(self, item):
         if not isinstance(item, QuotationItem):
             return
         if not hasattr(self, 'list_item'):
             self.list_item = list()
-        item.id_devis = self.id
+        item.id_quotation = self.id
         new_price = (item.quantity*item.unit_price)
         if not item.reduction:
             self.total += new_price
@@ -41,16 +41,16 @@ class Quotation:
 
 class QuotationDAO(DbDAO):
     def __init__(self, dbpath=None):
-        super().__init__('devis', db_path=dbpath)
+        super().__init__('quotation', db_path=dbpath)
         self.obj_type = Quotation
         self.table_create = {
             'id': 'INTEGER PRIMARY KEY AUTOINCREMENT', 
-            'numero': 'INTEGER NOT NULL',
+            'number': 'INTEGER NOT NULL',
             'total': 'FLOAT NOT NULL',
-            'tva_price': 'FLOAT NOT NULL',
+            'tax_price': 'FLOAT NOT NULL',
             'client': 'TEXT NOT NULL',
-            'date_validite': 'TEXT NOT NULL',
-            'date_envoi': 'TEXT NOT NULL',
+            'date_validity': 'TEXT NOT NULL',
+            'date_sent': 'TEXT NOT NULL',
             'end_text': 'TEXT NOT NULL',
             'created': 'TEXT NOT NULL',
             'id_profile': 'INTEGER NOT NULL'
@@ -62,8 +62,8 @@ class QuotationDAO(DbDAO):
                 logging.info('QuotationDAO use exist with id')
                 return super().exist(self.where('id', obj.id))
             else:
-                logging.info('QuotationDAO use exist with numero')
-                return super().exist(self.where('numero', obj.numero))
+                logging.info('QuotationDAO use exist with number')
+                return super().exist(self.where('number', obj.number))
         else:
             logging.info('QuotationDAO use exist with WHERE')
             return super().exist(obj)
@@ -72,7 +72,8 @@ class QuotationDAO(DbDAO):
         obj = super().get(where)
         for o in obj:
             itemdao = QuotationItemDAO()
-            o.list_item = itemdao.get(itemdao.where('id_devis', o.id))
+            itemdao.create_table() # if not exist
+            o.list_item = itemdao.get(itemdao.where('id_quotation', o.id))
         return obj
 
     def insert(self, obj):
@@ -87,7 +88,7 @@ class QuotationDAO(DbDAO):
     def update(self, obj):
         list_item = obj.list_item
         del obj.list_item
-        ret = super().update(obj, self.where('numero', obj.numero))
+        ret = super().update(obj, self.where('number', obj.number))
         obj.list_item = list_item
         return ret
 
@@ -97,8 +98,8 @@ class QuotationDAO(DbDAO):
                 logging.info('QuotationDAO use delete with id')
                 return super().delete(self.where('id', obj.id))
             else:
-                logging.info('QuotationDAO use delete with numero')
-                return super().delete(self.where('numero', obj.numero))
+                logging.info('QuotationDAO use delete with number')
+                return super().delete(self.where('number', obj.number))
         else:
             logging.info('QuotationDAO use delete with WHERE')
             return super().delete(obj)

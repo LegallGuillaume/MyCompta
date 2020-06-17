@@ -16,17 +16,18 @@ manager_profile = Blueprint("profile", __name__)
 def register():
     if request.method == 'GET':
         return redirect('/')
+    logging.debug('add profile form : %s', str(request.form))
     logging.info('receive socket from /register-data -> profile: %s', request.form['profile-name'])
     form = request.form
     profile = Profile()
     profile.name = form['profile-name']
-    profile.prenom = form['profile-prenom']
-    profile.adresse = form['profile-adresse']
-    profile.comp_adresse = form['profile-comp_adresse']
-    profile.ville = form['profile-ville']
-    profile.cp = form['profile-cp']
-    profile.pays = form['profile-pays']
-    profile.tel = form['profile-tel']
+    profile.firstname = form['profile-firstname']
+    profile.address = form['profile-address']
+    profile.comp_address = form['profile-comp_address']
+    profile.city = form['profile-city']
+    profile.zipcode = form['profile-zipcode']
+    profile.country = form['profile-country']
+    profile.phone = form['profile-phone']
     profile.email = form['profile-email']
     profile.siret = form['profile-siret']
     pdao = ProfileDAO()

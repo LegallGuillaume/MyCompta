@@ -24,11 +24,11 @@ def add_client(form):
     profileSession = get_profile_from_session()
     client = Client()
     client.name = form['client-name']
-    client.adresse = form['client-adresse']
-    client.comp_adresse = form['client-comp']
-    client.cp = form['client-cp']
-    client.ville = form['client-ville']
-    client.pays = form['client-pays']
+    client.address = form['client-address']
+    client.comp_address = form['client-comp']
+    client.zipcode = form['client-zipcode']
+    client.city = form['client-city']
+    client.country = form['client-country']
     client.id_profile = profileSession.id
     cdao = ClientDAO()
     if cdao.insert(client):
@@ -62,8 +62,9 @@ def cl():
         return render_template('client.html', Page_title=_('Clients'), clients=reversed(l_clients),
                                 profile=profile, color=Color)
     elif request.method == 'POST':
+        logging.debug('add client form : %s', str(request.form))
         add_client(request.form)
-        return ''
+        return redirect('/clients')
     else:
         return redirect('/home')
 
@@ -72,5 +73,6 @@ def cl_del():
     if not session.get('logged_in'):
         return redirect('/')
     logging.info('receive socket from /client-delete')
+    logging.debug('delete client form : %s', str(request.form))
     remove_client(request.form['client-name'])
     return redirect('/clients')

@@ -125,24 +125,24 @@ __version__ = "1.1"
                     <input type="text" class="form-control" id="client-name">
                 </div>
                 <div class="form-group">
-                    <label for="client-adresse" class="col-form-label">{{_("Address")}}:</label>
-                    <input type="text" class="form-control" id="client-adresse">
+                    <label for="client-address" class="col-form-label">{{_("Address")}}:</label>
+                    <input type="text" class="form-control" id="client-address">
                 </div>
                 <div class="form-group">
                     <label for="client-comp" class="col-form-label">{{_("Complement Address")}}:</label>
                     <input type="text" class="form-control" id="client-comp">
                 </div>
                 <div class="form-group">
-                    <label for="client-cp" class="col-form-label">{{_("Zip code")}}:</label>
-                    <input type="text"  class="form-control" id="client-cp">
+                    <label for="client-zipcode" class="col-form-label">{{_("Zip code")}}:</label>
+                    <input type="text"  class="form-control" id="client-zipcode">
                 </div>
                 <div class="form-group">
-                    <label for="client-cp" class="col-form-label">{{_("City")}}:</label>
-                    <input type="text"  class="form-control" id="client-ville">
+                    <label for="client-zipcode" class="col-form-label">{{_("City")}}:</label>
+                    <input type="text"  class="form-control" id="client-city">
                 </div>
                 <div class="form-group">
-                    <label for="client-pays" class="col-form-label">{{_("Country")}}:</label>
-                    <input type="text" class="form-control" id="client-pays">
+                    <label for="client-country" class="col-form-label">{{_("Country")}}:</label>
+                    <input type="text" class="form-control" id="client-country">
                 </div>
             </form>
         </div>
@@ -158,7 +158,7 @@ __version__ = "1.1"
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="confirmModelLabel">{{_("Valid !")}}</h5>
+              <h5 class="modal-title" id="confirmModelLabel">{{_("Confirm !")}}</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -202,7 +202,7 @@ __version__ = "1.1"
                         <p class="font-weight-bold text-white">{{_("Address")}}: </p>
                     </div>
                     <div class="col-sm-6">
-                        <p class="text-white">{{c.adresse}}</p>
+                        <p class="text-white">{{c.address}}</p>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -5px;">
@@ -210,7 +210,7 @@ __version__ = "1.1"
                         <p class="font-weight-bold text-white">{{_("Complement Address")}}: </p>
                     </div>
                     <div class="col-sm-6">
-                        <p class="text-white">{{c.comp_adresse}}</p>
+                        <p class="text-white">{{c.comp_address}}</p>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -5px;">
@@ -218,7 +218,7 @@ __version__ = "1.1"
                         <p class="font-weight-bold text-white">{{_("Zip code")}}: </p>
                     </div>
                     <div class="col-sm-6">
-                        <p class="text-white">{{c.cp}}</p>
+                        <p class="text-white">{{c.zipcode}}</p>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -5px;">
@@ -226,7 +226,7 @@ __version__ = "1.1"
                         <p class="font-weight-bold text-white">{{_("City")}}: </p>
                     </div>
                     <div class="col-sm-6">
-                        <p class="text-white">{{c.ville}}</p>
+                        <p class="text-white">{{c.city}}</p>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -5px;">
@@ -234,7 +234,7 @@ __version__ = "1.1"
                         <p class="font-weight-bold text-white">{{_("Country")}}: </p>
                     </div>
                     <div class="col-sm-6">
-                        <p class="text-white">{{c.pays}}</p>
+                        <p class="text-white">{{c.country}}</p>
                     </div>
                 </div>
             </div>

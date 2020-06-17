@@ -13,12 +13,12 @@ __version__ = "1.1"
         document.location.reload(true);
     }
 
-    function remove_devis(devisid)
+    function remove_quotation(quotationid)
     {
         $.ajax({
             method: 'POST',
             url: 'quotation-delete',
-            data: {'devis-id' : devisid}
+            data: {'quotation-id' : quotationid}
         }).done(function()
         {
             reload_page();
@@ -54,32 +54,32 @@ __version__ = "1.1"
               </ul>
               <div class="tab-content">
                 <div class="tab-pane active" id="One">
-                    <form id="FormOne" role="form" class="container-fluid" action="/devis" method="post">
+                    <form id="FormOne" role="form" class="container-fluid" action="/quotation" method="post">
                         <div class="form-group">
-                            <label for="devis-id" class="col-form-label">{{_('N° Quotation')}}:</label>
-                            <input type="text" value="{{new_devis}}" class="form-control" id="devis-id" placeholder="{{last_devis}}">
+                            <label for="quotation-id" class="col-form-label">{{_('N° Quotation')}}:</label>
+                            <input type="text" value="{{new_quotation}}" class="form-control" id="quotation-id" placeholder="{{last_quotation}}">
                         </div>
                         <div class="form-group">
-                            <label for="devis-id" class="col-form-label">{{_('Client')}}:</label>
-                            <input type="text" value="{{new_devis}}" class="form-control" id="devis-client">
+                            <label for="quotation-id" class="col-form-label">{{_('Client')}}:</label>
+                            <input type="text" value="{{new_quotation}}" class="form-control" id="quotation-client">
                         </div>
                         <div class="form-group">
-                            <label for="devis-dateenvoi" class="col-form-label">{{_('Date sent')}}:</label>
-                            <input type="date"  class="form-control" id="devis-dateenvoi">
+                            <label for="quotation-datesent" class="col-form-label">{{_('Date sent')}}:</label>
+                            <input type="date"  class="form-control" id="quotation-datesent">
                         </div>
                         <div class="form-group">
-                            <label for="devis-datevalidite" class="col-form-label">{{_('Validity date')}}:</label>
-                            <input type="date"  class="form-control" id="devis-datevalidite">
+                            <label for="quotation-datevalidity" class="col-form-label">{{_('Validity date')}}:</label>
+                            <input type="date"  class="form-control" id="quotation-datevalidity">
                         </div>
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="devis-tva">
-                            <label class="custom-control-label" for="devis-tva">{{_('Tax')}}</label>
+                            <input type="checkbox" class="custom-control-input" id="quotation-tax">
+                            <label class="custom-control-label" for="quotation-tax">{{_('Tax')}}</label>
                         </div>
                     </form>
                 </div>
                 <div class="tab-pane" id="Two" style="width: 100%;">
                     <form id="FormTwo" role="form" class="container-fluid" method="post"  style="margin-top: 10px;">
-                        <div class="row devis-line" style="width: 100%; padding: 0;">
+                        <div class="row quotation-line" style="width: 100%; padding: 0;">
                             <div class="col-6 p-0">
                                 <textarea class="form-control" rows="1" placeholder="{{_('Description')}}"></textarea>
                             </div>
@@ -93,16 +93,16 @@ __version__ = "1.1"
                     </form>
                     <div class="row" style="margin-top: 10px;">
                         <div class="col">
-                            <button type="button" class="btn btn-warning" onclick="addline('devis-line');">{{_('New line')}}</button>
+                            <button type="button" class="btn btn-warning" onclick="addline('quotation-line');">{{_('New line')}}</button>
                         </div>
                         <div class="col">
-                            <button type="button" class="btn btn-outline-warning" onclick="removeline('devis-line');">{{_('Delete line')}}</button>
+                            <button type="button" class="btn btn-outline-warning" onclick="removeline('quotation-line');">{{_('Delete line')}}</button>
                         </div>
                     </div>
                 </div>
                 <div class="tab-pane" id="Three" style="width: 100%;">
                     <form id="FormThree" role="form" class="container-fluid" method="post"  style="margin-top: 10px;">
-                        <div class="row devis-end-text" style="width: 100%; padding: 0;">
+                        <div class="row quotation-end-text" style="width: 100%; padding: 0;">
                             <div class="col-12 p-0">
                                 <textarea class="form-control" rows="1" placeholder="{{_('n° Tax, ..')}}"></textarea>
                             </div>
@@ -110,10 +110,10 @@ __version__ = "1.1"
                     </form>
                     <div class="row" style="margin-top: 10px;">
                         <div class="col">
-                            <button type="button" class="btn btn-warning" onclick="addline('devis-end-text');">{{_('New line')}}</button>
+                            <button type="button" class="btn btn-warning" onclick="addline('quotation-end-text');">{{_('New line')}}</button>
                         </div>
                         <div class="col">
-                            <button type="button" class="btn btn-outline-warning" onclick="removeline('devis-end-text');">{{_('Delete line')}}</button>
+                            <button type="button" class="btn btn-outline-warning" onclick="removeline('quotation-end-text');">{{_('Delete line')}}</button>
                         </div>
                     </div>
                 </div>
@@ -125,7 +125,7 @@ __version__ = "1.1"
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">{{_('Cancel')}}</button>
                   </div>
                   <div class="col-6 text-center">
-                      <button type="button" class="btn btn-success" id="btn_new_devis">{{_('Add')}}</button>
+                      <button type="button" class="btn btn-success" id="btn_new_quotation">{{_('Add')}}</button>
                   </div>
               </div>
           </div>
@@ -138,7 +138,7 @@ __version__ = "1.1"
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="confirmModelLabel">{{_('Comfirm !')}}</h5>
+            <h5 class="modal-title" id="confirmModelLabel">{{_('Confirm !')}}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -147,7 +147,7 @@ __version__ = "1.1"
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">{{_('No')}}</button>
-            <button type="button" class="btn btn-danger" id="btn_supp_devis" data-devisid="">{{_('Yes, deleted')}}</button>
+            <button type="button" class="btn btn-danger" id="btn_del_quotation" data-quotationid="">{{_('Yes, deleted')}}</button>
         </div>
         </div>
     </div>
@@ -158,10 +158,10 @@ __version__ = "1.1"
     <div class="col-lg-6 my-auto text-center">
         <button type="button" style="width:120px; height:120px;" class="btn btn-outline-success" data-toggle="modal" data-target="#newDevis"><i style="font-size: 40px" class="fa fa-file-invoice-dollar"></i></button>
     </div>
-    {% if not devis %}
+    {% if not quotation %}
     <div class="col-lg-6"></div>
     {%endif%}
-    {%for d in devis%}
+    {%for d in quotation%}
     <div class="col-lg-6">
         <div class="card mb-4 shadow" style="border: 0.10rem solid {{color.col7}}; background-color: transparent;">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between" style="color: {{color.col7}}; background-color: {{color.col1}};">
@@ -170,12 +170,12 @@ __version__ = "1.1"
                         <h6 class="m-0 font-weight-bold text-white">{{_('Quotation N°')}}{{d.numero}} - {{_('Total')}} {{d.total}} € {{_('without tax')}}</h6>
                     </div>
                     <div class="col-1">
-                        <button class="btn btn-primary btn-circle btn-sm" onclick="window.open(window.location.origin + '/devis/{{d.numero}}', '_blank')">
+                        <button class="btn btn-primary btn-circle btn-sm" onclick="window.open(window.location.origin + '/quotation/{{d.numero}}', '_blank')">
                             <i class="fas fa-file-pdf"></i>
                         </button>
                     </div>
                     <div class="col-1">
-                        <button data-toggle="modal" data-target="#confirmModel" data-devisid="{{d.numero}}" class="btn btn-danger btn-circle btn-sm">
+                        <button data-toggle="modal" data-target="#confirmModel" data-quotationid="{{d.numero}}" class="btn btn-danger btn-circle btn-sm">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
@@ -187,7 +187,7 @@ __version__ = "1.1"
                         <p class="font-weight-bold text-white">{{_('Date sent')}}: </p>
                     </div>
                     <div class="col-sm-6">
-                        <p class="text-white">{{convert_date(d.date_envoi)}}</p>
+                        <p class="text-white">{{convert_date(d.date_sent)}}</p>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -5px;">
@@ -195,7 +195,7 @@ __version__ = "1.1"
                         <p class="font-weight-bold text-white">{{_('Validity date')}}: </p>
                     </div>
                     <div class="col-sm-6">
-                        <p class="text-white">{{convert_date(d.date_validite)}}</p>
+                        <p class="text-white">{{convert_date(d.date_validity)}}</p>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -5px;">
@@ -206,13 +206,13 @@ __version__ = "1.1"
                         <p class="text-white">{{d.total}} € <span class="badge badge-pill badge-info">HT</span></p>
                     </div>
                 </div>
-                {% if d.tva_price > 0 %}
+                {% if d.tax_price > 0 %}
                 <div class="row" style="margin-top: -5px;">
                     <div class="col-sm-6">
                         <p class="font-weight-bold text-white">{{_('Tax')}}: </p>
                     </div>
                     <div class="col-sm-6">
-                        <p class="text-white">{{d.tva_price}} €</p>
+                        <p class="text-white">{{d.tax_price}} €</p>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -5px;">
@@ -220,13 +220,13 @@ __version__ = "1.1"
                         <p class="font-weight-bold text-white">{{_('Quotation')}}: </p>
                     </div>
                     <div class="col-sm-6">
-                        <p class="text-white">{{d.total+d.tva_price}} € <span class="badge badge-pill badge-info">{{_('incl. tax')}}</span></p>
+                        <p class="text-white">{{d.total+d.tax_price}} € <span class="badge badge-pill badge-info">{{_('incl. tax')}}</span></p>
                     </div>
                 </div>
                 {% endif %}
                 <div class="row">
                     <div class="col-8 text-center">
-                        <a href="/devis-convert" onclick="devisToFacture('{{d.name}}');" class="btn btn-success btn-icon-split">
+                        <a href="/quotation-convert" onclick="quotationToFacture('{{d.name}}');" class="btn btn-success btn-icon-split">
                             <span class="icon text-white-50">
                                 <i class="fas fa-check"></i>
                             </span>

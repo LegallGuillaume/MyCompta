@@ -36,14 +36,14 @@ __version__ = "1.1"
       }
       var objs = {};
       objs['profile-name'] = $('#profile-name').val()
-      objs['profile-prenom'] = $('#profile-prenom').val()
-      objs['profile-adresse'] = $('#profile-adresse').val()
-      objs['profile-comp_adresse'] = $('#profile-comp_adresse').val()
-      objs['profile-cp'] = $('#profile-cp').val()
-      objs['profile-ville'] = $('#profile-ville').val()
+      objs['profile-firstname'] = $('#profile-firstname').val()
+      objs['profile-address'] = $('#profile-address').val()
+      objs['profile-comp_address'] = $('#profile-comp_address').val()
+      objs['profile-zipcode'] = $('#profile-zipcode').val()
+      objs['profile-city'] = $('#profile-city').val()
       objs['profile-email'] = $('#profile-email').val()
-      objs['profile-pays'] = $('#profile-pays').val()
-      objs['profile-tel'] = $('#profile-tel').val()
+      objs['profile-country'] = $('#profile-country').val()
+      objs['profile-phone'] = $('#profile-phone').val()
       objs['profile-siret'] = $('#profile-siret').val()
       objs['profile-password'] = $('#profile-password').val()
       $('.form-control-user').each(function()
@@ -103,26 +103,26 @@ __version__ = "1.1"
                             <input type="text" class="form-control form-control-user" id="profile-name" placeholder="{{_('First name')}}">
                           </div>
                           <div class="col-sm-6">
-                            <input type="text" class="form-control form-control-user" id="profile-prenom" placeholder="{{_('Last name')}}">
+                            <input type="text" class="form-control form-control-user" id="profile-firstname" placeholder="{{_('Last name')}}">
                           </div>
                         </div>
                         <div class="form-group row">
                           <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="text" class="form-control form-control-user" id="profile-adresse" placeholder="{{_('Address')}}">
+                            <input type="text" class="form-control form-control-user" id="profile-address" placeholder="{{_('Address')}}">
                           </div>
                           <div class="col-sm-6">
-                            <input type="text" class="form-control form-control-user" id="profile-comp_adresse" placeholder="{{_('Compl. address')}}">
+                            <input type="text" class="form-control form-control-user" id="profile-comp_address" placeholder="{{_('Compl. address')}}">
                           </div>
                         </div>
                         <div class="form-group row">
                           <div class="col-sm-3 mb-3 mb-sm-0">
-                            <input type="text" class="form-control form-control-user" id="profile-cp" placeholder="{{_('Zip code')}}">
+                            <input type="text" class="form-control form-control-user" id="profile-zipcode" placeholder="{{_('Zip code')}}">
                           </div>
                           <div class="col-sm-6">
-                            <input type="text" class="form-control form-control-user" id="profile-ville" placeholder="{{_('City')}}">
+                            <input type="text" class="form-control form-control-user" id="profile-city" placeholder="{{_('City')}}">
                           </div>
                           <div class="col-sm-3">
-                            <input type="text" class="form-control form-control-user" id="profile-pays" placeholder="{{_('Country')}}">
+                            <input type="text" class="form-control form-control-user" id="profile-country" placeholder="{{_('Country')}}">
                           </div>
                         </div>
                         <div class="form-group row">
@@ -130,7 +130,7 @@ __version__ = "1.1"
                             <input type="email" class="form-control form-control-user" id="profile-email" placeholder="{{_('Email')}}">
                           </div>
                           <div class="col-sm-6">
-                            <input type="text" class="form-control form-control-user" id="profile-tel" placeholder="{{_('Phone')}}">
+                            <input type="text" class="form-control form-control-user" id="profile-phone" placeholder="{{_('Phone')}}">
                           </div>
                         </div>
                         <div class="form-group">

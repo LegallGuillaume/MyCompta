@@ -70,13 +70,13 @@ if __name__ == "__main__":
         pdao = ProfileDAO()
         profile = Profile()
         profile.name = args.demo
-        profile.prenom = "demo"
-        profile.adresse = "Val Sec"
-        profile.comp_adresse = "Domaine du chateau"
-        profile.ville = "Marseille"
-        profile.cp = "13000"
-        profile.pays = "France"
-        profile.tel = "0600000000"
+        profile.firstname = "demo"
+        profile.address = "Val Sec"
+        profile.comp_address = "Domaine du chateau"
+        profile.city = "Marseille"
+        profile.zipcode = "13000"
+        profile.country = "France"
+        profile.phone = "0600000000"
         profile.email = "demo@demo.fr"
         profile.siret = "123456789101112"
         if pdao.insert(profile):

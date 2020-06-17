@@ -156,7 +156,7 @@ msgstr ""
 
 #: website/html/insurance.html:164 website/html/invoice.html:188
 #: website/html/quotation.html:141
-msgid "Comfirm !"
+msgid "Confirm !"
 msgstr ""
 
 #: website/html/insurance.html:173 website/html/invoice.html:197

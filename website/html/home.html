@@ -11,9 +11,9 @@ __version__ = "1.1"
 <div class="row">
     <div class="col-3">
         <div class="card mb-3 shadow" style="max-width: 18rem; border: 0.10rem solid {{color.col7}}; background-color: transparent;">
-            <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col7}}; background-color: {{color.col1}};">{{_('INVOICE RECEIVED incl. Tax')}} {{annee}}</div>
+            <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col7}}; background-color: {{color.col1}};">{{_('INVOICE RECEIVED incl. Tax')}} {{year}}</div>
             <div class="card-body text-info">
-                <h5 class="card-title text-right font-weight-bold text-white" style="text-shadow: 1px 1px 2px {{color.col1}};">{{ttc_encaissee}} €</h5>
+                <h5 class="card-title text-right font-weight-bold text-white" style="text-shadow: 1px 1px 2px {{color.col1}};">{{tax_collected}} €</h5>
             </div>
         </div>
     </div>
@@ -21,15 +21,15 @@ __version__ = "1.1"
         <div class="card mb-3 shadow" style="max-width: 18rem; border: 0.10rem solid {{color.col6}}; background-color: transparent;">
             <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col6}}; background-color: {{color.col1}};">{{_('Pending Invoice')}}</div>
             <div class="card-body text-info">
-                <h5 class="card-title text-right font-weight-bold text-white" style="text-shadow: 1px 1px 2px {{color.col1}};">{{solde_non_payee}} €</h5>
+                <h5 class="card-title text-right font-weight-bold text-white" style="text-shadow: 1px 1px 2px {{color.col1}};">{{solde_no_sold}} €</h5>
             </div>
         </div>
     </div>
     <div class="col-3">
         <div class="card mb-3 shadow" style="max-width: 18rem; border: 0.10rem solid {{color.col5}}; background-color: transparent;">
-            <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col5}}; background-color: {{color.col1}};">{{_('Billing available')}} {{annee}}</div>
+            <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col5}}; background-color: {{color.col1}};">{{_('Billing available')}} {{year}}</div>
             <div class="card-body text-info">
-                <h5 class="card-title text-right font-weight-bold text-white" style="text-shadow: 1px 1px 2px {{color.col1}};">{{facturation_available}} € (72000 €)</h5>
+                <h5 class="card-title text-right font-weight-bold text-white" style="text-shadow: 1px 1px 2px {{color.col1}};">{{invoice_available}} € (72000 €)</h5>
             </div>
         </div>
     </div>
@@ -37,7 +37,7 @@ __version__ = "1.1"
         <div class="card mb-3 shadow" style="max-width: 18rem; border: 0.10rem solid {{color.col4}}; background-color: transparent;">
             <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col4}}; background-color: {{color.col1}};">{{_('Invoice collected without Tax')}} (2019-20XX)</div>
             <div class="card-body text-info">
-                <h5 class="card-title text-right font-weight-bold text-white" style="text-shadow: 1px 1px 2px {{color.col1}};">{{solde_encaissee}} €</h5>
+                <h5 class="card-title text-right font-weight-bold text-white" style="text-shadow: 1px 1px 2px {{color.col1}};">{{sold_collected}} €</h5>
             </div>
         </div>
     </div>
@@ -45,7 +45,7 @@ __version__ = "1.1"
         <div class="card mb-3 shadow" style="max-width: 18rem; border: 0.10rem solid {{color.col7}}; background-color: transparent;">
             <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col7}}; background-color: {{color.col1}};">{{_('Last invoice')}}</div>
             <div class="card-body text-info">
-                <h5 class="card-title text-right font-weight-bold text-white" style="text-shadow: 1px 1px 2px {{color.col1}};">{{convert_date(last_facture)}}</h5>
+                <h5 class="card-title text-right font-weight-bold text-white" style="text-shadow: 1px 1px 2px {{color.col1}};">{{convert_date(last_invoice)}}</h5>
             </div>
         </div>
     </div>
@@ -53,15 +53,15 @@ __version__ = "1.1"
         <div class="card mb-3 shadow" style="max-width: 18rem; border: 0.10rem solid {{color.col6}}; background-color: transparent;">
             <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col6}}; background-color: {{color.col1}};">{{_('Tax collected')}} (2019-20xx)</div>
             <div class="card-body text-info">
-                <h5 class="card-title text-right font-weight-bold text-white" style="text-shadow: 1px 1px 2px {{color.col1}};">{{tva_total}} € TTC</h5>
+                <h5 class="card-title text-right font-weight-bold text-white" style="text-shadow: 1px 1px 2px {{color.col1}};">{{tax_total}} {{_('€')}} {{_('TTC')}}</h5>
             </div>
         </div>
     </div>
     <div class="col-3">
         <div class="card mb-3 shadow" style="max-width: 18rem; border: 0.10rem solid {{color.col5}}; background-color: transparent;">
-            <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col5}}; background-color: {{color.col1}};">{{_('Invoice collected incl. Tax')}} {{annee_1}}</div>
+            <div class="card-header text-uppercase text-xs font-weight-bold" style="color: {{color.col5}}; background-color: {{color.col1}};">{{_('Invoice collected incl. Tax')}} {{year_1}}</div>
             <div class="card-body text-info">
-                <h5 class="card-title text-right font-weight-bold text-white" style="text-shadow: 1px 1px 2px {{color.col1}};">{{fact_enc_last_year}} €</h5>
+                <h5 class="card-title text-right font-weight-bold text-white" style="text-shadow: 1px 1px 2px {{color.col1}};">{{inv_collect_last_year}} €</h5>
             </div>
         </div>
     </div>
@@ -103,23 +103,23 @@ __version__ = "1.1"
             </tr>
             </tfoot>
             <tbody>
-            {% for f in factures%}
+            {% for f in invoices%}
                 <tr>
-                {%if f.payee%}
+                {%if f.sold%}
                     <td class="accueil-td text-center">{{f.name}} <span class="badge btn-sm" style="background-color: {{color.col2}};"><i class="fas fa-check" style="margin-left: -3px; width:10px;"></i></span></td>
                 {%else%}
                     <td class="accueil-td text-center">{{f.name}} <span class="badge btn-sm" style="background-color: {{color.col5}};"><i class="fas fa-exclamation-triangle" style="margin-left: -3px; width:10px;"></i></span></td>
                 {%endif%}
                     <td class="accueil-td text-center">{{get_client_name(f.id_client)}}</td>
-                    <td class="accueil-td text-center">{{f.projet}}</td>
-                    <td class="accueil-td text-center">{{convert_date(f.date_envoi)}}</td>
+                    <td class="accueil-td text-center">{{f.project}}</td>
+                    <td class="accueil-td text-center">{{convert_date(f.date_sent)}}</td>
                     <td class="accueil-td text-center">{{f.days}}</td>
-                    <td class="accueil-td text-center">{{f.tjm}} €</td>
-                    <td class="accueil-td text-center">{%if f.tva %}Oui{%else%}Non{%endif%}</td>
-                    <td class="accueil-td text-center">{{convert_date(f.date_echeance)}}</td>
+                    <td class="accueil-td text-center">{{f.day_rate}} €</td>
+                    <td class="accueil-td text-center">{%if f.tax %}{{_('Yes')}}{%else%}{{_('No')}}{%endif%}</td>
+                    <td class="accueil-td text-center">{{convert_date(f.date_expiry)}}</td>
                     <td class="accueil-td text-center">{{f.total}} €</td>
-                    {% if f.tva %}
-                    <td class="accueil-td text-center">{{f.total_ttc}} €</td>
+                    {% if f.tax %}
+                    <td class="accueil-td text-center">{{f.total_tax}} €</td>
                     {%else%}
                     <td class="accueil-td text-center">---</td>
                     {%endif%}

@@ -12,11 +12,11 @@ __version__ = "1.1"
 class Client:
     def __init__(self):
         self.name = ''
-        self.adresse = ''
-        self.comp_adresse = ''
-        self.cp = ''
-        self.ville = ''
-        self.pays = ''
+        self.address = ''
+        self.comp_address = ''
+        self.zipcode = ''
+        self.city = ''
+        self.country = ''
         self.created = ''
         self.id_profile = -1
     def __str__(self):
@@ -31,11 +31,11 @@ class ClientDAO(DbDAO):
         self.table_create = {
             'id': 'INTEGER PRIMARY KEY AUTOINCREMENT', 
             'name': 'TEXT NOT NULL',
-            'adresse': 'TEXT',
-            'comp_adresse': 'TEXT',
-            'cp': 'TEXT',
-            'ville': 'TEXT',
-            'pays': 'TEXT',
+            'address': 'TEXT',
+            'comp_address': 'TEXT',
+            'zipcode': 'TEXT',
+            'city': 'TEXT',
+            'country': 'TEXT',
             'created': 'TEXT',
             'id_profile': 'INTEGER NOT NULL'
         }

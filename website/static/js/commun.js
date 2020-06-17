@@ -1,10 +1,10 @@
 
 function addline(class_copy)
 {
-    devis_line = $('.' + class_copy + ':last').clone();
-    devis_line.removeClass('d-none');
-    devis_line.addClass('devis-copy');
-    $('.' + class_copy + ':last').after(devis_line);
+    quotation_line = $('.' + class_copy + ':last').clone();
+    quotation_line.removeClass('d-none');
+    quotation_line.addClass('quotation-copy');
+    $('.' + class_copy + ':last').after(quotation_line);
 }
 
 function removeline(class_copy)
@@ -17,20 +17,20 @@ function removeline(class_copy)
 
 function clear_modal()
 {
-    $('.devis-copy').remove();
-    original = $('.devis-line:first');
+    $('.quotation-copy').remove();
+    original = $('.quotation-line:first');
     original.find('textarea').val('');
     original.find('input').val('');
-    original2.find('.devis-end-text:first');
+    original2.find('.quotation-end-text:first');
     original2.find('textarea').val('');
 }
 
-function remove_devis(devis_id)
+function remove_quotation(quotation_id)
 {
     $.ajax({
         method: 'POST',
         url: '/quotation-delete',
-        data: {devis: devis_id}
+        data: {quotation: quotation_id}
     }).done(function()
     {
         clear_modal();
@@ -40,27 +40,27 @@ function remove_devis(devis_id)
 
 $(document).ready(function()
     {
-        $('#btn_new_devis').click(function(e)
+        $('#btn_new_quotation').click(function(e)
         {
             $('#newDevis').modal('hide');
             objs = {
-                devis: $('#devis-id').val(),
-                client: $('#devis-client').val(),
-                date_envoi: $('#devis-dateenvoi').val(),
-                date_validite: $('#devis-datevalidite').val(),
-                tva: $('#devis-tva').prop('checked'),
+                quotation: $('#quotation-id').val(),
+                client: $('#quotation-client').val(),
+                date_sent: $('#quotation-datesent').val(),
+                date_validity: $('#quotation-datevalidity').val(),
+                tax: $('#quotation-tax').prop('checked'),
                 lines: [],
                 text_end: []
             }
-            $('.devis-line').each(function()
+            $('.quotation-line').each(function()
             {
                 obj = {}
                 obj['description'] = $(this).find('textarea').val();
                 obj['quantity'] = $(this).find('input:first').val();
-                obj['prix'] = $(this).find('input:last').val();
+                obj['price'] = $(this).find('input:last').val();
                 objs['lines'].push(obj);
             });
-            $('.devis-end-text').each(function()
+            $('.quotation-end-text').each(function()
             {
                 objs['text_end'].push({text :$(this).find('textarea').val()});
             });
@@ -77,19 +77,19 @@ $(document).ready(function()
 
         $('#confirmModel').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
-            var recipient = button.data('devisid') // Extract info from data-* attributes
+            var recipient = button.data('quotationid') // Extract info from data-* attributes
             var modal = $(this);
-            modal.find('.modal-body p').text('Etês-vous sùr de vouloir supprimer le devis N° ' + recipient + ' ?');
-            modal.find('#btn_supp_devis').data('devisid', recipient);
+            modal.find('.modal-body p').text('Are you sure you want to take out the quotation N° ' + recipient + ' ?');
+            modal.find('#btn_del_quotation').data('quotationid', recipient);
         });
 
-        $('#btn_supp_devis').click(function()
+        $('#btn_del_quotation').click(function()
         {
-            var devisid = $(this).data('devisid');
-            if(devisid != '')
+            var quotationid = $(this).data('quotationid');
+            if(quotationid != '')
             {
-                remove_devis(devisid);
-                $(this).data('devisid', '');
+                remove_quotation(quotationid);
+                $(this).data('quotationid', '');
             }
 
             $('#confirmModel').modal('hide');
