@@ -98,10 +98,6 @@ msgstr "Annuler"
 msgid "Add"
 msgstr "Ajouter"
 
-#: website/html/client.html:161
-msgid "Valid !"
-msgstr "Confirmer !"
-
 #: website/html/client.html:169 website/html/insurance.html:172
 #: website/html/invoice.html:196 website/html/quotation.html:149
 msgid "No"
@@ -109,7 +105,7 @@ msgstr "Non"
 
 #: website/html/client.html:170
 msgid "Yes, delete"
-msgstr "Oui"
+msgstr "Oui, supprimer"
 
 #: website/html/home.html:14
 msgid "INVOICE RECEIVED incl. Tax"
@@ -157,7 +153,7 @@ msgstr "n° contrat"
 
 #: website/html/insurance.html:164 website/html/invoice.html:188
 #: website/html/quotation.html:141
-msgid "Comfirm !"
+msgid "Confirm !"
 msgstr "Confirmer !"
 
 #: website/html/insurance.html:173 website/html/invoice.html:197
