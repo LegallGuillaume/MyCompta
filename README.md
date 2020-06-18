@@ -23,9 +23,9 @@ $ pip3 install flask pdfkit flask_babel
 
 You need to clone this repository
 
-```
-$ git clone https://github.com/LegallGuillaume/MyCompta.git
-```
+- clone repository `git clone https://github.com/LegallGuillaume/MyCompta.git`
+- Modify DB_PATH in website/settings/config.py with the absolute path to DB file
+- run init `python3 manage.py --init`
 
 Run the test to make sure the code works perfectly
 
