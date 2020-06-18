@@ -131,7 +131,7 @@ There are no contributor for the moment.
 
 ## License
 
-This project is protected by copyright, for the moment nobody can't touch this repository
+This project is protected by licence BSD-2 please read [license file](LICENSE)
 
 ## Todo
 * ~~Multilang (Priority - HIGH to share code)~~
