@@ -6,10 +6,11 @@ except ModuleNotFoundError:
     from website.models.quotation.item_quotation import QuotationItem, QuotationItemDAO
 import logging
 
-__author__ = "Software Le Gall Guillaume"
+__author__ = "Le Gall Guillaume"
 __copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
-__license__ = "Private Domain"
-__version__ = "1.1"
+__website__ = "www.gyca.fr"
+__license__ = "BSD-2"
+__version__ = "1.0"
 
 class Quotation:
     def __init__(self):

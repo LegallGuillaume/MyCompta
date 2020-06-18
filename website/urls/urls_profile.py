@@ -3,12 +3,12 @@ from models.profile import ProfileDAO, Profile
 from flask import flash, request, render_template, redirect, make_response, session
 import datetime
 import logging
-#register-data
 
-__author__ = "Software Le Gall Guillaume"
+__author__ = "Le Gall Guillaume"
 __copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
-__license__ = "Private Domain"
-__version__ = "1.1"
+__website__ = "www.gyca.fr"
+__license__ = "BSD-2"
+__version__ = "1.0"
 
 manager_profile = Blueprint("profile", __name__)
 

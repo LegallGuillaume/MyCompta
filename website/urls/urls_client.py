@@ -6,10 +6,11 @@ from flask import flash, request, render_template, redirect, session
 import logging
 from flask_babel import Babel, lazy_gettext as _
 
-__author__ = "Software Le Gall Guillaume"
+__author__ = "Le Gall Guillaume"
 __copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
-__license__ = "Private Domain"
-__version__ = "1.1"
+__website__ = "www.gyca.fr"
+__license__ = "BSD-2"
+__version__ = "1.0"
 
 manager_client = Blueprint("client", __name__)
 

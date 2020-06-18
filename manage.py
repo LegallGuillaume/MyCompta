@@ -4,13 +4,15 @@ from website.models.client import ClientDAO
 from website.models.invoice import InvoiceDAO
 from website.models.profile import ProfileDAO, Profile
 from website.models.quotation.quotation import QuotationDAO, QuotationItemDAO
+from website.settings.config import DB_PATH
 import argparse
 import subprocess
 
-__author__ = "Software Le Gall Guillaume"
+__author__ = "Le Gall Guillaume"
 __copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
-__license__ = "Private Domain"
-__version__ = "1.1"
+__website__ = "www.gyca.fr"
+__license__ = "BSD-2"
+__version__ = "1.0"
 
 parser = argparse.ArgumentParser(description='Manage server flask')
 parser.add_argument('--init', action='store_true', help='Init db')
@@ -48,6 +50,7 @@ def prt(line):
 
 if __name__ == "__main__":
     if args.init:
+        open(DB_PATH, 'w').close() # create prog_db if not exist
         print(bcolors.BOLD + bcolors.HEADER + 'Starting init db ...' + bcolors.ENDC)
         l_db = [InsuranceDAO(), InvoiceDAO(), ClientDAO(), ProfileDAO(), QuotationDAO(), QuotationItemDAO()]
         tab = 15

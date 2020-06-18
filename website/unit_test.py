@@ -9,6 +9,12 @@ from models.profile import ProfileDAO, Profile
 from models.quotation.quotation import QuotationDAO, Quotation
 from models.quotation.item_quotation import QuotationItemDAO, QuotationItem
 
+__author__ = "Le Gall Guillaume"
+__copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
+__website__ = "www.gyca.fr"
+__license__ = "BSD-2"
+__version__ = "1.0"
+
 DB_PATH = ''
 
 class DbTestCase(unittest.TestCase):
