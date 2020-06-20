@@ -16,7 +16,7 @@ __version__ = "1.0"
   <meta name="description" content="">
   <meta name="author" content="GL">
 
-  <title>Dashbord Perso</title>
+  <title>{{Page_title}}</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
@@ -46,25 +46,25 @@ __version__ = "1.0"
         style="background-image: linear-gradient(to left,{{color.col2}}, {{color.col2}}); box-shadow: 1px 1px 1px {{color.col1}};">
             <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item {% if Page_title == _('Home')%}active font-weight-bold{% endif%}">
+                    <li class="nav-item {% if url == 'home' %}active font-weight-bold{%endif%}">
                       <a class="nav-link" href="/" style="color: {{color.col5}}; text-shadow: 1px 1px 2px {{color.col1}};"
-                      >{{_('Home')}} {% if Page_title == _('Home')%}{{_('(current)')}}{% endif%}</a>
+                      >{{_('Home')}} {% if url == 'home' %}{{_('(current)')}}{%endif%}</a>
                     </li>
-                    <li class="nav-item {% if Page_title == _('Invoices')%}active font-weight-bold{% endif%}">
+                    <li class="nav-item {% if url == 'invoice' %}active font-weight-bold{%endif%}">
                       <a class="nav-link" href="/invoices" style="color: {{color.col5}}; text-shadow: 1px 1px 2px {{color.col1}};"
-                      >{{_('Invoices')}} {% if Page_title == _('Invoices')%}{{_('(current)')}}{% endif%}</a>
+                      >{{_('Invoices')}} {% if url == 'invoice' %}{{_('(current)')}}{%endif%}</a>
                     </li>
-                    <li class="nav-item {% if Page_title == _('Clients')%}active font-weight-bold{% endif%}">
+                    <li class="nav-item {% if url == 'client' %}active font-weight-bold{%endif%}">
                       <a class="nav-link" href="/clients" style="color: {{color.col5}}; text-shadow: 1px 1px 2px {{color.col1}};"
-                      >{{_('Clients')}} {% if Page_title == _('Clients')%}{{_('(current)')}}{% endif%}</a>
+                      >{{_('Clients')}} {% if url == 'client' %}{{_('(current)')}}{%endif%}</a>
                     </li>
-                    <li class="nav-item {% if Page_title == _('Insurances')%}active font-weight-bold{% endif%}">
+                    <li class="nav-item {% if url == 'insurance' %}active font-weight-bold{%endif%}">
                       <a class="nav-link" href="/insurance" style="color: {{color.col5}}; text-shadow: 1px 1px 2px {{color.col1}};"
-                      >{{_('Insurances')}} {% if Page_title == _('Insurances')%}{{_('(current)')}}{% endif%}</a>
+                      >{{_('Insurances')}} {% if url == 'insurance' %}{{_('(current)')}}{%endif%}</a>
                     </li>
-                    <li class="nav-item {% if Page_title == _('Quotations')%}active font-weight-bold{% endif%}">
+                    <li class="nav-item {% if url == 'quotation' %}active font-weight-bold{%endif%}">
                       <a class="nav-link" href="/quotation" style="color: {{color.col5}}; text-shadow: 1px 1px 2px {{color.col1}};"
-                      >{{_('Quotations')}} {% if Page_title == _('Quotations')%}{{_('(current)')}}{% endif%}</a>
+                      >{{_('Quotations')}} {% if url == 'quotation' %}{{_('(current)')}}{%endif%}</a>
                     </li>
                 </ul>
             </div>

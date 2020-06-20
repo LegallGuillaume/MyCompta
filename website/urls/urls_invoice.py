@@ -190,7 +190,7 @@ def pdf_file(invoname, download):
         'template/pdf_template.html', profile=profile, 
         prestamonth=prestamonth, date=date, invoice=invoice, 
         convert_date=convert_date, Page_title='Facture',
-        client=client, total=total, insurance=insurance, len=len
+        client=client, total=total, insurance=insurance, len=len, url="invoice"
     )
 
     pdf = pdfkit.from_string(html_render, False)
@@ -218,7 +218,7 @@ def invs():
             Page_title=_('Invoices'), invoices=reversed(l_invoices), 
             solde_collected=sold_en, last_invoice=last_i, 
             solde_no_sold=waiting_i, clients=l_clients, new_invoice=get_new_invoice(),
-            get_client_name=get_client_name, profile=profile, len=len, color=Color
+            get_client_name=get_client_name, profile=profile, len=len, color=Color,  url="invoice"
         )
     elif request.method == 'POST':
         logging.debug('add invoice form : %s', str(request.form))

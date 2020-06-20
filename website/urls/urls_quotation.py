@@ -123,7 +123,7 @@ def quotation():
     return render_template(
         'quotation.html', convert_date=convert_date, 
         Page_title=_('Quotation'), quotation=reversed(l_quotation), last_quotation=last_quotation,
-        profile=profile, len=len, color=Color
+        profile=profile, len=len, color=Color, url="quotation"
     )
 
 @manager_quotation.route('/quotation/<number>')
@@ -138,7 +138,7 @@ def quotation_id(number = None):
         return redirect('/quotation')
     quotation = ddao.get(ddao.where('number', number))[0]
     logging.info('display pdf_template_quotation.html with quotation number: %s', number)
-    return render_template('template/pdf_template_quotation.html', profile=profile, convert_date=convert_date, quotation=quotation)
+    return render_template('template/pdf_template_quotation.html', profile=profile, convert_date=convert_date, quotation=quotation, url="quotation")
 
 @manager_quotation.route('/quotation-delete', methods=['POST'])
 def quotation_del():

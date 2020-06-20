@@ -123,7 +123,7 @@ def accueil():
         solde_no_sold=waiting_i, year=year, get_client_name=get_client_name,
         profile=profile, tax_total=tax_total, tax_collected=tax_collected,
         invoices_available=invo_avail, color=Color, year_1=(year-1),
-        inv_collect_last_year=tax_collected_last_year
+        inv_collect_last_year=tax_collected_last_year, url="home"
     )
 
 

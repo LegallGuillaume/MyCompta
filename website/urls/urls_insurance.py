@@ -64,7 +64,7 @@ def as_():
         profile=get_profile_from_session()
         l_insurances = get_list_insurance(profile.id)
         return render_template('insurance.html', Page_title=_('Insurances'), insurances=reversed(l_insurances),
-                                profile=profile, color=Color)
+                                profile=profile, color=Color, url="insurance")
     elif request.method == 'POST':
         logging.debug('add insurance form : %s', str(request.form))
         add_insurance(request.form)

@@ -61,7 +61,7 @@ def cl():
         profile=get_profile_from_session()
         l_clients = get_list_client(profile.id)
         return render_template('client.html', Page_title=_('Clients'), clients=reversed(l_clients),
-                                profile=profile, color=Color)
+                                profile=profile, color=Color, url="client")
     elif request.method == 'POST':
         logging.debug('add client form : %s', str(request.form))
         add_client(request.form)
