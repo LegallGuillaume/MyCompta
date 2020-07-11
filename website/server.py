@@ -40,7 +40,7 @@ def get_element_profile_invoice(id):
         }
         CACHE_INVOICE[id] = dic
     return CACHE_INVOICE[id]
-@Flask_app.route('/old2', methods=['GET', 'POST'])
+@Flask_app.route('/', methods=['GET', 'POST'])
 def login():
     logging.warning('URL / send with ' + request.method)
     if request.method == 'POST':
@@ -64,9 +64,7 @@ def logout():
     logging.warning('deconnection user id=' + str(id))
     return redirect('/')
 
-@Flask_app.route('/')
 @Flask_app.route('/home')
-@Flask_app.route('/old')
 def accueil():
     logging.warning('URL /home')
     if not session.get('logged_in'):

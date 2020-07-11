@@ -1,11 +1,8 @@
-from flask import Blueprint
 from models.invoice import InvoiceDAO, Invoice
-from models.color import Color
 from urls.urls_client import get_list_client, ClientDAO, Client, get_client_name
 from urls.urls_insurance import InsuranceDAO, Insurance
 from settings.config import TAX
 from settings.tools import get_profile_from_session, CACHE_INVOICE
-from flask import flash, request, render_template, redirect, make_response, session
 import pdfkit
 import datetime
 import logging
@@ -16,8 +13,6 @@ __copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
 __website__ = "www.gyca.fr"
 __license__ = "BSD-2"
 __version__ = "1.0"
-
-manager_invoice = Blueprint("invoice", __name__)
 
 def add_invoice(form):
     cdao = ClientDAO()
@@ -192,68 +187,3 @@ def pdf_file(invoname, download):
         response.headers['Content-Disposition'] = 'inline; filename={}_{}.pdf'.format(_('Invoice'), invoname)
     logging.info('Invoice create pdf download: %s', str(download))
     return response
-
-@manager_invoice.route('/invoices', methods=['GET','POST'])
-def invs():
-    if not session.get('logged_in'):
-        return redirect('/')
-    logging.info('go url /invoices with ' + request.method)
-    profile = get_profile_from_session()
-    if request.method == 'GET':
-        l_invoices, sold_en, last_i, waiting_i = get_list_invoice(profile.id)
-        l_clients = get_list_client(profile.id)
-        return render_template(
-            'invoice.html', convert_date=convert_date, 
-            Page_title=_('Invoices'), invoices=reversed(l_invoices), 
-            solde_collected=sold_en, last_invoice=last_i, 
-            solde_no_sold=waiting_i, clients=l_clients, new_invoice=get_new_invoice(),
-            get_client_name=get_client_name, profile=profile, len=len, color=Color,  url="invoice"
-        )
-    elif request.method == 'POST':
-        logging.debug('add invoice form : %s', str(request.form))
-        add_invoice(request.form)
-        return redirect('/invoices')
-    else:
-        return redirect('/home')
-
-@manager_invoice.route('/invoice/<invoname>')
-def invoice_name(invoname = None):
-    if not session.get('logged_in'):
-        return redirect('/')
-    logging.info('go url /invoice/%s with download' + invoname)
-    return pdf_file(invoname, True)
-
-@manager_invoice.route('/pdf/<invoname>')
-def invoice_pdf(invoname = None):
-    if not session.get('logged_in'):
-        return redirect('/')
-    logging.info('go url /pdf/%s ' + invoname)
-    return pdf_file(invoname, False)
-
-@manager_invoice.route('/invoice-delete', methods=['POST'])
-def invoice_del():
-    if not session.get('logged_in'):
-        return redirect('/')
-    logging.info('receive socket from /invoice-delete %s' + request.form['invoice-name'])
-    logging.debug('delete invoice form : %s', str(request.form))
-    remove_invoice(request.form['invoice-name'])
-    return redirect('/invoices')
-
-@manager_invoice.route('/invoice-sold', methods=['POST'])
-def invoice_sold():
-    if not session.get('logged_in'):
-        return redirect('/')
-    logging.debug('sold invoice form : %s', str(request.form))
-    logging.info('receive socket from /invoice-sold %s %s', request.form['invoice-name'], request.form['invoice-sold'] == 'True')
-    bill(request.form['invoice-name'], request.form['invoice-sold'] == 'True')
-    return redirect('/invoices')
-
-# @manager_invoice.route('/invoice-add', methods=['POST'])
-# def invoice_add():
-#     if not session.get('logged_in'):
-#         return redirect('/')
-#     logging.info('receive socket from /invoice-add')
-#     if request.method == 'POST':
-#         logging.debug('add invoice form : %s', str(request.form))
-#         add_invoice(request.form)
-

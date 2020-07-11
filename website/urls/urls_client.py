@@ -1,8 +1,6 @@
 from flask import Blueprint
 from models.client import Client, ClientDAO
-from models.color import Color
 from settings.tools import get_profile_from_session
-from flask import flash, request, render_template, redirect, session
 import logging
 from flask_babel import Babel, lazy_gettext as _
 
@@ -11,8 +9,6 @@ __copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
 __website__ = "www.gyca.fr"
 __license__ = "BSD-2"
 __version__ = "1.0"
-
-manager_client = Blueprint("client", __name__)
 
 def get_client_name(id_client):
     cdao = ClientDAO()
@@ -51,29 +47,3 @@ def remove_client(clientname):
 def get_list_client(id_profile):
     cdao = ClientDAO()
     return cdao.get(cdao.where('id_profile', id_profile))
-
-@manager_client.route('/clients', methods=['GET', 'POST'])
-def cl():
-    if not session.get('logged_in'):
-        return redirect('/')
-    logging.info('go url /clients with ' + request.method)
-    if request.method == 'GET':
-        profile=get_profile_from_session()
-        l_clients = get_list_client(profile.id)
-        return render_template('client.html', Page_title=_('Clients'), clients=reversed(l_clients),
-                                profile=profile, color=Color, url="client")
-    elif request.method == 'POST':
-        logging.debug('add client form : %s', str(request.form))
-        add_client(request.form)
-        return redirect('/clients')
-    else:
-        return redirect('/home')
-
-@manager_client.route('/client-delete', methods=['POST'])
-def cl_del():
-    if not session.get('logged_in'):
-        return redirect('/')
-    logging.info('receive socket from /client-delete')
-    logging.debug('delete client form : %s', str(request.form))
-    remove_client(request.form['client-name'])
-    return redirect('/clients')
