@@ -1,0 +1,245 @@
+{% extends 'v3.html' %}
+
+{%block home%}
+<div class="row bg-blue" id="accueil">
+    <h2 class="co-gray mt-1" name="accueil"><span class="fas fa-home co-brown mr-1"></span>{{_('Home')}}</h2>
+</div>
+<div class="row mt-2">
+    <div class="col-3">
+        <div class="card mb-3 shadow-brown border-brown" style="max-width: 18rem; background-color: transparent;">
+            <div class="card-header text-uppercase text-xs font-weight-bold co-brown bg-light">{{_('INVOICE RECEIVED incl. Tax')}} {{year}}</div>
+            <div class="card-body text-info">
+                <h5 class="card-title text-right font-weight-bold">{{tax_collected}} €</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="card mb-3 shadow-red border-red" style="max-width: 18rem; background-color: transparent;">
+            <div class="card-header text-uppercase text-xs font-weight-bold co-red bg-light">{{_('Pending Invoice')}}</div>
+            <div class="card-body text-info">
+                <h5 class="card-title text-right font-weight-bold">{{solde_no_sold}} €</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="card mb-3 shadow-cream border-cream" style="max-width: 18rem; background-color: transparent;">
+            <div class="card-header text-uppercase text-xs font-weight-bold co-cream bg-light">{{_('Billing available')}} {{year}}</div>
+            <div class="card-body text-info">
+                <h5 class="card-title text-right font-weight-bold">{{invoices_available}} € (72000 €)</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="card mb-3 shadow-blue border-blue" style="max-width: 18rem; background-color: transparent;">
+            <div class="card-header text-uppercase text-xs font-weight-bold co-blue bg-light">{{_('Invoice collected without Tax')}} (2019-20XX)</div>
+            <div class="card-body text-info">
+                <h5 class="card-title text-right font-weight-bold">{{sold_collected}} €</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="card mb-3 shadow-green border-green" style="max-width: 18rem; background-color: transparent;">
+            <div class="card-header text-uppercase text-xs font-weight-bold co-green bg-light">{{_('Last invoice')}}</div>
+            <div class="card-body text-info">
+                <h5 class="card-title text-right font-weight-bold">{{convert_date(last_invoice)}}</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="card mb-3 shadow-pink border-pink" style="max-width: 18rem; background-color: transparent;">
+            <div class="card-header text-uppercase text-xs font-weight-bold co-pink bg-light">{{_('Tax collected')}} (2019-20xx)</div>
+            <div class="card-body text-info">
+                <h5 class="card-title text-right font-weight-bold">{{tax_total}} {{_('€')}} {{_('TTC')}}</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="card mb-3 shadow-gray border-gray" style="max-width: 18rem; background-color: transparent;">
+            <div class="card-header text-uppercase text-xs font-weight-bold co-gray bg-light">{{_('Invoice collected incl. Tax')}} {{year_1}}</div>
+            <div class="card-body text-info">
+                <h5 class="card-title text-right font-weight-bold">{{inv_collect_last_year}} €</h5>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}
+
+{% block invoice %}
+<div class="modal fade" id="newInvoice" tabindex="-1" role="dialog" aria-labelledby="newInvoiceLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="newInvoiceLabel">{{_("New Invoice")}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <label for="invoice-name" class="col-form-label">{{_("N° Invoice")}}:</label>
+                    <input type="text" disabled value="{{new_invoice}}" class="form-control" id="invoice-name">
+                </div>
+                <div class="form-group">
+                    <label for="invoice-client">{{_("Client")}}:</label>
+                    <select class="form-control" id="invoice-client">
+                        {%for c in clients%}
+                        <option>{{c.name}}</option>
+                        {%endfor%}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="invoice-project" class="col-form-label">{{_("Project")}}:</label>
+                    <input type="text" class="form-control" id="invoice-project">
+                </div>
+                <div class="form-group">
+                    <label for="invoice-day_rate" class="col-form-label">{{_("Day rate")}}:</label>
+                    <input type="number" step="0.01" value="300" min="0"  class="form-control" id="invoice-day_rate">
+                </div>
+                <div class="form-group">
+                    <label for="invoice-days" class="col-form-label">{{_("Days")}}:</label>
+                    <input type="number" step="1" value="0" min="0" max="31" class="form-control" id="invoice-days">
+                </div>
+                <div class="form-group">
+                    <label for="invoice-datesent" class="col-form-label">{{_("Date sent")}}:</label>
+                    <input type="date"  class="form-control" id="invoice-datesent">
+                </div>
+                <div class="form-group">
+                    <label for="invoice-dateexpiry" class="col-form-label">{{_("Date Payment")}}:</label>
+                    <input type="date"  class="form-control" id="invoice-dateexpiry">
+                </div>
+                <div class="form-group">
+                    <label for="invoice-delay" class="col-form-label">{{_("Max Delay")}}:</label>
+                    <input type="date"  class="form-control" id="invoice-delay">
+                </div>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="invoice-tax">
+                    <label class="custom-control-label" for="invoice-tax">{{_("incl. Tax")}}</label>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{_("Cancel")}}</button>
+            <button type="button" class="btn btn-success" id="btn_new_invoice">{{_("add")}}</button>
+        </div>
+        </div>
+    </div>
+</div>
+<div class="row bg-blue" id="invoice">
+    <div class="col-2 mt-1">
+        <h2 class="co-gray" name="invoice"><span class="fas fa-donate co-brown mr-1"></span>{{_('Invoices')}}</h2>
+    </div>
+    <div class="col text-right" style="margin-top: 5px;">
+        <div class="dropdown">
+            <a class="btn btn-gray text-md manage-tab dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="fas fa-tools"></span>{{_('Manage')}}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <button class="dropdown-item bg-light co-brown" data-toggle="modal" data-target="#newInvoice">{{_('Add invoice')}}</button>
+              <button class="dropdown-item bg-light co-brown" onclick="del_invoice_fn();">{{_('Delete invoice')}}</button>
+              <button class="dropdown-item bg-light co-brown" onclick="bill_invoice_fn();">{{_('Bill invoice')}}</button>
+            </div>
+          </div>
+    </div>
+</div>
+<div class="row mt-2">
+    <table class="table table-bordered shadow" width="100%" cellspacing="0">
+        <thead>
+        <tr>
+            <th class="co-brown">N° Facture</th>
+            <th class="co-brown">Client</th>
+            <th class="co-brown">Projet</th>
+            <th class="co-brown">Date d'envoi</th>
+            <th class="co-brown">Jours travaillés</th>
+            <th class="co-brown">Taux journalier</th>
+            <th class="co-brown">TVA</th>
+            <th class="co-brown">Date d'échéance</th>
+            <th class="co-brown">Total HT</th>
+            <th class="co-brown">Total TTC</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <th class="co-brown">N° Facture</th>
+            <th class="co-brown">Client</th>
+            <th class="co-brown">Projet</th>
+            <th class="co-brown">Date d'envoi</th>
+            <th class="co-brown">Jours travaillés</th>
+            <th class="co-brown">Taux journalier</th>
+            <th class="co-brown">TVA</th>
+            <th class="co-brown">Date d'échéance</th>
+            <th class="co-brown">Total HT</th>
+            <th class="co-brown">Total TTC</th>
+        </tr>
+        </tfoot>
+        <tbody>
+        {% for f in invoices%}
+            <tr class="{%if f.sold%}bg-green{%else%}bg-red{%endif%} b-none">
+            <td class="co-brown text-left">{{f.name}}</td>
+            <td class="co-brown text-left">{{get_client_name(f.id_client)}}</td>
+            <td class="co-brown text-left">{{f.project}}</td>
+            <td class="co-brown text-left">{{convert_date(f.date_sent)}}</td>
+            <td class="co-brown text-left">{{f.days}}</td>
+            <td class="co-brown text-left">{{f.day_rate}} €</td>
+            <td class="co-brown text-left">{%if f.tax %}{{_('Yes')}}{%else%}{{_('No')}}{%endif%}</td>
+            <td class="co-brown text-left">{{convert_date(f.date_expiry)}}</td>
+            <td class="co-brown text-left">{{f.total}} €</td>
+            {% if f.tax %}
+            <td class="co-brown text-left">{{f.total_tax}} €</td>
+            {%else%}
+            <td class="co-brown text-left">---</td>
+            {%endif%}
+            </tr>
+        {%endfor%}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block client %}
+<div class="row bg-blue" id="client">
+    <div class="col-2 mt-1">
+        <h2 class="co-gray" name="client"><span class="fas fa-address-book co-brown mr-1"></span>{{_('Clients')}}</h2>
+    </div>
+    <div class="col text-right" style="margin-top: 10px;">
+        <a class="co-gray text-md manage-tab" href="/clients"><span class="fas fa-tools"></span>{{_('Manage')}}</a>
+    </div>
+</div>
+<div class="row mt-2">
+    {% for client in clients%}
+    <div class="col-3">
+        <div class="card mb-3 shadow-blue border-blue" style="max-width: 18rem; background-color: transparent;">
+            <div class="card-header text-uppercase text-md text-center font-weight-bold co-brown bg-light">{{client.name}}</div>
+            <div class="card-body text-info">
+                <h5 class="card-title text-right font-weight-bold">{{client.city}}, {{client.country}}</h5>
+                <p class="card-text text-right">{{client.address}}, {{client.comp_address}}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor%}
+</div>
+{% endblock %}
+
+{% block insurance %}
+<div class="row bg-blue" id="insurance">
+    <div class="col-3 mt-1">
+        <h2 class="co-gray" name="insurance"><span class="fas fa-laptop-medical co-brown mr-1"></span>{{_('Insurances')}}</h2>
+    </div>
+    <div class="col text-right" style="margin-top: 10px;">
+        <a class="co-gray text-md manage-tab" href="/insurance"><span class="fas fa-tools"></span>{{_('Manage')}}</a>
+    </div>
+</div>
+<div class="row mt-2">
+    {% for insurance in insurances%}
+    <div class="col-3">
+        <div class="card mb-3 shadow-blue border-blue" style="max-width: 18rem; background-color: transparent;">
+            <div class="card-header text-uppercase text-md text-center font-weight-bold co-brown bg-light">{{insurance.name}}</div>
+            <div class="card-body text-info">
+                <h5 class="card-title text-right font-weight-bold">{{insurance.type}}, {{insurance.region}}</h5>
+                <p class="card-text text-right">{% if insurance.sel %}{{_('Selected')}}{%else%}{{_('Not selected')}}{%endif%}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor%}
+</div>
+{% endblock %}

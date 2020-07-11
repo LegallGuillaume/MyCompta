@@ -1,0 +1,104 @@
+<!--
+__author__ = "Le Gall Guillaume"
+__copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
+__website__ = "www.gyca.fr"
+__license__ = "BSD-2"
+__version__ = "1.0"
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="GL">
+
+  <title>Dashboard MyCompta</title>
+
+
+  <link href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
+  
+  <link href="{{ url_for('static', filename='css/custom.css')}}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/sb-admin-2.css')}}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/color.css')}}" rel="stylesheet">
+  <script src="{{ url_for('static', filename='vendor/socketio.js')}}"></script>
+  <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/commun.js')}}"></script>
+  <script src="{{ url_for('static', filename='vendor/chart.js/Chart.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/flash_message.js')}}"></script>
+  {% block script%} {% endblock%}
+</head>
+
+<body id="page-top">
+
+  <div id="wrapper" >
+
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <div id="content">
+
+        <nav class="navbar fixed-top navbar-expand-md bg-light-blue shadow-blue">
+            <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><button class="btn co-brown btn-outline-blue radius mr-2" onclick="goTo('accueil'); return false;">{{_('Home')}}</button></li>
+                    <li class="nav-item"><button class="btn co-brown btn-outline-blue radius mr-2" onclick="goTo('invoice'); return false;">{{_('Invoices')}}</button></li>
+                    <li class="nav-item"><button class="btn co-brown btn-outline-blue radius mr-2" onclick="goTo('client'); return false;">{{_('Clients')}}</button></li>
+                    <li class="nav-item"><button class="btn co-brown btn-outline-blue radius mr-2" onclick="goTo('insurance'); return false;">{{_('Insurances')}}</button></li>
+                    <li class="nav-item"><button class="btn co-brown btn-outline-blue radius">...</button></li>
+                </ul>
+            </div>
+            <div class="mx-auto order-0">
+                <a class="navbar-brand mx-auto text-shadow-light" href="/">MyCompta</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">Profilename</li>
+                </ul>
+            </div>
+        </nav>
+
+
+        <div class="container-fluid" style="margin-top: 67px;">
+            <div id="container-alert"></div>
+            {%block home%}{%endblock%}
+            {%block invoice%}{%endblock%}
+            {%block client%}{%endblock%}
+            {%block insurance%}{%endblock%}
+            <button class="btn btn-outline-green" onclick="message_alert('danger', 'ceci est un test')"></button>
+        </div>
+
+      </div>
+
+      <footer class="sticky-footer bg-blue border-light">
+        <div class="container my-auto" >
+          <div class="copyright text-center my-auto">
+            <span class="">Copyright &copy; Le Gall Guillaume 2020</span>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+
+  </div>
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+
+  <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+
+  <script src="{{ url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+
+  <script src="{{ url_for('static', filename='js/sb-admin-2.js')}}"></script>
+
+
+
+</body>
+
+</html>
