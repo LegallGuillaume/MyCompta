@@ -1,18 +1,18 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, make_response, session
-from flask_socketio import SocketIO
 from models.invoice import Invoice, InvoiceDAO
 from models.profile import Profile, ProfileDAO
 from models.color import Color
 from settings.tools import get_profile_from_session, CACHE_INVOICE
-from urls.urls_invoice import manager_invoice, get_list_invoice, convert_date
-from urls.urls_client import manager_client, get_client_name, get_list_client, ClientDAO
-from urls.urls_insurance import manager_insurance, get_list_insurance
-from urls.urls_profile import manager_profile
-from urls.urls_quotation import manager_quotation
+from urls.urls_invoice import get_list_invoice, convert_date, get_new_invoice
+from urls.urls_client import get_client_name, get_list_client, ClientDAO
+from urls.urls_insurance import get_list_insurance
+from urls.socketio import app as Flask_app, socketio, babel as Flask_babel
 from settings.config import TAX
+
+
 import datetime
 import logging
-from flask_babel import Babel, lazy_gettext as _
+from flask_babel import lazy_gettext as _
 
 __author__ = "Le Gall Guillaume"
 __copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
@@ -20,24 +20,12 @@ __website__ = "www.gyca.fr"
 __license__ = "BSD-2"
 __version__ = "1.0"
 
-app = Flask(__name__, static_folder='static/', template_folder='html/')
-app.config['BABEL_TRANSLATION_DIRECTORIES'] = '../translations'
-babel = Babel(app, default_locale='en')
-app.secret_key = "dsd999fsdf78zeSDez25ré(Fàç!uy23hGg¨*%H£23)"
-app.register_blueprint(manager_invoice, url_prefix="/")
-app.register_blueprint(manager_client, url_prefix="/")
-app.register_blueprint(manager_insurance, url_prefix="/")
-app.register_blueprint(manager_profile, url_prefix="/")
-app.register_blueprint(manager_quotation, url_prefix="/")
-
-socket = SocketIO(app)
-
 LANGUAGES = {
     'en': 'English',
     'fr': 'Français'
 }
 
-@babel.localeselector
+@Flask_babel.localeselector
 def get_locale():
     return request.accept_languages.best_match(LANGUAGES.keys())
 
@@ -52,7 +40,7 @@ def get_element_profile_invoice(id):
         }
         CACHE_INVOICE[id] = dic
     return CACHE_INVOICE[id]
-@app.route('/old2', methods=['GET', 'POST'])
+@Flask_app.route('/old2', methods=['GET', 'POST'])
 def login():
     logging.warning('URL / send with ' + request.method)
     if request.method == 'POST':
@@ -68,7 +56,7 @@ def login():
         logging.warning('redirect to URL /home')
         return redirect('/home')
 
-@app.route('/logout')
+@Flask_app.route('/logout')
 def logout():
     logging.warning('URL /logout')
     id = session['logged_in']
@@ -76,13 +64,9 @@ def logout():
     logging.warning('deconnection user id=' + str(id))
     return redirect('/')
 
-@app.route('/')
-@app.route('/home')
-def home():
-    return render_template('v3-home.html')
-
-
-@app.route('/old')
+@Flask_app.route('/')
+@Flask_app.route('/home')
+@Flask_app.route('/old')
 def accueil():
     logging.warning('URL /home')
     if not session.get('logged_in'):
@@ -127,7 +111,7 @@ def accueil():
     logging.warning('display home.html')
     return render_template(
         'v3-home.html', convert_date=convert_date,
-        Page_title=_('Home'), invoices=reversed(l_invoice),
+        Page_title=_('Home'), invoices=reversed(l_invoice), new_invoice=get_new_invoice(),
         sold_collected=sold_collected, last_invoice=last_i, insurances=get_list_insurance(profile.id),
         solde_no_sold=waiting_i, year=year, clients=get_list_client(profile.id), get_client_name=get_client_name,
         profile=profile, tax_total=tax_total, tax_collected=tax_collected,
@@ -147,4 +131,4 @@ if __name__ == "__main__":
         id = pdao.get_profile_id(pdao.where('siret', profile.siret))
         logging.debug('profile checked : id=' + str(id))
         get_element_profile_invoice(id)
-    socket.run(app, host='0.0.0.0', port=5000, debug=DEBUG)
+    socketio.run(Flask_app, host='0.0.0.0', port=5000, debug=DEBUG)
