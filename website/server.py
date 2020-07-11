@@ -106,7 +106,7 @@ def accueil():
             if invo.tax:
                 tax_total += (float(invo.total)*0.20)
 
-    logging.warning('display home.html')
+    logging.warning('display v3-home.html')
 
     list_client = get_list_client(profile.id)
     list_client.reverse()
