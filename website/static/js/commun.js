@@ -101,3 +101,10 @@ $(document).ready(function()
             $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
         });
     });
+
+function goTo(elID)
+{
+    $([document.documentElement, document.body]).animate({
+        scrollTop: $('#' + elID).offset().top - 60
+    }, 250);
+}

@@ -1,9 +1,14 @@
-td.accueil-td {
-    color: white;
-    text-shadow: 1px 1px 2px #264653;
-    border: 0.10rem solid #287271;
+html
+{
+    scroll-behavior: smooth !important;
 }
 
-.text-shadow-color {
-    text-shadow: 1px 1px 2px #264653;
+.radius
+{
+    border-radius: 15%;
+}
+
+.b-none
+{
+    border: none;
 }
