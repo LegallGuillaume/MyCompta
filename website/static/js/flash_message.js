@@ -13,13 +13,13 @@ $(document).ready(function()
     socket.on('add-invoice', add_line_table_invoice);
     socket.on('delete-invoice', remove_line_table_invoice);
     socket.on('bill-invoice', bill_line_table_invoice);
+    socket.on('add-client', add_card_client);
+    socket.on('delete-client', del_card_client);
+    socket.on('add-insurance', add_card_insurance);
+    socket.on('delete-insurance', del_card_insurance);
+    socket.on('sel-insurance', sel_card_insurance);
 
 });
-
-// $(document).unload(function()
-// {
-//     socket.close();
-// });
 
 function receive_alert(data)
 {
@@ -72,9 +72,4 @@ function receive_alert(data)
     }
     calert.insertAdjacentHTML('beforeend', html_alert);
     goTo('page-top');
-}
-
-function message_alert(type_alert, message)
-{
-    receive_alert({type: type_alert, message: message, append: true});
 }

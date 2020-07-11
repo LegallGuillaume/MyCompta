@@ -17,28 +17,28 @@ manager_insurance = Blueprint("insurance", __name__)
 def add_insurance(form):
     profile=get_profile_from_session()
     insurance = Insurance()
-    insurance.name = form['insurance-name']
-    insurance.type = form['insurance-type']
-    insurance.region = form['insurance-region']
-    insurance.n_contract = form['insurance-contract']
+    insurance.name = form['insurance_name']
+    insurance.type = form['insurance_type']
+    insurance.region = form['insurance_region']
+    insurance.n_contract = form['insurance_contract']
     insurance.sel = False
     insurance.id_profile = profile.id
     adao = InsuranceDAO()
     if adao.insert(insurance):
         logging.info('add insurance %s OK', insurance.name)
-        flash(_("The insurance %1 has been added successfull").replace('%1', insurance.name), 'success')
+        return 1, insurance
     else:
         logging.warning('add insurance %s OK', insurance.name)
-        flash(_('Error while creation of insurance %1 !').replace('%1', insurance.name), 'danger') 
+        return 2, None
 
 def remove_insurance(insurancename):
     adao = InsuranceDAO()
     if adao.delete(adao.where('name', insurancename)):
         logging.info('remove insurance %s FAILED', insurancename)
-        flash(_("The insurance %1 has been deleted successfull").replace('%1', insurancename), 'success')
+        return 1
     else:
         logging.info('remove insurance %s FAILED', insurancename)
-        flash(_('Error while supression of insurance %1 !').replace('%1', insurancename), 'danger') 
+        return 2
 
 def select_insurance(insurancename, select):
     adao = InsuranceDAO()
@@ -48,8 +48,10 @@ def select_insurance(insurancename, select):
     ret = adao.update(assu)
     if ret:
         logging.info('insurance %s %s OK', str(select), insurancename)
+        return 1
     else:
         logging.info('insurance %s %s OK', str(select), insurancename)
+        return 2
 
 def get_list_insurance(id_profile):
     adao = InsuranceDAO()

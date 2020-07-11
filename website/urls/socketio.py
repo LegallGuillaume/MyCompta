@@ -2,8 +2,8 @@ from flask_socketio import SocketIO
 from flask import Flask
 from flask_babel import Babel, lazy_gettext as _
 
-from urls.urls_client import manager_client, get_client_name
-from urls.urls_insurance import manager_insurance
+from urls.urls_client import manager_client, get_client_name, add_client, remove_client
+from urls.urls_insurance import manager_insurance, add_insurance, remove_insurance, select_insurance
 from urls.urls_invoice import manager_invoice, get_new_invoice, add_invoice, remove_invoice, bill, convert_date
 from urls.urls_profile import manager_profile
 from urls.urls_quotation import manager_quotation
@@ -52,6 +52,40 @@ def emit_add_invoice(invoice_obj):
     }
     socketio.emit('add-invoice', data, namespace='/')
 
+def emit_add_client(client_obj):
+    data = {
+        'id' : client_obj.id,
+        'name' : client_obj.name,
+        'city' : client_obj.city,
+        'country' : client_obj.country,
+        'address' : client_obj.address,
+        'comp_address' : client_obj.comp_address
+    }
+    socketio.emit('add-client', data, namespace='/')
+
+def emit_delete_client(clientname):
+    data = {
+        'name' : clientname.replace(' ', '-')
+    }
+    socketio.emit('delete-client', data, namespace='/')
+
+def emit_add_insurance(insurance_obj):
+    data = {
+        'id' : insurance_obj.id,
+        'name' : insurance_obj.name,
+        'type' : insurance_obj.type,
+        'region' : insurance_obj.region,
+        'sel' : insurance_obj.sel,
+        'SELECT' : str(_('Selected')),
+        'NOTSELECT' : str(_('Not Selected'))
+    }
+    socketio.emit('add-insurance', data, namespace='/')
+
+def emit_delete_insurance(insurancename):
+    data = {
+        'name' : insurancename.replace(' ', '-')
+    }
+    socketio.emit('delete-insurance', data, namespace='/')
 
 @socketio.on('v3-invoice-add')
 def v3_invoice_add(data):
@@ -115,4 +149,84 @@ def v3_invoice_bill(data):
         return
     elif ret == 3:
         emit_result(MESSAGE_TYPE.danger, _('Error while invoice %1 has been sold').replace('%1', data['invoice_name']))
+        return
+
+@socketio.on('v3-client-add')
+def v3_client_add(data):
+    logging.info('receive socket from /v3-client-add')
+    logging.debug('add client form : %s', str(data))
+    if '' in data.values():
+        emit_result(MESSAGE_TYPE.warning, _('Please fill in all fields !'))
+        return
+    ret, client = add_client(data)
+    if ret == 1:
+        emit_result(MESSAGE_TYPE.success, _('The client %1 has been added successfull').replace('%1', data['client_name']))
+        emit_add_client(client)
+        return
+    elif ret == 2:
+        emit_result(MESSAGE_TYPE.danger, _('Error while creation of client %1 !').replace('%1', data['client_name']))
+        return
+
+@socketio.on('v3-client-delete')
+def v3_client_delete(data):
+    logging.info('receive socket from /v3-client-delete')
+    logging.debug('delete client form : %s', str(data))
+    if '' in data.values():
+        emit_result(MESSAGE_TYPE.warning, _('Please fill in all fields !'))
+        return
+    ret = remove_client(data['client_name'])
+    if ret == 1:
+        emit_result(MESSAGE_TYPE.success, _('The client %1 has been deleted!').replace('%1', data['client_name']))
+        emit_delete_client(data['client_name'])
+        return
+    elif ret == 2:
+        emit_result(MESSAGE_TYPE.danger, _('Error while supression of client %1 !').replace('%1', data['client_name']))
+        return
+
+@socketio.on('v3-insurance-add')
+def v3_insurance_add(data):
+    logging.info('receive socket from /v3-insurance-add')
+    logging.debug('add insurance form : %s', str(data))
+    if '' in data.values():
+        emit_result(MESSAGE_TYPE.warning, _('Please fill in all fields !'))
+        return
+    ret, insurance = add_insurance(data)
+    if ret == 1:
+        emit_result(MESSAGE_TYPE.success, _("The insurance %1 has been added successfull").replace('%1', data['insurance_name']))
+        emit_add_insurance(insurance)
+        return
+    elif ret == 2:
+        emit_result(MESSAGE_TYPE.danger, _('Error while creation of insurance %1 !').replace('%1', data['insurance_name']))
+        return
+
+@socketio.on('v3-insurance-delete')
+def v3_insurance_delete(data):
+    logging.info('receive socket from /v3-insurance-delete')
+    logging.debug('delete insurance form : %s', str(data))
+    if '' in data.values():
+        emit_result(MESSAGE_TYPE.warning, _('Please fill in all fields !'))
+        return
+    ret = remove_insurance(data['insurance_name'])
+    if ret == 1:
+        emit_result(MESSAGE_TYPE.success, _('The insurance %1 has been deleted successfull').replace('%1', data['insurance_name']))
+        emit_delete_insurance(data['insurance_name'])
+        return
+    elif ret == 2:
+        emit_result(MESSAGE_TYPE.danger, _('Error while supression of insurance %1 !').replace('%1', data['insurance_name']))
+        return
+
+@socketio.on('v3-insurance-sel')
+def v3_insurance_sel(data):
+    logging.info('receive socket from /v3-insurance-sel')
+    logging.debug('sel insurance form : %s', str(data))
+    if '' in data.values():
+        emit_result(MESSAGE_TYPE.warning, _('Please fill in all fields !'))
+        return
+    ret = select_insurance(data['insurance_name'], True)
+    if ret == 1:
+        emit_result(MESSAGE_TYPE.success, _('The insurance %1 has been selected successfull').replace('%1', data['insurance_name']))
+        socketio.emit('sel-insurance', {'name': data['insurance_name'], 'SELECT': str(_('Selected'))}, namespace='/')
+        return
+    elif ret == 2:
+        emit_result(MESSAGE_TYPE.danger, _('Error while insurance %1 has been selected').replace('%1', data['insurance_name']))
         return

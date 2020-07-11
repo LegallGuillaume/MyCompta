@@ -109,11 +109,18 @@ def accueil():
                 tax_total += (float(invo.total)*0.20)
 
     logging.warning('display home.html')
+
+    list_client = get_list_client(profile.id)
+    list_client.reverse()
+
+    list_insurance = get_list_insurance(profile.id)
+    list_insurance.reverse()
+
     return render_template(
         'v3-home.html', convert_date=convert_date,
         Page_title=_('Home'), invoices=reversed(l_invoice), new_invoice=get_new_invoice(),
-        sold_collected=sold_collected, last_invoice=last_i, insurances=get_list_insurance(profile.id),
-        solde_no_sold=waiting_i, year=year, clients=get_list_client(profile.id), get_client_name=get_client_name,
+        sold_collected=sold_collected, last_invoice=last_i, insurances=list_insurance,
+        solde_no_sold=waiting_i, year=year, clients=list_client, get_client_name=get_client_name,
         profile=profile, tax_total=tax_total, tax_collected=tax_collected,
         invoices_available=invo_avail, color=Color, year_1=(year-1),
         inv_collect_last_year=tax_collected_last_year, url="home"

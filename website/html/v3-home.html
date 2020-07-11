@@ -7,7 +7,7 @@
 <div class="row mt-2">
     <div class="col-3">
         <div class="card mb-3 shadow-gray border-gray" style="max-width: 18rem; background-color: transparent;">
-            <div class="card-header text-uppercase text-xs font-weight-bold co-gray bg-light">{{_('INVOICE RECEIVED incl. Tax')}} {{year}}</div>
+            <div class="card-header text-xs font-weight-bold co-gray bg-light">{{_('INVOICE RECEIVED incl. Tax')}} {{year}}</div>
             <div class="card-body text-info">
                 <h5 class="card-title text-right font-weight-bold">{{tax_collected}} €</h5>
             </div>
@@ -84,7 +84,7 @@
                     <label for="invoice-client">{{_("Client")}}:</label>
                     <select class="form-control" id="invoice-client">
                         {%for c in clients%}
-                        <option>{{c.name}}</option>
+                        <option>{{c.name}} - {{c.id}}</option>
                         {%endfor%}
                     </select>
                 </div>
@@ -245,19 +245,95 @@
 {% endblock %}
 
 {% block client %}
+<div class="modal fade" id="newClient" tabindex="-1" role="dialog" aria-labelledby="newClientLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="newClientLabel">{{_("New Client")}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <label for="client-name" class="col-form-label">{{_("Name company")}}:</label>
+                    <input type="text" class="form-control" id="client-name">
+                </div>
+                <div class="form-group">
+                    <label for="client-address" class="col-form-label">{{_("Address")}}:</label>
+                    <input type="text" class="form-control" id="client-address">
+                </div>
+                <div class="form-group">
+                    <label for="client-comp" class="col-form-label">{{_("Complement Address")}}:</label>
+                    <input type="text" class="form-control" id="client-comp">
+                </div>
+                <div class="form-group">
+                    <label for="client-zipcode" class="col-form-label">{{_("Zip code")}}:</label>
+                    <input type="text"  class="form-control" id="client-zipcode">
+                </div>
+                <div class="form-group">
+                    <label for="client-city" class="col-form-label">{{_("City")}}:</label>
+                    <input type="text"  class="form-control" id="client-city">
+                </div>
+                <div class="form-group">
+                    <label for="client-country" class="col-form-label">{{_("Country")}}:</label>
+                    <input type="text" class="form-control" id="client-country">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn bg-red" data-dismiss="modal">{{_("Cancel")}}</button>
+            <button type="button" class="btn bg-green" data-dismiss="modal" onclick="add_client_fn();">{{_("Add")}}</button>
+        </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteClient" tabindex="-1" role="dialog" aria-labelledby="deleteClientLabel" aria-hidden="true">
+    <div class="modal-dialog bg-blue" role="document">
+        <div class="modal-content bg-blue">
+        <div class="modal-header bg-blue">
+            <h5 class="modal-title" id="deleteClientLabel">{{_("Delete client")}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body bg-blue">
+            <form>
+                <div class="form-group">
+                    <label for="client-name" class="col-form-label">{{_("Client name")}}:</label>
+                    <input type="text" placeholder="client name" class="form-control" id="client-name">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn bg-gray co-brown" data-dismiss="modal">{{_("No")}}</button>
+            <button type="button" class="btn bg-red co-brown" onclick="del_client_fn();">{{_("Yes, deleted")}}</button>
+        </div>
+        </div>
+    </div>
+</div>
 <div class="row bg-blue" id="client">
     <div class="col-2 mt-1">
         <h2 class="co-gray" name="client"><span class="fas fa-address-book co-brown mr-1"></span>{{_('Clients')}}</h2>
     </div>
-    <div class="col text-right" style="margin-top: 10px;">
-        <a class="co-gray text-md manage-tab" href="/clients"><span class="fas fa-tools"></span>{{_('Manage')}}</a>
+    <div class="col text-right" style="margin-top: 5px;">
+        <div class="dropdown">
+            <a class="btn manage-tab text-md dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="fas fa-tools"></span>{{_('Manage')}}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <button class="dropdown-item bg-light co-brown" data-toggle="modal" data-target="#newClient">{{_('Add client')}}</button>
+              <button class="dropdown-item bg-light co-brown" data-toggle="modal" data-target="#deleteClient">{{_('Delete client')}}</button>
+            </div>
+          </div>
     </div>
 </div>
-<div class="row mt-2 container-client">
+<div class="row mt-2" id="container-client">
     {% for client in clients%}
-    <div id="{{client.id}}" class="col-3">
+    <div id="{{client.name.replace(' ', '-')}}" class="col-3">
         <div class="card mb-3 shadow-gray border-gray" style="max-width: 18rem; background-color: transparent;">
-            <div class="card-header text-uppercase text-md text-center font-weight-bold co-gray bg-light">{{client.name}} -- {{client.id}}</div>
+            <div class="card-header text-md text-center font-weight-bold co-gray bg-light">{{client.name}} -- {{client.id}}</div>
             <div class="card-body text-info">
                 <h5 class="card-title text-right font-weight-bold">{{client.city}}, {{client.country}}</h5>
                 <p class="card-text text-right">{{client.address}}, {{client.comp_address}}</p>
@@ -269,22 +345,115 @@
 {% endblock %}
 
 {% block insurance %}
+<div class="modal fade" id="newInsurance" tabindex="-1" role="dialog" aria-labelledby="newInsuranceLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="newInsuranceLabel">{{_("New insurance")}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <label for="insurance-name" class="col-form-label">{{_("Name")}}:</label>
+                    <input type="text" class="form-control" id="insurance-name">
+                </div>
+                <div class="form-group">
+                    <label for="insurance-type" class="col-form-label">{{_("Type")}}:</label>
+                    <input type="text" class="form-control" id="insurance-type">
+                </div>
+                <div class="form-group">
+                    <label for="insurance-region" class="col-form-label">{{_("Country")}}:</label>
+                    <input type="text" class="form-control" id="insurance-region">
+                </div>
+                <div class="form-group">
+                    <label for="insurance-contract" class="col-form-label">{{_("Contract number")}}:</label>
+                    <input type="text"  class="form-control" id="insurance-contract">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn bg-red" data-dismiss="modal">{{_("Cancel")}}</button>
+            <button type="button" class="btn bg-green" data-dismiss="modal" onclick="add_insurance_fn();">{{_("Add")}}</button>
+        </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteInsurance" tabindex="-1" role="dialog" aria-labelledby="deleteInsuranceLabel" aria-hidden="true">
+    <div class="modal-dialog bg-blue" role="document">
+        <div class="modal-content bg-blue">
+        <div class="modal-header bg-blue">
+            <h5 class="modal-title" id="deleteInsuranceLabel">{{_("Delete Insurance")}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body bg-blue">
+            <form>
+                <div class="form-group">
+                    <label for="insurance-name" class="col-form-label">{{_("Insurance name")}}:</label>
+                    <input type="text" placeholder="Insurance name" class="form-control" id="insurance-name">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn bg-gray co-brown" data-dismiss="modal">{{_("No")}}</button>
+            <button type="button" class="btn bg-red co-brown" onclick="del_insurance_fn();">{{_("Yes, deleted")}}</button>
+        </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="selInsurance" tabindex="-1" role="dialog" aria-labelledby="selInsuranceLabel" aria-hidden="true">
+    <div class="modal-dialog bg-blue" role="document">
+        <div class="modal-content bg-blue">
+        <div class="modal-header bg-blue">
+            <h5 class="modal-title" id="selInsuranceLabel">{{_("Selected insurance")}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body bg-blue">
+            <form>
+                <div class="form-group">
+                    <label for="insurance-name" class="col-form-label">{{_("Insurance name")}}:</label>
+                    <input type="text" placeholder="" class="form-control" id="insurance-name">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn bg-gray co-brown" data-dismiss="modal">{{_("No")}}</button>
+            <button type="button" class="btn bg-red co-brown" data-dismiss="modal" onclick="sel_insurance_fn();">{{_("Yes, Selected")}}</button>
+        </div>
+        </div>
+    </div>
+</div>
 <div class="row bg-blue" id="insurance">
     <div class="col-3 mt-1">
         <h2 class="co-gray" name="insurance"><span class="fas fa-laptop-medical co-brown mr-1"></span>{{_('Insurances')}}</h2>
     </div>
-    <div class="col text-right" style="margin-top: 10px;">
-        <a class="co-gray text-md manage-tab" href="/insurance"><span class="fas fa-tools"></span>{{_('Manage')}}</a>
+    <div class="col text-right" style="margin-top: 5px;">
+        <div class="dropdown">
+            <a class="btn manage-tab text-md dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="fas fa-tools"></span>{{_('Manage')}}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <button class="dropdown-item bg-light co-brown" data-toggle="modal" data-target="#newInsurance">{{_('Add insurance')}}</button>
+              <button class="dropdown-item bg-light co-brown" data-toggle="modal" data-target="#deleteInsurance">{{_('Delete insurance')}}</button>
+              <button class="dropdown-item bg-light co-brown" data-toggle="modal" data-target="#selInsurance">{{_('Select insurance')}}</button>
+            </div>
+          </div>
     </div>
 </div>
-<div class="row mt-2">
+<div id="container-insurance" class="row mt-2">
     {% for insurance in insurances%}
-    <div class="col-3">
+    <div id="{{insurance.name.replace(' ', '-')}}" class="col-3">
         <div class="card mb-3 shadow-gray border-gray" style="max-width: 18rem; background-color: transparent;">
-            <div class="card-header text-uppercase text-md text-center font-weight-bold co-gray bg-light">{{insurance.name}}</div>
+            <div class="card-header text-md text-center font-weight-bold co-gray bg-light">{{insurance.name}} -- {{insurance.id}}</div>
             <div class="card-body text-info">
                 <h5 class="card-title text-right font-weight-bold">{{insurance.type}}, {{insurance.region}}</h5>
-                <p class="card-text text-right">{% if insurance.sel %}{{_('Selected')}}{%else%}{{_('Not selected')}}{%endif%}</p>
+                <p class="card-text text-right sel-insurance">{% if insurance.sel %}{{_('Selected')}}{%else%}{{_('Not selected')}}{%endif%}</p>
             </div>
         </div>
     </div>

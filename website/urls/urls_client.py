@@ -24,29 +24,29 @@ def get_client_name(id_client):
 def add_client(form):
     profileSession = get_profile_from_session()
     client = Client()
-    client.name = form['client-name']
-    client.address = form['client-address']
-    client.comp_address = form['client-comp']
-    client.zipcode = form['client-zipcode']
-    client.city = form['client-city']
-    client.country = form['client-country']
+    client.name = form['client_name']
+    client.address = form['client_address']
+    client.comp_address = form['client_comp']
+    client.zipcode = form['client_zipcode']
+    client.city = form['client_city']
+    client.country = form['client_country']
     client.id_profile = profileSession.id
     cdao = ClientDAO()
     if cdao.insert(client):
         logging.info('add client %s OK', client.name)
-        flash(_('The client %1 has been added successfull').replace('%1', client.name), 'success')
+        return 1, client
     else:
         logging.warning('add client %s Failed', client.name)
-        flash(_('Error while creation of client %1 !').replace('%1', client.name), 'danger') 
+        return 2, None
 
 def remove_client(clientname):
     cdao = ClientDAO()
     if cdao.delete(cdao.where('name', clientname)):
         logging.info('remove client %s OK', clientname)
-        flash(_('The client %1 has been deleted!').replace('%1', clientname), 'success') 
+        return 1
     else:
         logging.warning('remove client %s Failed', clientname)
-        flash(_('Error while supression of client %1 !').replace('%1', clientname), 'danger') 
+        return 2
 
 def get_list_client(id_profile):
     cdao = ClientDAO()

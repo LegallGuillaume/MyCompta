@@ -19,7 +19,7 @@ function add_invoice_fn()
     form.find('#invoice-datesent').val('');
     form.find('#invoice-dateexpiry').val('');
     form.find('#invoice-delay').val('');
-    $('.modal').modal('hive');
+    $('.modal').modal('hide');
 }
 
 function del_invoice_fn()
@@ -31,7 +31,7 @@ function del_invoice_fn()
     };
     socket.emit('v3-invoice-delete', data);
     form.find('#invoice-name').val('');
-    $('.modal').modal('hive');
+    $('.modal').modal('hide');
 }
 
 function bill_invoice_fn()
@@ -43,7 +43,7 @@ function bill_invoice_fn()
     };
     socket.emit('v3-invoice-bill', data);
     form.find('#invoice-name').val('');
-    $('.modal').modal('hive');
+    $('.modal').modal('hide');
 }
 
 
