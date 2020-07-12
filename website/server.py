@@ -59,7 +59,7 @@ def login():
             session['logged_in'] = str(pdao.get(pdao.where('email', email))[0].id)
     if not session.get('logged_in'):
         logging.warning('display login.html')
-        return render_template('login.html')
+        return render_template('v3-login.html')
     else:
         logging.warning('redirect to URL /home')
         return redirect('/home')
