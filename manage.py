@@ -19,6 +19,7 @@ parser.add_argument('--init', action='store_true', help='Init db')
 parser.add_argument('--demo', help='Create user demo with name arg')
 parser.add_argument('--testunit', action='store_true', help='launch unit test program')
 parser.add_argument('--testfunc', action='store_true', help='launch functionnal test program')
+parser.add_argument('--create', action='store_true', help='Create profile')
 parser.add_argument('--run', action='store_true', help='Run server')
 args = parser.parse_args()
 
@@ -48,6 +49,16 @@ def prt(line):
         nline = bcolors.POST + nline + bcolors.ENDC
     print(nline)
 
+
+def input_custom(text):
+    ret = ''
+    while (ret.rstrip() == ''):
+        print(text)
+        ret = input()
+    if ret.rstrip() in ['exit', 'quit']:
+        return None
+    return ret.rstrip()
+
 if __name__ == "__main__":
     if args.init:
         open(DB_PATH, 'w').close() # create prog_db if not exist
@@ -69,6 +80,68 @@ if __name__ == "__main__":
                 prt(line)
         except KeyboardInterrupt:
             print(bcolors.BOLD + bcolors.HEADER + '\nEnd of server program' + bcolors.ENDC)
+    elif args.create:
+        import getpass
+        lastname=None;firstname=None;address=None;comp_addr=None;city=None
+        zipcode=None;country=None;phone=None;email=None;siret=None;passwd=None
+        print(bcolors.BOLD + bcolors.HEADER + 'Creating profile into db ...' + bcolors.ENDC)
+        lastname = input_custom(bcolors.BOLD + '  Lastname:' + bcolors.ENDC)
+        if lastname is not None:
+            firstname = input_custom(bcolors.BOLD + '  Firstname:' + bcolors.ENDC)
+        if firstname is not None:
+            address = input_custom(bcolors.BOLD + '  Address:' + bcolors.ENDC)
+        if address is not None:
+            comp_addr = input_custom(bcolors.BOLD + '  Complement address:' + bcolors.ENDC)
+        if comp_addr is not None:
+            city = input_custom(bcolors.BOLD + '  City:' + bcolors.ENDC)
+        if city is not None:
+            zipcode = input_custom(bcolors.BOLD + '  Zipcode:' + bcolors.ENDC)
+        if zipcode is not None:
+            country = input_custom(bcolors.BOLD + '  Country:' + bcolors.ENDC)
+        if country is not None:
+            phone = input_custom(bcolors.BOLD + '  Phone:' + bcolors.ENDC)
+        if phone is not None:
+            email = input_custom(bcolors.BOLD + '  Email:' + bcolors.ENDC)
+        if email is not None:
+            passwd = ''
+            password_check = ''
+            while passwd.rstrip() in ['', 'exit', 'quit'] or passwd.rstrip() != password_check.rstrip():
+                print(bcolors.BOLD + '  Password:' + bcolors.ENDC)
+                passwd = ''
+                password_check = ''
+                passwd = getpass.getpass()
+                if passwd.rstrip() == ['exit', 'quit']:
+                    passwd = None
+                    break
+                print(bcolors.BOLD + '  Confirm password:' + bcolors.ENDC)
+                password_check = getpass.getpass()
+                if password_check.rstrip() == ['exit', 'quit']:
+                    password_check = None
+                    break
+        if passwd is not None:
+            siret = input_custom(bcolors.BOLD + '  Siret:' + bcolors.ENDC)
+        if siret is None:                          
+            print(bcolors.BOLD + bcolors.FAIL + 'Stop creating profile into db' + bcolors.ENDC)
+            exit(1)
+
+        pdao = ProfileDAO()
+        profile = Profile()
+        profile.name = lastname
+        profile.firstname = firstname
+        profile.address = address
+        profile.comp_address = comp_addr
+        profile.city = city
+        profile.zipcode = zipcode
+        profile.country = country
+        profile.phone = phone
+        profile.email = email
+        profile.siret = siret
+        profile.password = passwd
+        if pdao.insert(profile):
+            print('Create user {}'.format(profile.name))
+        else:
+            print('Impossible to create user {}'.format(profile.name))
+
     elif args.demo:
         pdao = ProfileDAO()
         profile = Profile()
@@ -108,3 +181,5 @@ if __name__ == "__main__":
             exit(1)
     else:
         parser.print_help()
+
+
