@@ -3,7 +3,7 @@ from models.invoice import Invoice, InvoiceDAO
 from models.profile import Profile, ProfileDAO
 from models.color import Color
 from settings.tools import get_profile_from_session, CACHE_INVOICE
-from urls.urls_invoice import get_list_invoice, convert_date, get_new_invoice
+from urls.urls_invoice import get_list_invoice, convert_date, get_new_invoice, pdf_file
 from urls.urls_client import get_client_name, get_list_client, ClientDAO
 from urls.urls_insurance import get_list_insurance
 from urls.socketio import app as Flask_app, socketio, babel as Flask_babel
@@ -40,6 +40,14 @@ def get_element_profile_invoice(id):
         }
         CACHE_INVOICE[id] = dic
     return CACHE_INVOICE[id]
+
+@Flask_app.route('/pdf/<invoname>')
+def invoice_pdf(invoname = None):
+    if not session.get('logged_in'):
+        return redirect('/')
+    logging.info('go url /pdf/%s ' + invoname)
+    return pdf_file(invoname, False)
+
 @Flask_app.route('/', methods=['GET', 'POST'])
 def login():
     logging.warning('URL / send with ' + request.method)
@@ -114,9 +122,11 @@ def accueil():
     list_insurance = get_list_insurance(profile.id)
     list_insurance.reverse()
 
+    l_invoice.reverse()
+
     return render_template(
         'v3-home.html', convert_date=convert_date,
-        Page_title=_('Home'), invoices=reversed(l_invoice), new_invoice=get_new_invoice(),
+        Page_title=_('Home'), invoices=l_invoice, new_invoice=get_new_invoice(),
         sold_collected=sold_collected, last_invoice=last_i, insurances=list_insurance,
         solde_no_sold=waiting_i, year=year, clients=list_client, get_client_name=get_client_name,
         profile=profile, tax_total=tax_total, tax_collected=tax_collected,

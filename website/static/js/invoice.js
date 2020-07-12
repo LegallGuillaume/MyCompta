@@ -25,9 +25,9 @@ function add_invoice_fn()
 function del_invoice_fn()
 {
     socket = io.connect();
-    var form = $('#deleteModel');
+    var form = $('#deleteInvoice');
     var data = {
-        invoice_name: form.find('#invoice-name').val()
+        invoice_name: form.find('#invoice-name').val().split(' -- ')[0]
     };
     socket.emit('v3-invoice-delete', data);
     form.find('#invoice-name').val('');
@@ -37,9 +37,9 @@ function del_invoice_fn()
 function bill_invoice_fn()
 {
     socket = io.connect();
-    var form = $('#billModel');
+    var form = $('#billInvoice');
     var data = {
-        invoice_name: form.find('#invoice-name').val()
+        invoice_name: form.find('#invoice-name').val().split(' -- ')[0]
     };
     socket.emit('v3-invoice-bill', data);
     form.find('#invoice-name').val('');
@@ -65,13 +65,27 @@ function add_line_table_invoice(data)
     else
     html_line += '    <td class="co-brown text-left">---</td>'
     html_line += '</tr>'
-    itb.insertAdjacentHTML('beforebegin', html_line);
+    itb.insertAdjacentHTML('afterbegin', html_line);
+
+    var dinvoice = $('#deleteInvoice');
+    select = dinvoice.find('#invoice-name')[0];
+    select.insertAdjacentHTML('afterbegin', '<option id="op_'+ data['name'] +'">'+ data['name'] +' -- ' + data['id'] +'</option>')
+
+    var binvoice = $('#billInvoice');
+    select2 = binvoice.find('#invoice-name')[0];
+    select2.insertAdjacentHTML('afterbegin', '<option id="op_'+ data['name'] +'">'+ data['name'] +' -- ' + data['id'] +'</option>')
+
 }
 
 function remove_line_table_invoice(data)
 {
     var itb = document.getElementById(data['name']);
     itb.remove();
+    
+    var ito = $('#deleteInvoice').find('#op_' + data['name']);
+    ito.remove();
+    var ito2 = $('#billInvoice').find('#op_' + data['name']);
+    ito2.remove();
 }
 
 function bill_line_table_invoice(data)

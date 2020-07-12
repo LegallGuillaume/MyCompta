@@ -84,7 +84,7 @@
                     <label for="invoice-client">{{_("Client")}}:</label>
                     <select class="form-control" id="invoice-client">
                         {%for c in clients%}
-                        <option>{{c.name}} - {{c.id}}</option>
+                        <option>{{c.name}} -- {{c.id}}</option>
                         {%endfor%}
                     </select>
                 </div>
@@ -125,11 +125,11 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="deleteModel" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+<div class="modal fade" id="deleteInvoice" tabindex="-1" role="dialog" aria-labelledby="deleteInvoiceLabel" aria-hidden="true">
     <div class="modal-dialog bg-blue" role="document">
         <div class="modal-content bg-blue">
         <div class="modal-header bg-blue">
-            <h5 class="modal-title" id="deleteModelLabel">{{_("Delete invoice")}}</h5>
+            <h5 class="modal-title" id="deleteInvoiceLabel">{{_("Delete invoice")}}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -137,8 +137,12 @@
         <div class="modal-body bg-blue">
             <form>
                 <div class="form-group">
-                    <label for="invoice-name" class="col-form-label">{{_("N° Invoice")}}:</label>
-                    <input type="text" placeholder="2020-0001" class="form-control" id="invoice-name">
+                    <label for="invoice-name">{{_("N° Invoice")}}:</label>
+                    <select class="form-control" id="invoice-name">
+                        {%for inv in invoices%}
+                        <option>{{inv.name}} -- {{inv.id}}</option>
+                        {%endfor%}
+                    </select>
                 </div>
             </form>
         </div>
@@ -149,11 +153,11 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="billModel" tabindex="-1" role="dialog" aria-labelledby="billModelLabel" aria-hidden="true">
+<div class="modal fade" id="billInvoice" tabindex="-1" role="dialog" aria-labelledby="billInvoiceLabel" aria-hidden="true">
     <div class="modal-dialog bg-blue" role="document">
         <div class="modal-content bg-blue">
         <div class="modal-header bg-blue">
-            <h5 class="modal-title" id="billModelLabel">{{_("Bill invoice")}}</h5>
+            <h5 class="modal-title" id="billInvoiceLabel">{{_("Bill invoice")}}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -161,8 +165,12 @@
         <div class="modal-body bg-blue">
             <form>
                 <div class="form-group">
-                    <label for="invoice-name" class="col-form-label">{{_("N° Invoice")}}:</label>
-                    <input type="text" placeholder="2020-0001" class="form-control" id="invoice-name">
+                    <label for="invoice-name">{{_("N° Invoice")}}:</label>
+                    <select class="form-control" id="invoice-name">
+                        {%for inv in invoices%}
+                        <option>{{inv.name}} -- {{inv.id}}</option>
+                        {%endfor%}
+                    </select>
                 </div>
             </form>
         </div>
@@ -184,8 +192,8 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
               <button class="dropdown-item bg-light co-brown" data-toggle="modal" data-target="#newInvoice">{{_('Add invoice')}}</button>
-              <button class="dropdown-item bg-light co-brown" data-toggle="modal" data-target="#deleteModel">{{_('Delete invoice')}}</button>
-              <button class="dropdown-item bg-light co-brown" data-toggle="modal" data-target="#billModel">{{_('Bill invoice')}}</button>
+              <button class="dropdown-item bg-light co-brown" data-toggle="modal" data-target="#deleteInvoice">{{_('Delete invoice')}}</button>
+              <button class="dropdown-item bg-light co-brown" data-toggle="modal" data-target="#billInvoice">{{_('Bill invoice')}}</button>
             </div>
           </div>
     </div>
@@ -301,8 +309,12 @@
         <div class="modal-body bg-blue">
             <form>
                 <div class="form-group">
-                    <label for="client-name" class="col-form-label">{{_("Client name")}}:</label>
-                    <input type="text" placeholder="client name" class="form-control" id="client-name">
+                    <label for="client-name">{{_("Client name")}}:</label>
+                    <select class="form-control" id="client-name">
+                        {%for c in clients%}
+                        <option>{{c.name}} -- {{c.id}}</option>
+                        {%endfor%}
+                    </select>
                 </div>
             </form>
         </div>
@@ -393,8 +405,12 @@
         <div class="modal-body bg-blue">
             <form>
                 <div class="form-group">
-                    <label for="insurance-name" class="col-form-label">{{_("Insurance name")}}:</label>
-                    <input type="text" placeholder="Insurance name" class="form-control" id="insurance-name">
+                    <label for="insurance-name">{{_("Insurance name")}}:</label>
+                    <select class="form-control" id="insurance-name">
+                        {%for ins in insurances%}
+                        <option>{{ins.name}} -- {{ins.id}}</option>
+                        {%endfor%}
+                    </select>
                 </div>
             </form>
         </div>
@@ -417,8 +433,12 @@
         <div class="modal-body bg-blue">
             <form>
                 <div class="form-group">
-                    <label for="insurance-name" class="col-form-label">{{_("Insurance name")}}:</label>
-                    <input type="text" placeholder="" class="form-control" id="insurance-name">
+                    <label for="insurance-name">{{_("Insurance name")}}:</label>
+                    <select class="form-control" id="insurance-name">
+                        {%for ins in insurances%}
+                        <option>{{ins.name}} -- {{ins.id}}</option>
+                        {%endfor%}
+                    </select>
                 </div>
             </form>
         </div>

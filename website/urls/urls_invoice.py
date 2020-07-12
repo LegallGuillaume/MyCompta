@@ -7,6 +7,7 @@ import pdfkit
 import datetime
 import logging
 from flask_babel import Babel, lazy_gettext as _
+from flask import render_template, make_response, redirect
 
 __author__ = "Le Gall Guillaume"
 __copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
@@ -16,7 +17,7 @@ __version__ = "1.0"
 
 def add_invoice(form):
     cdao = ClientDAO()
-    client = cdao.get(cdao.where('name', form['invoice_client']))
+    client = cdao.get(cdao.where('name', form['invoice_client'].split(' -- ')[0]))
     if not client:
         logging.warning('(Invoice) This client doesnt exist: ' + form['invoice_client'])
         return 1, None
@@ -146,10 +147,10 @@ def get_new_invoice():
 
 def pdf_file(invoname, download):
     if not invoname:
-        return redirect('invoices')
+        return redirect('/home')
     fdao = InvoiceDAO()
     if not fdao.exist(fdao.where('name', invoname)):
-        return redirect('invoices')
+        return redirect('/home')
     invoice = fdao.get(fdao.where('name', invoname))[0]
 
     def date(dat):

@@ -21,7 +21,7 @@ function del_insurance_fn()
     socket = io.connect();
     var form = $('#deleteInsurance');
     var data = {
-        insurance_name: form.find('#insurance-name').val()
+        insurance_name: form.find('#insurance-name').val().split(' -- ')[0]
     };
     socket.emit('v3-insurance-delete', data);
     form.find('#insurance-name').val('');
@@ -33,7 +33,7 @@ function sel_insurance_fn()
     socket = io.connect();
     var form = $('#selInsurance');
     var data = {
-        insurance_name: form.find('#insurance-name').val()
+        insurance_name: form.find('#insurance-name').val().split(' -- ')[0]
     };
     socket.emit('v3-insurance-sel', data);
     form.find('#insurance-name').val('');
@@ -43,7 +43,7 @@ function sel_insurance_fn()
 function add_card_insurance(data)
 {
     var itb = document.getElementById('container-insurance');
-    var html_line = '<div id="'+ data['name'] +'" class="col-3">'
+    var html_line = '<div id="'+ data['name'].replace(' ', '-') +'" class="col-3">'
     html_line += '    <div class="card mb-3 shadow-gray border-gray" style="max-width: 18rem; background-color: transparent;">'
     html_line += '    <div class="card-header text-md text-center font-weight-bold co-gray bg-light">'+ data['name'] +' -- ' + data['id'] +'</div>'
     html_line += '        <div class="card-body text-info">'
@@ -53,12 +53,24 @@ function add_card_insurance(data)
     html_line += '    </div>'
     html_line += '</div>'
     itb.insertAdjacentHTML('afterbegin', html_line);
+
+    var dinsurance = $('#deleteInsurance');
+    select = dinsurance.find('#insurance-name')[0];
+    select.insertAdjacentHTML('afterbegin', '<option id="op_'+ data['name'].replace(' ', '-') +'">'+ data['name'] +' -- ' + data['id'] +'</option>')
+
+    var sinsurance = $('#selInsurance');
+    select2 = sinsurance.find('#insurance-name')[0];
+    select2.insertAdjacentHTML('afterbegin', '<option id="op_'+ data['name'].replace(' ', '-') +'">'+ data['name'] +' -- ' + data['id'] +'</option>')
+
 }
 
 function del_card_insurance(data)
 {
     var itb = document.getElementById(data['name']);
     itb.remove();
+
+    var ito = $('#op_' + data['name'].replace(' ', '-'));
+    ito.remove();
 }
 
 function sel_card_insurance(data)

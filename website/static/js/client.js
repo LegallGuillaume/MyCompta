@@ -25,17 +25,16 @@ function del_client_fn()
     socket = io.connect();
     var form = $('#deleteClient');
     var data = {
-        client_name: form.find('#client-name').val()
+        client_name: form.find('#client-name').val().split(' -- ')[0]
     };
     socket.emit('v3-client-delete', data);
-    form.find('#client-name').val('');
     $('.modal').modal('hide');
 }
 
 function add_card_client(data)
 {
     var itb = document.getElementById('container-client');
-    var html_line = '<div id="'+ data['name'] +'" class="col-3">'
+    var html_line = '<div id="'+ data['name'].replace(' ', '-') +'" class="col-3">'
     html_line += '    <div class="card mb-3 shadow-gray border-gray" style="max-width: 18rem; background-color: transparent;">'
     html_line += '    <div class="card-header text-md text-center font-weight-bold co-gray bg-light">'+ data['name'] +' -- ' + data['id'] +'</div>'
     html_line += '        <div class="card-body text-info">'
@@ -45,10 +44,18 @@ function add_card_client(data)
     html_line += '    </div>'
     html_line += '</div>'
     itb.insertAdjacentHTML('afterbegin', html_line);
+
+    var dclient = $('#deleteClient');
+    select = dclient.find('#client-name')[0];
+    select.insertAdjacentHTML('afterbegin', '<option id="op_'+ data['name'].replace(' ', '-') +'">'+ data['name'] +' -- ' + data['id'] +'</option>')
+
 }
 
 function del_card_client(data)
 {
     var itb = document.getElementById(data['name']);
     itb.remove();
+    
+    var ito = $('#op_' + data['name'].replace(' ', '-'));
+    ito.remove();
 }

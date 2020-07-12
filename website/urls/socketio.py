@@ -33,6 +33,7 @@ def emit_result(typ, message):
 
 def emit_add_invoice(invoice_obj):
     data = {
+        'id' : invoice_obj.id,
         'sold' : invoice_obj.sold,
         'name' : invoice_obj.name,
         'client' : get_client_name(invoice_obj.id_client),
