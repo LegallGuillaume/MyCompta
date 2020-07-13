@@ -58,9 +58,9 @@ __version__ = "1.0"
           <div class="softmerge-inner" style="width: 213px; left: -1px;">Auto entrepreneur</div>
         </td>
         <td class="s3"></td>
-        {%if len(assurance) > 0 %}
-        <td class="s4" dir="ltr" colspan="2">{%if len(assurance) > 1 %}{{assurance[1].type}}{%endif%}</td>
-        <td class="s4" dir="ltr" colspan="2">{%if len(assurance) > 0 %}{{assurance[0].type}}{%endif%}</td>
+        {%if len(insurance) > 0 %}
+        <td class="s4" dir="ltr" colspan="2">{%if len(insurance) > 1 %}{{insurance[1].type}}{%endif%}</td>
+        <td class="s4" dir="ltr" colspan="2">{%if len(insurance) > 0 %}{{insurance[0].type}}{%endif%}</td>
         {%else%}
         <td class="s4" dir="ltr" colspan="2"></td>
         <td class="s4" dir="ltr" colspan="2"></td>
@@ -73,10 +73,10 @@ __version__ = "1.0"
           <div class="row-header-wrapper" style="line-height: 25px;"></div>
         </th>
         <td class="s5"></td>
-        <td class="s6" dir="ltr" colspan="3">{{profile.name}} {{profile.prenom}}</td>
-        {%if len(assurance) > 0 %}
-        <td class="s7" dir="ltr">{%if len(assurance) > 1 %}{{assurance[1].name}}{%endif%}</td>
-        <td class="s7" dir="ltr">{%if len(assurance) > 0 %}{{assurance[0].name}}{%endif%}</td>
+        <td class="s6" dir="ltr" colspan="3">{{profile.name}} {{profile.firstname}}</td>
+        {%if len(insurance) > 0 %}
+        <td class="s7" dir="ltr">{%if len(insurance) > 1 %}{{insurance[1].name}}{%endif%}</td>
+        <td class="s7" dir="ltr">{%if len(insurance) > 0 %}{{insurance[0].name}}{%endif%}</td>
         {%else%}
         <td class="s7" dir="ltr"></td>
         <td class="s7" dir="ltr"></td>
@@ -89,13 +89,13 @@ __version__ = "1.0"
           <div class="row-header-wrapper" style="line-height: 20px;"></div>
         </th>
         <td class="s5"></td>
-          <td class="s1" dir="ltr" colspan="3">{{profile.adresse}}</td>
-          {%if len(assurance) > 0 %}
+          <td class="s1" dir="ltr" colspan="3">{{profile.address}}</td>
+          {%if len(insurance) > 0 %}
           <td class="s9 softmerge" dir="ltr">
-            <div class="softmerge-inner" style="width: 241px; left: -1px;">{%if len(assurance) > 1 %}Contrat n°{{assurance[1].n_contrat}}{%endif%}</div>
+            <div class="softmerge-inner" style="width: 241px; left: -1px;">{%if len(insurance) > 1 %}Contrat n°{{insurance[1].n_contract}}{%endif%}</div>
           </td>
           <td class="s9 softmerge" dir="ltr">
-              <div class="softmerge-inner" style="width: 241px; left: -1px;">{%if len(assurance) > 0 %}Contrat n°{{assurance[0].n_contrat}}{%endif%}</div>
+              <div class="softmerge-inner" style="width: 241px; left: -1px;">{%if len(insurance) > 0 %}Contrat n°{{insurance[0].n_contract}}{%endif%}</div>
             </td>
           {%else%}
           <td class="s9 softmerge" dir="ltr">
@@ -113,10 +113,10 @@ __version__ = "1.0"
             <div class="row-header-wrapper" style="line-height: 20px;"></div>
           </th>
           <td class="s5"></td>
-          <td class="s11" dir="ltr" colspan="3">{{profile.comp_adresse}}</td>
-          {%if len(assurance) > 0 %}
-          <td class="s1" dir="ltr">{%if len(assurance) > 1 %}{{assurance[1].region}}{%endif%}</td>
-          <td class="s1" dir="ltr">{%if len(assurance) > 0 %}{{assurance[0].region}}{%endif%}</td>
+          <td class="s11" dir="ltr" colspan="3">{{profile.comp_address}}</td>
+          {%if len(insurance) > 0 %}
+          <td class="s1" dir="ltr">{%if len(insurance) > 1 %}{{insurance[1].region}}{%endif%}</td>
+          <td class="s1" dir="ltr">{%if len(insurance) > 0 %}{{insurance[0].region}}{%endif%}</td>
           {%else%}
           <td class="s1" dir="ltr"></td>
           <td class="s1" dir="ltr"></td>
@@ -130,7 +130,7 @@ __version__ = "1.0"
             <div class="row-header-wrapper" style="line-height: 20px;"></div>
           </th>
           <td class="s12"></td>
-          <td class="s13" dir="ltr" colspan="3">{{profile.cp}} {{profile.ville}}</td>
+          <td class="s13" dir="ltr" colspan="3">{{profile.zipcode}} {{profile.city}}</td>
           <td class="s13"></td>
           <td class="s13"></td>
           <td class="s13"></td>
@@ -141,7 +141,7 @@ __version__ = "1.0"
             <div class="row-header-wrapper" style="line-height: 20px;"></div>
           </th>
           <td class="s12"></td>
-          <td class="s13" dir="ltr" colspan="2">(33) {{profile.tel}}</td>
+          <td class="s13" dir="ltr" colspan="2">(33) {{profile.phone}}</td>
           <td class="s13"></td>
           <td class="s13"></td>
           <td class="s13"></td>
@@ -192,7 +192,7 @@ __version__ = "1.0"
             <div class="row-header-wrapper" style="line-height: 23px;"></div>
           </th>
           <td class="s12"></td>
-          <td class="s15" dir="ltr" colspan="2">Envoyée le {{facture.date_envoi}}</td>
+          <td class="s15" dir="ltr" colspan="2">Envoyée le {{invoice.date_sent}}</td>
           <td class="s1"></td>
           <td class="s1"></td>
           <td class="s1"></td>
@@ -226,7 +226,7 @@ __version__ = "1.0"
           <td class="s12"></td>
           <td class="s13" dir="ltr" colspan="2">{{client.name}}</td>
           <td class="s13" dir="ltr" colspan="2"></td>
-          <td class="s13" dir="ltr" colspan="2">{{facture.name}}</td>
+          <td class="s13" dir="ltr" colspan="2">{{invoice.name}}</td>
           <td class="s12"></td>
         </tr>
         <tr style='height:23px;'>
@@ -255,8 +255,8 @@ __version__ = "1.0"
           </th>
           <td class="s12"></td>
           <td class="s13" dir="ltr" colspan="1">{{client.cp}} {{client.ville}}</td>
-          <td class="s13" dir="ltr" colspan="3" style="text-align: center;">{{facture.projet}}</td>
-          <td class="s13" dir="ltr" colspan="1">{{facture.date_echeance}}</td>
+          <td class="s13" dir="ltr" colspan="3" style="text-align: center;">{{invoice.project}}</td>
+          <td class="s13" dir="ltr" colspan="1">{{invoice.date_expiry}}</td>
           <td class="s12"></td>
         </tr>
         <tr style='height:20px;'>
@@ -298,10 +298,10 @@ __version__ = "1.0"
             <div class="row-header-wrapper" style="line-height: 25px;"></div>
           </th>
           <td class="s12"></td>
-          <td class="s23" dir="ltr" colspan="3">Prestation de service du mois {{presta_mois}}</td>
-          <td class="s24" dir="ltr" colspan="1">{{facture.days}}</td>
-          <td class="s24" dir="ltr" colspan="1">{{facture.tjm}} €</td>
-          <td class="s25" dir="ltr" colspan="1">{{facture.total}} €</td>
+          <td class="s23" dir="ltr" colspan="3">Prestation de service du mois {{prestamonth}}</td>
+          <td class="s24" dir="ltr" colspan="1">{{invoice.days}}</td>
+          <td class="s24" dir="ltr" colspan="1">{{invoice.tjm}} €</td>
+          <td class="s25" dir="ltr" colspan="1">{{invoice.total}} €</td>
           <td class="s12"></td>
         </tr>
         <tr style='height:25px;'>
@@ -342,7 +342,7 @@ __version__ = "1.0"
             <div class="row-header-wrapper" style="line-height: 31px;"></div>
           </th>
           <td class="s5"></td>
-          {% if not facture.tva%}
+          {% if not invoice.tax%}
           <td class="s32" dir="ltr" colspan="4">TVA non applicable, art. 293 B du CGI </td>
           {% else %}
           <td class="s32" dir="ltr" colspan="4">TVA applicable, n°FR39851233403 </td>
@@ -356,7 +356,7 @@ __version__ = "1.0"
             <div class="row-header-wrapper" style="line-height: 31px;"></div>
           </th>
           <td class="s5"></td>
-          {% if facture.tva%}
+          {% if invoice.tax%}
           <td class="s32" dir="ltr" colspan="4">Taux de TVA à 20% </td>
           {% endif %}
           <td class="s33" dir="ltr"></td>
@@ -368,7 +368,7 @@ __version__ = "1.0"
             <div class="row-header-wrapper" style="line-height: 25px;"></div>
           </th>
           <td class="s5"></td>
-          <td class="s36" dir="ltr" colspan="4">Taux de pénalité à compté du {{facture.delai_max}}<br>En cas de retard de paiement : 5%<br>Pas d’escompte pour règlement anticipé.</td>
+          <td class="s36" dir="ltr" colspan="4">Taux de pénalité à compté du {{invoice.max_delay}}<br>En cas de retard de paiement : 5%<br>Pas d’escompte pour règlement anticipé.</td>
           <td class="s33" dir="ltr"></td>
           <td class="s37" dir="ltr"></td>
           <td class="s5"></td>
@@ -382,7 +382,7 @@ __version__ = "1.0"
           <td class="s40"></td>
           <td class="s40"></td>
           <td class="s40"></td>
-          <td class="s41" colspan="2">{{total}} € {% if facture.tva%}TTC{% endif %}</td>
+          <td class="s41" colspan="2">{{total}} € {% if invoice.tva%}TTC{% endif %}</td>
           <td class="s38"></td>
         </tr></tbody></table></div>
 <script type='text/javascript' nonce='8UGzTJt7ZLQPSlsAp9FKnQ'>

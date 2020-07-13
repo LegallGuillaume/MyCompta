@@ -3,15 +3,16 @@ from models.invoice import Invoice, InvoiceDAO
 from models.profile import Profile, ProfileDAO
 from models.color import Color
 from settings.tools import get_profile_from_session, CACHE_INVOICE
-from urls.urls_invoice import manager_invoice, get_list_invoice, convert_date
-from urls.urls_client import manager_client, get_client_name, ClientDAO
-from urls.urls_insurance import manager_insurance
-from urls.urls_profile import manager_profile
-from urls.urls_quotation import manager_quotation
+from urls.urls_invoice import get_list_invoice, convert_date, get_new_invoice, pdf_file
+from urls.urls_client import get_client_name, get_list_client, ClientDAO
+from urls.urls_insurance import get_list_insurance
+from urls.socketio import app as Flask_app, socketio, babel as Flask_babel, emit_result, MESSAGE_TYPE
 from settings.config import TAX
+
+import os
 import datetime
 import logging
-from flask_babel import Babel, lazy_gettext as _
+from flask_babel import lazy_gettext as _
 
 __author__ = "Le Gall Guillaume"
 __copyright__ = "Copyright (C) 2020 Le Gall Guillaume"
@@ -19,22 +20,12 @@ __website__ = "www.gyca.fr"
 __license__ = "BSD-2"
 __version__ = "1.0"
 
-app = Flask(__name__, static_folder='static/', template_folder='html/')
-app.config['BABEL_TRANSLATION_DIRECTORIES'] = '../translations'
-babel = Babel(app, default_locale='en')
-app.secret_key = "dsd999fsdf78zeSDez25ré(Fàç!uy23hGg¨*%H£23)"
-app.register_blueprint(manager_invoice, url_prefix="/")
-app.register_blueprint(manager_client, url_prefix="/")
-app.register_blueprint(manager_insurance, url_prefix="/")
-app.register_blueprint(manager_profile, url_prefix="/")
-app.register_blueprint(manager_quotation, url_prefix="/")
-
 LANGUAGES = {
     'en': 'English',
     'fr': 'Français'
 }
 
-@babel.localeselector
+@Flask_babel.localeselector
 def get_locale():
     return request.accept_languages.best_match(LANGUAGES.keys())
 
@@ -49,23 +40,65 @@ def get_element_profile_invoice(id):
         }
         CACHE_INVOICE[id] = dic
     return CACHE_INVOICE[id]
-@app.route('/', methods=['GET', 'POST'])
-def login():
-    logging.warning('URL / send with ' + request.method)
-    if request.method == 'POST':
-        email = str(request.form['user-name'])
-        pwd = str(request.form['user-password'])
-        pdao = ProfileDAO()
-        if pdao.check_auth(pdao.where('email', email), pwd):
-            session['logged_in'] = str(pdao.get(pdao.where('email', email))[0].id)
+
+@Flask_app.route('/pdf/<invoname>')
+def invoice_pdf(invoname = None):
     if not session.get('logged_in'):
-        logging.warning('display login.html')
-        return render_template('login.html')
+        return redirect('/')
+    logging.info('go url /pdf/%s ' + invoname)
+    return pdf_file(invoname, False)
+
+@Flask_app.route('/', methods=['GET'])
+def login():
+    logging.warning('URL /login')
+    if not session.get('logged_in'):
+        return render_template('v3-login.html')
     else:
-        logging.warning('redirect to URL /home')
         return redirect('/home')
 
-@app.route('/logout')
+@Flask_app.route('/register-data', methods=['POST'])
+def register():
+    logging.debug('add profile form : %s', str(request.form))
+    logging.info('receive socket from /register-data -> profile: %s', request.form['profile-name'])
+    form = request.form
+    if form['profile-password'] != form['profile-repassword']:
+        return render_template('v3-login.html', error=_('Your confirmation password does not match the password you entered'))
+    profile = Profile()
+    profile.name = form['profile-name']
+    profile.firstname = form['profile-firstname']
+    profile.address = form['profile-address']
+    profile.comp_address = form['profile-comp_address']
+    profile.city = form['profile-city']
+    profile.zipcode = form['profile-zipcode']
+    profile.country = form['profile-country']
+    profile.phone = form['profile-phone']
+    profile.email = form['profile-email']
+    profile.siret = form['profile-siret']
+    profile.password = form['profile-password']
+    pdao = ProfileDAO()
+    if pdao.insert(profile):
+        logging.info('add profile %s OK', profile.name)
+        session['logged_in'] = pdao.field(pdao.where('email', profile.email), 'id')[0][0]
+    else:
+        logging.info('add profile %s FAILED', profile.name)
+        return render_template('v3-login.html', error=_('Impossible to create new user, please contact an admin !'))
+
+    return redirect('/')
+
+@Flask_app.route('/signin', methods=['POST'])
+def signin_form():
+    email = request.form['email']
+    passwd = request.form['password']
+    pdao = ProfileDAO()
+    if pdao.check_auth(pdao.where('email', email), passwd):
+        session['logged_in'] = str(pdao.get(pdao.where('email', email))[0].id)
+        logging.warning('sign in OK, redirect to URL /home')
+        return redirect('/home')
+    else:
+        logging.warning('sign in Failed, send message to /')
+        return render_template('v3-login.html', error=_('Email or Password incorrect !'))
+
+@Flask_app.route('/logout', methods=['GET'])
 def logout():
     logging.warning('URL /logout')
     id = session['logged_in']
@@ -73,7 +106,7 @@ def logout():
     logging.warning('deconnection user id=' + str(id))
     return redirect('/')
 
-@app.route('/home')
+@Flask_app.route('/home', methods=['GET'])
 def accueil():
     logging.warning('URL /home')
     if not session.get('logged_in'):
@@ -115,16 +148,74 @@ def accueil():
             if invo.tax:
                 tax_total += (float(invo.total)*0.20)
 
-    logging.warning('display home.html')
+    logging.warning('display v3-home.html')
+
+    list_client = get_list_client(profile.id)
+    list_client.reverse()
+
+    list_insurance = get_list_insurance(profile.id)
+    list_insurance.reverse()
+
+    l_invoice.reverse()
+
     return render_template(
-        'home.html', convert_date=convert_date,
-        Page_title=_('Home'), invoices=reversed(l_invoice),
-        sold_collected=sold_collected, last_invoice=last_i,
-        solde_no_sold=waiting_i, year=year, get_client_name=get_client_name,
+        'v3-home.html', convert_date=convert_date,
+        Page_title=_('Home'), invoices=l_invoice, new_invoice=get_new_invoice(),
+        sold_collected=sold_collected, last_invoice=last_i, insurances=list_insurance,
+        solde_no_sold=waiting_i, year=year, clients=list_client, get_client_name=get_client_name,
         profile=profile, tax_total=tax_total, tax_collected=tax_collected,
         invoices_available=invo_avail, color=Color, year_1=(year-1),
         inv_collect_last_year=tax_collected_last_year, url="home"
     )
+
+@Flask_app.route('/profile', methods=['GET', 'POST'])
+def profile_edit():
+    logging.warning('URL /profile')
+    if not session.get('logged_in'):
+        logging.warning('redirect /, no session enable')
+        return redirect('/')
+    if request.method == 'GET':
+        profile = get_profile_from_session()
+        return render_template('v3-profile.html', profile=profile)
+    else:
+        profile_old = get_profile_from_session()
+        form = request.form
+        if form['profile-password'] != form['profile-repassword']:
+            return render_template('v3-profile.html', profile=profile_old, error=_('Your confirmation password does not match the password you entered'))
+        profile = profile_old
+        if form['profile-name']:
+            profile.name = form['profile-name']
+        if form['profile-firstname']:
+            profile.firstname = form['profile-firstname']
+        if form['profile-address']:
+            profile.address = form['profile-address']
+        if form['profile-comp_address']:
+            profile.comp_address = form['profile-comp_address']
+        if form['profile-city']:
+            profile.city = form['profile-city']
+        if form['profile-zipcode']:
+            profile.zipcode = form['profile-zipcode']
+        if form['profile-country']:
+            profile.country = form['profile-country']
+        if form['profile-phone']:
+            profile.phone = form['profile-phone']
+        if form['profile-email']:
+            profile.email = form['profile-email']
+        if form['profile-siret']:
+            profile.siret = form['profile-siret']
+        if form['profile-password']:
+            profile.password = form['profile-password']
+        pdao = ProfileDAO()
+        id_profile = profile.id
+        if pdao.update(profile, pdao.where('id', id_profile)):
+            logging.info('edit profile %s OK', str(id_profile))
+        else:
+            logging.info('add profile %s FAILED', profile.name)
+            return render_template('v3-profile.html',profile=profile_old, error=_('Impossible to edit user, please contact an admin !'))
+        return redirect('/profile')
+
+
+
 
 
 if __name__ == "__main__":
@@ -139,4 +230,4 @@ if __name__ == "__main__":
         id = pdao.get_profile_id(pdao.where('siret', profile.siret))
         logging.debug('profile checked : id=' + str(id))
         get_element_profile_invoice(id)
-    app.run(host='0.0.0.0', port=5000, debug=DEBUG)
+    socketio.run(Flask_app, host='0.0.0.0', port=5000, debug=DEBUG)
