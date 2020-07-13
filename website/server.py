@@ -9,7 +9,7 @@ from urls.urls_insurance import get_list_insurance
 from urls.socketio import app as Flask_app, socketio, babel as Flask_babel, emit_result, MESSAGE_TYPE
 from settings.config import TAX
 
-
+import os
 import datetime
 import logging
 from flask_babel import lazy_gettext as _

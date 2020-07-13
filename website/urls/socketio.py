@@ -9,10 +9,13 @@ from urls.urls_profile import manager_profile
 from urls.urls_quotation import manager_quotation
 import logging
 import json
+import os
 
+website_dir = os.path.abspath(os.path.dirname(__file__) + os.path.sep + '..') + os.path.sep
+print(website_dir)
 
-app = Flask(__name__, static_folder='../static/', template_folder='../html/')
-app.config['BABEL_TRANSLATION_DIRECTORIES'] = '../../translations'
+app = Flask(__name__, static_folder= website_dir + 'static' + os.path.sep, template_folder= website_dir + 'html')
+app.config['BABEL_TRANSLATION_DIRECTORIES'] = website_dir + '..' + os.path.sep + 'translations'
 babel = Babel(app, default_locale='en')
 app.secret_key = "dsd999fsdf78zeSDez25ré(Fàç!uy23hGg¨*%H£23)"
 app.register_blueprint(manager_profile, url_prefix="/")
