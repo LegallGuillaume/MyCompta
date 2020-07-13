@@ -5,6 +5,7 @@ from models.db import DbDAO, DB
 from models.insurance import InsuranceDAO, Insurance
 from models.invoice import InvoiceDAO, Invoice
 from models.profile import ProfileDAO, Profile
+from models.enterprise import EnterpriseDAO, Enterprise
 from models.quotation.quotation import QuotationDAO, Quotation
 from models.quotation.item_quotation import QuotationItemDAO, QuotationItem
 
@@ -33,6 +34,7 @@ class Test:
         self.client = None
         self.insurance = None
         self.profile = None
+        self.enterprise = None
         self.pdao = None
 
     def __init_db(self):
@@ -40,6 +42,9 @@ class Test:
         self.pdao = ProfileDAO(DB_PATH)
         pdaoret = self.pdao.create_table()
         print(bcolors.HEADER + 'ProfileDAO ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if pdaoret else bcolors.FAIL + "KO", bcolors.ENDC)
+        self.edao = EnterpriseDAO(DB_PATH)
+        edaoret = self.edao.create_table()
+        print(bcolors.HEADER + 'EnterpriseDAO ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if edaoret else bcolors.FAIL + "KO", bcolors.ENDC)
         self.idao = InsuranceDAO(DB_PATH)
         idaoret = self.idao.create_table()
         print(bcolors.HEADER + 'InsuranceDAO ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if idaoret else bcolors.FAIL + "KO", bcolors.ENDC)
@@ -76,17 +81,10 @@ class Test:
     def __profile_db(self):
         print(bcolors.BOLD + '---------- Profile DB ----------' + bcolors.ENDC)
         self.profile = Profile()
-        self.profile.address = 'TEST 1'
-        self.profile.comp_address = 'TEST 2'
-        self.profile.zipcode = '13132'
         self.profile.email = 'TEST1@TEST2.TEST3'
         self.profile.name = 'TEST 3'
         self.profile.firstname = 'TEST 4'
         self.profile.password = 'CECIESTUNTEST'
-        self.profile.country = 'FRANCE'
-        self.profile.siret = '0292029102'
-        self.profile.phone = '0439403920'
-        self.profile.city = 'MARSEILLE'
 
         inspdao = self.pdao.insert(self.profile)
         print(bcolors.HEADER + 'insert profile ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if inspdao else bcolors.FAIL + "KO", bcolors.ENDC)
@@ -102,6 +100,37 @@ class Test:
         self.profile = get_profile
         print(bcolors.HEADER + 'auth profile ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if chkauthpdao else bcolors.FAIL + "KO", bcolors.ENDC)
         return (inspdao and chpasswdpdao and chkauthpdao)
+
+    def __enterprise_db(self):
+        print(bcolors.BOLD + '---------- Enterprise DB ----------' + bcolors.ENDC)
+        self.enterprise = Enterprise()
+        self.enterprise.id_profile = self.profile.id
+        self.enterprise.name = 'TEST 3'
+        self.enterprise.slogan = 'CECI EST UN SLOGAN !'
+        self.enterprise.address = 'TEST 1'
+        self.enterprise.comp_address = 'TEST 2'
+        self.enterprise.zipcode = '13132'
+        self.enterprise.email = 'TEST1@TEST2.TEST3'
+        self.enterprise.country = 'FRANCE'
+        self.enterprise.siret = '0292029102'
+        self.enterprise.phone = '0439403920'
+        self.enterprise.city = 'MARSEILLE'
+
+        insedao = self.edao.insert(self.enterprise)
+        print(bcolors.HEADER + 'insert enterprise ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if insedao else bcolors.FAIL + "KO", bcolors.ENDC)
+        self.enterprise.slogan = "SLOGAN MODIFIER !"
+        sloganchange = self.edao.update(self.enterprise)
+        print(bcolors.HEADER + 'update enterprise ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if sloganchange else bcolors.FAIL + "KO", bcolors.ENDC)
+        get_enterprise_list = self.edao.get(self.edao.where('siret', self.enterprise.siret))
+        print(bcolors.HEADER + 'get enterprise ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if get_enterprise_list else bcolors.FAIL + "KO", bcolors.ENDC)
+        if not get_enterprise_list:
+            return False
+        get_enterprise = get_enterprise_list[0]
+
+        entermodif = (self.enterprise.slogan == get_enterprise.slogan)
+        self.enterprise = get_enterprise
+        print(bcolors.HEADER + 'slogan modify enterprise ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if entermodif else bcolors.FAIL + "KO", bcolors.ENDC)
+        return (insedao and sloganchange and entermodif)
 
     def __insurance_db(self):
         print(bcolors.BOLD + '---------- Insurance DB ----------' + bcolors.ENDC)
@@ -252,14 +281,14 @@ class Test:
     def run_invoice(self):
         ret = False
         if self.__init_db():
-            ret = (self.__profile_db() and self.__client_db() and self.__invoice_db())
+            ret = (self.__profile_db() and self.__client_db() and self.__invoice_db() and self.__enterprise_db())
             self.drop_db()
         return ret
 
     def run_quotation(self):
         ret = False
         if self.__init_db():
-            ret = (self.__profile_db() and self.__client_db() and self.__quotation_db() and self.__quotation_item_db())
+            ret = (self.__profile_db() and self.__client_db() and self.__quotation_db() and self.__quotation_item_db() and self.__enterprise_db())
             self.drop_db()
         return ret
 

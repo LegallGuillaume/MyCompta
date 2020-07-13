@@ -6,6 +6,7 @@ from models.db import DbDAO, DB
 from models.insurance import InsuranceDAO, Insurance
 from models.invoice import InvoiceDAO, Invoice
 from models.profile import ProfileDAO, Profile
+from models.enterprise import EnterpriseDAO, Enterprise
 from models.quotation.quotation import QuotationDAO, Quotation
 from models.quotation.item_quotation import QuotationItemDAO, QuotationItem
 
@@ -195,51 +196,84 @@ class ProfileTestCase(unittest.TestCase):
     def setUp(self):
         self.pdao = ProfileDAO(DB_PATH)
         self.profile = Profile()
-        self.profile.address = 'TEST 1'
-        self.profile.comp_address = 'TEST 2'
-        self.profile.zipcode = '13132'
-        self.profile.email = 'TEST1@TEST2.TEST3'
         self.profile.name = 'TEST'
-        self.profile.password = 'CECIESTUNTEST'
-        self.profile.country = 'FRANCE'
         self.profile.firstname = 'TEST 4'
-        self.profile.siret = '0292029102'
-        self.profile.phone = '0439403920'
-        self.profile.city = 'MARSEILLE'
+        self.profile.email = 'TEST1@TEST2.TEST3'
+        self.profile.password = 'CECIESTUNTEST'
     def test_profile_obj(self):
         self.assertIsNotNone(self.pdao, msg="Impossible to instance ProfileDAO")
         self.assertTrue(self.pdao.create_table(), msg="Impossible to create profile table in db")
         self.assertFalse(self.pdao.exist(self.profile), msg="Impossible to check Profile exist in db")
         self.assertTrue(self.pdao.insert(self.profile), msg="Impossible to insert Profile in db")
-        list_profile = self.pdao.get(self.pdao.where('siret', self.profile.siret))
+        list_profile = self.pdao.get(self.pdao.where('email', self.profile.email))
         self.assertIsInstance(list_profile, list, msg="dao.get function not return a list")
         self.assertGreater(len(list_profile), 0, msg="No Profile in db")
         prfl = list_profile[0]
         self.assertIsInstance(prfl, Profile, msg="1st element of dao.get is not a Profile obj")
-        self.assertEqual(self.profile.address, prfl.address, msg="Profile get, has no same attribute 'address'")
-        self.assertEqual(self.profile.comp_address, prfl.comp_address, msg="Profile get, has no same attribute 'comp_address'")
-        self.assertEqual(self.profile.zipcode, prfl.zipcode, msg="Profile get, has no same attribute 'zipcode'")
         self.assertEqual(self.profile.email, prfl.email, msg="Profile get, has no same attribute 'email'")
         self.assertEqual(self.profile.name, prfl.name, msg="Profile get, has no same attribute 'name'")
         self.assertEqual(self.profile.password, prfl.password, msg="Profile get, has no same attribute 'password'")
-        self.assertEqual(self.profile.country, prfl.country, msg="Profile get, has no same attribute 'country'")
-        self.assertEqual(self.profile.firstname, prfl.firstname, msg="Profile get, has no same attribute 'firstname'")
-        self.assertEqual(self.profile.siret, prfl.siret, msg="Profile get, has no same attribute 'siret'")
-        self.assertEqual(self.profile.phone, prfl.phone, msg="Profile get, has no same attribute 'phone'")
-        self.assertEqual(self.profile.city, prfl.city, msg="Profile get, has no same attribute 'city'")
         self.assertTrue(hasattr(prfl, 'id'), msg="Profile get, has no attribute 'id'")
-        prfl.zipcode = '12131'
+        prfl.password = '12131'
         self.assertTrue(self.pdao.update(prfl))
-        list_profile2 = self.pdao.get(self.pdao.where('siret', prfl.siret))
+        list_profile2 = self.pdao.get(self.pdao.where('email', prfl.email))
         self.assertIsInstance(list_profile2, list, msg="dao.get function not return a list 2")
         self.assertGreater(len(list_profile2), 0, msg="No Profile 2 in db")
         prfl2 = list_profile2[0]
-        self.assertEqual(prfl2.zipcode, prfl.zipcode, msg="Profile get 2, has no same attribute 'zipcode'")
+        self.assertEqual(prfl2.password, prfl.password, msg="Profile get 2, has no same attribute 'password'")
         self.assertTrue(self.pdao.delete(prfl), msg="Impossible to delete profile from db")
         self.assertFalse(self.pdao.drop(True, False), msg="Drop table profile not wanted")
         self.assertFalse(self.pdao.drop(False, True), msg="Drop table profile not wanted")
         self.assertTrue(self.pdao.drop(True, True), msg="Cannot drop table profile")
         self.assertFalse(self.pdao.drop(True, True), msg="The table has not deleted before")
+
+class EnterpriseTestCase(unittest.TestCase):
+    def setUp(self):
+        self.edao = EnterpriseDAO(DB_PATH)
+        self.enterprise = Enterprise()
+        self.enterprise.address = 'TEST 1'
+        self.enterprise.comp_address = 'TEST 2'
+        self.enterprise.zipcode = '13132'
+        self.enterprise.email = 'TEST1@TEST2.TEST3'
+        self.enterprise.name = 'TEST'
+        self.enterprise.country = 'FRANCE'
+        self.enterprise.slogan = 'TEST 4'
+        self.enterprise.siret = '0292029102'
+        self.enterprise.phone = '0439403920'
+        self.enterprise.city = 'MARSEILLE'
+    def test_enterprise_obj(self):
+        self.assertIsNotNone(self.edao, msg="Impossible to instance EnterpriseDAO")
+        self.assertTrue(self.edao.create_table(), msg="Impossible to create enterprise table in db")
+        self.assertFalse(self.edao.exist(self.enterprise), msg="Impossible to check Enterprise exist in db")
+        self.assertTrue(self.edao.insert(self.enterprise), msg="Impossible to insert Enterprise in db")
+        list_enterprise = self.edao.get(self.edao.where('siret', self.enterprise.siret))
+        self.assertIsInstance(list_enterprise, list, msg="dao.get function not return a list")
+        self.assertGreater(len(list_enterprise), 0, msg="No Enterprise in db")
+        erps = list_enterprise[0]
+        self.assertIsInstance(erps, Enterprise, msg="1st element of dao.get is not a Enterprise obj")
+        self.assertEqual(self.enterprise.address, erps.address, msg="Enterprise get, has no same attribute 'address'")
+        self.assertEqual(self.enterprise.comp_address, erps.comp_address, msg="Enterprise get, has no same attribute 'comp_address'")
+        self.assertEqual(self.enterprise.zipcode, erps.zipcode, msg="Enterprise get, has no same attribute 'zipcode'")
+        self.assertEqual(self.enterprise.email, erps.email, msg="Enterprise get, has no same attribute 'email'")
+        self.assertEqual(self.enterprise.name, erps.name, msg="Enterprise get, has no same attribute 'name'")
+        self.assertEqual(self.enterprise.country, erps.country, msg="Enterprise get, has no same attribute 'country'")
+        self.assertEqual(self.enterprise.slogan, erps.slogan, msg="Enterprise get, has no same attribute 'slogan'")
+        self.assertEqual(self.enterprise.siret, erps.siret, msg="Enterprise get, has no same attribute 'siret'")
+        self.assertEqual(self.enterprise.phone, erps.phone, msg="Enterprise get, has no same attribute 'phone'")
+        self.assertEqual(self.enterprise.city, erps.city, msg="Enterprise get, has no same attribute 'city'")
+        self.assertTrue(hasattr(erps, 'id'), msg="Enterprise get, has no attribute 'id'")
+        erps.zipcode = '12131'
+        self.assertTrue(self.edao.update(erps))
+        list_enterprise2 = self.edao.get(self.edao.where('siret', erps.siret))
+        self.assertIsInstance(list_enterprise2, list, msg="dao.get function not return a list 2")
+        self.assertGreater(len(list_enterprise2), 0, msg="No Enterprise 2 in db")
+        erps2 = list_enterprise2[0]
+        self.assertEqual(erps2.zipcode, erps.zipcode, msg="Enterprise get 2, has no same attribute 'zipcode'")
+        self.assertTrue(self.edao.delete(erps), msg="Impossible to delete enterprise from db")
+        self.assertFalse(self.edao.drop(True, False), msg="Drop table enterprise not wanted")
+        self.assertFalse(self.edao.drop(False, True), msg="Drop table enterprise not wanted")
+        self.assertTrue(self.edao.drop(True, True), msg="Cannot drop table enterprise")
+        self.assertFalse(self.edao.drop(True, True), msg="The table has not deleted before")
 
 class InvoiceTestCase(unittest.TestCase):
     def setUp(self):
