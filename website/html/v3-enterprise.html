@@ -1,0 +1,68 @@
+{% extends 'v3-navbar-direct.html' %}
+
+{% block script %}
+<script>
+    $(document).ready(function()
+    {
+        var error = '{{error}}';
+        if(error != null && error != '')
+            receive_alert({type: 'danger', message: error})
+    });
+</script>
+{% endblock %}
+
+{%block login%}
+
+<div class="row">
+    <div class="col-md-5 mx-auto">
+        <div class="card mb-3 shadow-gray border-gray" style="background-color: transparent;">
+            <div class="card-header row bg-light" style="width:100%; margin:0;">
+                <div class="col text-left">
+                    <span class="fas co-brown fa-building fa-2x"></span>
+                </div>
+                <div class="col text-center">
+                    <p class="text-uppercase text-lg font-weight-bold co-gray ">{{_('Edit enterprise')}}</p>
+                </div>
+            </div>
+            <div class="card-body text-info">
+                <form role="form" action="/enterprise" method="post">
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" name="enterprise-name" id="enterprise-name" value="{{enterprise.name}}" placeholder="{{_('Name company')}}">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" name="enterprise-slogan" id="enterprise-slogan" value="{{enterprise.slogan}}" placeholder="{{_('Slogan')}}">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" name="enterprise-address" id="enterprise-address" value="{{enterprise.address}}" placeholder="{{_('Address')}}">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" name="enterprise-comp_address" id="enterprise-comp_address" value="{{enterprise.comp_address}}" placeholder="{{_('Address supplement')}}">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" name="enterprise-zipcode" id="enterprise-zipcode" value="{{enterprise.zipcode}}" placeholder="{{_('Zipcode')}}">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" name="enterprise-city" id="enterprise-city" value="{{enterprise.city}}" placeholder="{{_('City')}}">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" name="enterprise-country" id="enterprise-country" value="{{enterprise.country}}" placeholder="{{_('Country')}}">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control input-lg" name="enterprise-email" id="enterprise-email" value="{{enterprise.email}}" placeholder="{{_('Email')}}">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" name="enterprise-phone" id="enterprise-phone" value="{{enterprise.phone}}" placeholder="{{_('Phone')}}">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" name="enterprise-siret" id="enterprise-siret" value="{{enterprise.siret}}" placeholder="{{_('Siret')}}">
+                    </div>
+                    <div class="text-right">
+                        <input type="submit" class="btn btn-outline-green co-brown" value="{{_('Modify')}}">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock%}

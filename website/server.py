@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, make_response, session
 from models.invoice import Invoice, InvoiceDAO
 from models.profile import Profile, ProfileDAO
+from models.enterprise import Enterprise, EnterpriseDAO
 from days.days import nb_day_between_date
 from settings.tools import get_profile_from_session, CACHE_INVOICE
 from urls.urls_invoice import get_list_invoice, convert_date, get_new_invoice, pdf_file
@@ -66,14 +67,7 @@ def register():
     profile = Profile()
     profile.name = form['profile-name']
     profile.firstname = form['profile-firstname']
-    profile.address = form['profile-address']
-    profile.comp_address = form['profile-comp_address']
-    profile.city = form['profile-city']
-    profile.zipcode = form['profile-zipcode']
-    profile.country = form['profile-country']
-    profile.phone = form['profile-phone']
     profile.email = form['profile-email']
-    profile.siret = form['profile-siret']
     profile.password = form['profile-password']
     pdao = ProfileDAO()
     if pdao.insert(profile):
@@ -173,6 +167,50 @@ def accueil():
         inv_collect_last_year=tax_collected_last_year, url="home"
     )
 
+@Flask_app.route('/enterprise', methods=['GET', 'POST'])
+def enterprise():
+    profile = get_profile_from_session()
+    if request.method == 'GET':
+        logging.warning('URL /enterprise')
+        if not session.get('logged_in'):
+            logging.warning('redirect /, no session enable')
+            return redirect('/')
+        edao = EnterpriseDAO()
+        list_enterprise = edao.get(edao.where('id_profile', profile.id))
+        if not list_enterprise:
+            enterprise = Enterprise()
+        else:
+            enterprise = list_enterprise[0]
+        return render_template('v3-enterprise.html', profile=profile, enterprise=enterprise)
+    elif request.method == 'POST':
+        logging.debug('add enterprise form : %s', str(request.form))
+        logging.info('receive socket from /enterprise -> enterprise: %s', request.form['enterprise-name'])
+        form = request.form
+        enterprise = Enterprise()
+        enterprise.id_profile = profile.id
+        enterprise.name = form['enterprise-name']
+        enterprise.slogan = form['enterprise-slogan']
+        enterprise.address = form['enterprise-address']
+        enterprise.comp_address = form['enterprise-comp_address']
+        enterprise.city = form['enterprise-city']
+        enterprise.zipcode = form['enterprise-zipcode']
+        enterprise.country = form['enterprise-country']
+        enterprise.email = form['enterprise-email']
+        enterprise.phone = form['enterprise-phone']
+        edao = EnterpriseDAO()
+        if edao.exist(edao.where('id_profile', enterprise.id_profile)):
+            if not edao.update(enterprise, edao.where('id_profile', enterprise.id_profile)):
+                logging.info('update enterprise %s FAILED', enterprise.name)
+                return render_template('v3-enterprise.html', enterprise=enterprise, profile=profile, error=_('Impossible to update enterprise, please contact an admin !'))
+            logging.info('update enterprise %s OK', enterprise.name)
+        else:
+            enterprise.siret = form['enterprise-siret'].replace(' ','_').replace("'", "").replace('-', ' ')
+            if not edao.insert(enterprise):
+                logging.info('add enterprise %s FAILED', enterprise.name)
+                return render_template('v3-enterprise.html', enterprise=enterprise, profile=profile, error=_('Impossible to create new enterprise, please contact an admin !'))
+            logging.info('add enterprise %s OK', enterprise.name)
+        return render_template('v3-enterprise.html', enterprise=enterprise, profile=profile)
+
 @Flask_app.route('/profile', methods=['GET', 'POST'])
 def profile_edit():
     logging.warning('URL /profile')
@@ -192,22 +230,8 @@ def profile_edit():
             profile.name = form['profile-name']
         if form['profile-firstname']:
             profile.firstname = form['profile-firstname']
-        if form['profile-address']:
-            profile.address = form['profile-address']
-        if form['profile-comp_address']:
-            profile.comp_address = form['profile-comp_address']
-        if form['profile-city']:
-            profile.city = form['profile-city']
-        if form['profile-zipcode']:
-            profile.zipcode = form['profile-zipcode']
-        if form['profile-country']:
-            profile.country = form['profile-country']
-        if form['profile-phone']:
-            profile.phone = form['profile-phone']
         if form['profile-email']:
             profile.email = form['profile-email']
-        if form['profile-siret']:
-            profile.siret = form['profile-siret']
         if form['profile-password']:
             profile.password = form['profile-password']
         pdao = ProfileDAO()
@@ -217,11 +241,7 @@ def profile_edit():
         else:
             logging.info('add profile %s FAILED', profile.name)
             return render_template('v3-profile.html',profile=profile_old, error=_('Impossible to edit user, please contact an admin !'))
-        return redirect('/profile')
-
-
-
-
+    return redirect('/profile')
 
 if __name__ == "__main__":
     DEBUG = False
@@ -232,7 +252,7 @@ if __name__ == "__main__":
     )
     pdao = ProfileDAO()
     for profile in pdao.get_list_profile():
-        id = pdao.get_profile_id(pdao.where('siret', profile.siret))
+        id = pdao.get_profile_id(pdao.where('email', profile.email))
         logging.debug('profile checked : id=' + str(id))
         get_element_profile_invoice(id)
     socketio.run(Flask_app, host='0.0.0.0', port=5000, debug=DEBUG)

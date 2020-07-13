@@ -1,9 +1,5 @@
 {% extends 'v3-navbar-direct.html' %}
 
-{%block link%}
-<link href="{{ url_for('static', filename='css/login.css')}}" rel="stylesheet">
-{% endblock %}
-
 {% block script %}
 <script>
     $(document).ready(function()
@@ -37,28 +33,7 @@
                         <input type="text" class="form-control input-lg" name="profile-firstname" id="profile-firstname" value="{{profile.firstname}}">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control input-lg" name="profile-address" id="profile-address" value="{{profile.address}}">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control input-lg" name="profile-comp_address" id="profile-comp_address" value="{{profile.comp_address}}">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control input-lg" name="profile-zipcode" id="profile-zipcode" value="{{profile.zipcode}}">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control input-lg" name="profile-city" id="profile-city" value="{{profile.city}}">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control input-lg" name="profile-country" id="profile-country" value="{{profile.country}}">
-                    </div>
-                    <div class="form-group">
                         <input type="email" class="form-control input-lg" name="profile-email" id="profile-email" value="{{profile.email}}">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control input-lg" name="profile-phone" id="profile-phone" value="{{profile.phone}}">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control input-lg" name="profile-siret" id="profile-siret" value="{{profile.siret}}">
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control input-lg" name="profile-password" id="profile-password" placeholder="{{_('Password')}}">

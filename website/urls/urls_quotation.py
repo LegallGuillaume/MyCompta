@@ -1,6 +1,5 @@
 from flask import Blueprint
 from models.quotation.quotation import Quotation, QuotationDAO, QuotationItem, QuotationItemDAO
-from models.color import Color
 from settings.tools import get_profile_from_session
 from flask import flash, request, render_template, redirect, make_response, session
 import datetime

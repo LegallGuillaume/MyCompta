@@ -5,7 +5,6 @@ from flask_babel import Babel, lazy_gettext as _
 from urls.urls_client import get_client_name, add_client, remove_client
 from urls.urls_insurance import add_insurance, remove_insurance, select_insurance
 from urls.urls_invoice import get_new_invoice, add_invoice, remove_invoice, bill, convert_date
-from urls.urls_profile import manager_profile
 from urls.urls_quotation import manager_quotation
 import logging
 import json
@@ -16,7 +15,6 @@ app = Flask(__name__, static_folder= website_dir + 'static' + os.path.sep, templ
 app.config['BABEL_TRANSLATION_DIRECTORIES'] = website_dir + '..' + os.path.sep + 'translations'
 babel = Babel(app, default_locale='en')
 app.secret_key = "dsd999fsdf78zeSDez25ré(Fàç!uy23hGg¨*%H£23)"
-app.register_blueprint(manager_profile, url_prefix="/")
 app.register_blueprint(manager_quotation, url_prefix="/")
 socketio = SocketIO(app)
 
