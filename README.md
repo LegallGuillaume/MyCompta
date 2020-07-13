@@ -135,7 +135,7 @@ This project is protected by licence BSD-2 please read [license file](LICENSE)
 
 ## Todo
 * ~~Multilang (Priority - HIGH to share code)~~
-* Fix pdf template (Priority - HIGH to share code)
+* ~~Fix pdf template (Priority - HIGH to share code)~~
 * Forecast cash (AI)
 * Forecast day
 * Chart (Graph bar & line)
