@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, make_response, session
 from models.invoice import Invoice, InvoiceDAO
 from models.profile import Profile, ProfileDAO
-from models.color import Color
 from days.days import nb_day_between_date
 from settings.tools import get_profile_from_session, CACHE_INVOICE
 from urls.urls_invoice import get_list_invoice, convert_date, get_new_invoice, pdf_file
@@ -170,7 +169,7 @@ def accueil():
         sold_collected=sold_collected, last_invoice=last_i, insurances=list_insurance,
         solde_no_sold=waiting_i, year=year, clients=list_client, get_client_name=get_client_name,
         profile=profile, tax_total=tax_total, tax_collected=tax_collected,
-        invoices_available=invo_avail, color=Color, year_1=(year-1),
+        invoices_available=invo_avail, year_1=(year-1),
         inv_collect_last_year=tax_collected_last_year, url="home"
     )
 
