@@ -7,7 +7,7 @@
 {%endblock%}
 
 {%block home%}
-<div class="row bg-blue" id="accueil">
+<div class="row bg-blue shadow-blue radius" id="accueil">
     <h2 class="co-gray mt-1" name="accueil"><span class="fas fa-home co-brown mr-1"></span>{{_('Home')}}</h2>
 </div>
 <div class="row mt-2">
@@ -64,6 +64,14 @@
             <div class="card-header text-uppercase text-xs font-weight-bold co-gray bg-light">{{_('Invoice collected incl. Tax')}} {{year_1}}</div>
             <div class="card-body text-info">
                 <h5 class="card-title text-right font-weight-bold">{{inv_collect_last_year}} €</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="card mb-3 shadow-gray border-gray" style="max-width: 18rem; background-color: transparent;">
+            <div class="card-header text-uppercase text-xs font-weight-bold co-gray bg-light">{{_('Business days left in')}} {{year}}</div>
+            <div class="card-body text-info">
+                <h5 class="card-title text-right font-weight-bold">{{days_left}} {{_('days')}}</h5>
             </div>
         </div>
     </div>
@@ -187,7 +195,7 @@
         </div>
     </div>
 </div>
-<div class="row bg-blue" id="invoice">
+<div class="row bg-blue shadow-blue radius" id="invoice">
     <div class="col-2 mt-1">
         <h2 class="co-gray" name="invoice"><span class="fas fa-donate co-brown mr-1"></span>{{_('Invoices')}}</h2>
     </div>
@@ -331,7 +339,7 @@
         </div>
     </div>
 </div>
-<div class="row bg-blue" id="client">
+<div class="row bg-blue shadow-blue radius" id="client">
     <div class="col-2 mt-1">
         <h2 class="co-gray" name="client"><span class="fas fa-address-book co-brown mr-1"></span>{{_('Clients')}}</h2>
     </div>
@@ -455,7 +463,7 @@
         </div>
     </div>
 </div>
-<div class="row bg-blue" id="insurance">
+<div class="row bg-blue shadow-blue radius shadow-blue" id="insurance">
     <div class="col-3 mt-1">
         <h2 class="co-gray" name="insurance"><span class="fas fa-laptop-medical co-brown mr-1"></span>{{_('Insurances')}}</h2>
     </div>

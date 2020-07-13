@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-07-13 14:10+0200\n"
+"POT-Creation-Date: 2020-07-13 20:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,91 +17,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: website/server.py:65 website/server.py:184
+#: website/server.py:66 website/server.py:190
 msgid "Your confirmation password does not match the password you entered"
 msgstr ""
 
-#: website/server.py:84
+#: website/server.py:85
 msgid "Impossible to create new user, please contact an admin !"
 msgstr ""
 
-#: website/server.py:99
+#: website/server.py:100
 msgid "Email or Password incorrect !"
 msgstr ""
 
 #: website/html/v3-home.html:11 website/html/v3-navbar-direct.html:8
-#: website/html/v3-navbar.html:8 website/server.py:163
+#: website/html/v3-navbar.html:8 website/server.py:169
 msgid "Home"
 msgstr ""
 
-#: website/server.py:214
+#: website/server.py:220
 msgid "Impossible to edit user, please contact an admin !"
-msgstr ""
-
-#: website/html/login.html:84
-msgid "sign in !"
-msgstr ""
-
-#: website/html/login.html:94
-msgid "Connexion"
-msgstr ""
-
-#: website/html/login.html:100
-msgid "Sign up"
-msgstr ""
-
-#: website/html/login.html:104 website/html/v3-login.html:28
-msgid "First name"
-msgstr ""
-
-#: website/html/login.html:107 website/html/v3-login.html:31
-msgid "Last name"
-msgstr ""
-
-#: website/html/login.html:112 website/html/v3-home.html:278
-#: website/html/v3-login.html:34
-msgid "Address"
-msgstr ""
-
-#: website/html/login.html:115 website/html/v3-login.html:37
-msgid "Compl. address"
-msgstr ""
-
-#: website/html/login.html:120 website/html/v3-home.html:286
-#: website/html/v3-login.html:40
-msgid "Zip code"
-msgstr ""
-
-#: website/html/login.html:123 website/html/v3-home.html:290
-#: website/html/v3-login.html:43
-msgid "City"
-msgstr ""
-
-#: website/html/login.html:126 website/html/v3-home.html:294
-#: website/html/v3-home.html:386 website/html/v3-login.html:46
-msgid "Country"
-msgstr ""
-
-#: website/html/login.html:131 website/html/v3-login.html:49
-msgid "Email"
-msgstr ""
-
-#: website/html/login.html:134 website/html/v3-login.html:52
-msgid "Phone"
-msgstr ""
-
-#: website/html/login.html:138 website/html/v3-login.html:55
-msgid "Siret"
-msgstr ""
-
-#: website/html/login.html:142 website/html/login.html:145
-#: website/html/v3-login.html:58 website/html/v3-login.html:61
-#: website/html/v3-profile.html:64 website/html/v3-profile.html:67
-msgid "Password"
-msgstr ""
-
-#: website/html/login.html:149
-msgid "Register Account"
 msgstr ""
 
 #: website/html/quotation.html:38
@@ -124,12 +58,12 @@ msgstr ""
 msgid "N° Quotation"
 msgstr ""
 
-#: website/html/quotation.html:64 website/html/v3-home.html:90
+#: website/html/quotation.html:64 website/html/v3-home.html:98
 msgid "Client"
 msgstr ""
 
 #: website/html/quotation.html:68 website/html/quotation.html:188
-#: website/html/v3-home.html:110
+#: website/html/v3-home.html:118
 msgid "Date sent"
 msgstr ""
 
@@ -165,13 +99,13 @@ msgstr ""
 msgid "n° Tax, .."
 msgstr ""
 
-#: website/html/quotation.html:126 website/html/v3-home.html:128
-#: website/html/v3-home.html:300 website/html/v3-home.html:396
+#: website/html/quotation.html:126 website/html/v3-home.html:136
+#: website/html/v3-home.html:308 website/html/v3-home.html:404
 msgid "Cancel"
 msgstr ""
 
-#: website/html/quotation.html:129 website/html/v3-home.html:129
-#: website/html/v3-home.html:301 website/html/v3-home.html:397
+#: website/html/quotation.html:129 website/html/v3-home.html:137
+#: website/html/v3-home.html:309 website/html/v3-home.html:405
 msgid "Add"
 msgstr ""
 
@@ -179,15 +113,15 @@ msgstr ""
 msgid "Confirm !"
 msgstr ""
 
-#: website/html/quotation.html:150 website/html/v3-home.html:156
-#: website/html/v3-home.html:184 website/html/v3-home.html:246
-#: website/html/v3-home.html:328 website/html/v3-home.html:424
-#: website/html/v3-home.html:452 website/urls/socketio.py:49
+#: website/html/quotation.html:150 website/html/v3-home.html:164
+#: website/html/v3-home.html:192 website/html/v3-home.html:254
+#: website/html/v3-home.html:336 website/html/v3-home.html:432
+#: website/html/v3-home.html:460 website/urls/socketio.py:50
 msgid "No"
 msgstr ""
 
-#: website/html/quotation.html:151 website/html/v3-home.html:157
-#: website/html/v3-home.html:329 website/html/v3-home.html:425
+#: website/html/quotation.html:151 website/html/v3-home.html:165
+#: website/html/v3-home.html:337 website/html/v3-home.html:433
 msgid "Yes, deleted"
 msgstr ""
 
@@ -255,155 +189,209 @@ msgstr ""
 msgid "Invoice collected incl. Tax"
 msgstr ""
 
-#: website/html/v3-home.html:78
+#: website/html/v3-home.html:72
+msgid "Business days left in"
+msgstr ""
+
+#: website/html/v3-home.html:74
+msgid "days"
+msgstr ""
+
+#: website/html/v3-home.html:86
 msgid "New Invoice"
 msgstr ""
 
-#: website/html/v3-home.html:86 website/html/v3-home.html:146
-#: website/html/v3-home.html:174
+#: website/html/v3-home.html:94 website/html/v3-home.html:154
+#: website/html/v3-home.html:182
 msgid "N° Invoice"
 msgstr ""
 
-#: website/html/v3-home.html:98
+#: website/html/v3-home.html:106
 msgid "Project"
 msgstr ""
 
-#: website/html/v3-home.html:102
+#: website/html/v3-home.html:110
 msgid "Day rate"
 msgstr ""
 
-#: website/html/v3-home.html:106
+#: website/html/v3-home.html:114
 msgid "Days"
 msgstr ""
 
-#: website/html/v3-home.html:114
+#: website/html/v3-home.html:122
 msgid "Date Payment"
 msgstr ""
 
-#: website/html/v3-home.html:118
+#: website/html/v3-home.html:126
 msgid "Max Delay"
 msgstr ""
 
-#: website/html/v3-home.html:123
+#: website/html/v3-home.html:131
 msgid "incl. Tax"
 msgstr ""
 
-#: website/html/v3-home.html:138 website/html/v3-home.html:201
+#: website/html/v3-home.html:146 website/html/v3-home.html:209
 msgid "Delete invoice"
 msgstr ""
 
-#: website/html/v3-home.html:166 website/html/v3-home.html:202
+#: website/html/v3-home.html:174 website/html/v3-home.html:210
 msgid "Bill invoice"
 msgstr ""
 
-#: website/html/v3-home.html:185
+#: website/html/v3-home.html:193
 msgid "Yes, Bill"
 msgstr ""
 
-#: website/html/v3-home.html:192 website/html/v3-navbar.html:9
+#: website/html/v3-home.html:200 website/html/v3-navbar.html:9
 msgid "Invoices"
 msgstr ""
 
-#: website/html/v3-home.html:197 website/html/v3-home.html:341
-#: website/html/v3-home.html:465
+#: website/html/v3-home.html:205 website/html/v3-home.html:349
+#: website/html/v3-home.html:473
 msgid "Manage"
 msgstr ""
 
-#: website/html/v3-home.html:200
+#: website/html/v3-home.html:208
 msgid "Add invoice"
 msgstr ""
 
-#: website/html/v3-home.html:246 website/urls/socketio.py:48
+#: website/html/v3-home.html:254 website/urls/socketio.py:49
 msgid "Yes"
 msgstr ""
 
-#: website/html/v3-home.html:266
+#: website/html/v3-home.html:274
 msgid "New Client"
 msgstr ""
 
-#: website/html/v3-home.html:274
+#: website/html/v3-home.html:282
 msgid "Name company"
 msgstr ""
 
-#: website/html/v3-home.html:282
+#: website/html/v3-home.html:286 website/html/v3-login.html:34
+msgid "Address"
+msgstr ""
+
+#: website/html/v3-home.html:290
 msgid "Complement Address"
 msgstr ""
 
-#: website/html/v3-home.html:310 website/html/v3-home.html:345
+#: website/html/v3-home.html:294 website/html/v3-login.html:40
+msgid "Zip code"
+msgstr ""
+
+#: website/html/v3-home.html:298 website/html/v3-login.html:43
+msgid "City"
+msgstr ""
+
+#: website/html/v3-home.html:302 website/html/v3-home.html:394
+#: website/html/v3-login.html:46
+msgid "Country"
+msgstr ""
+
+#: website/html/v3-home.html:318 website/html/v3-home.html:353
 msgid "Delete client"
 msgstr ""
 
-#: website/html/v3-home.html:318
+#: website/html/v3-home.html:326
 msgid "Client name"
 msgstr ""
 
-#: website/html/v3-home.html:336 website/html/v3-navbar.html:10
+#: website/html/v3-home.html:344 website/html/v3-navbar.html:10
 msgid "Clients"
 msgstr ""
 
-#: website/html/v3-home.html:344
+#: website/html/v3-home.html:352
 msgid "Add client"
 msgstr ""
 
-#: website/html/v3-home.html:370
+#: website/html/v3-home.html:378
 msgid "New insurance"
 msgstr ""
 
-#: website/html/v3-home.html:378
+#: website/html/v3-home.html:386
 msgid "Name"
 msgstr ""
 
-#: website/html/v3-home.html:382
+#: website/html/v3-home.html:390
 msgid "Type"
 msgstr ""
 
-#: website/html/v3-home.html:390
+#: website/html/v3-home.html:398
 msgid "Contract number"
 msgstr ""
 
-#: website/html/v3-home.html:406
+#: website/html/v3-home.html:414
 msgid "Delete Insurance"
 msgstr ""
 
-#: website/html/v3-home.html:414 website/html/v3-home.html:442
+#: website/html/v3-home.html:422 website/html/v3-home.html:450
 msgid "Insurance name"
 msgstr ""
 
-#: website/html/v3-home.html:434
+#: website/html/v3-home.html:442
 msgid "Selected insurance"
 msgstr ""
 
-#: website/html/v3-home.html:453
+#: website/html/v3-home.html:461
 msgid "Yes, Selected"
 msgstr ""
 
-#: website/html/v3-home.html:460 website/html/v3-navbar.html:11
+#: website/html/v3-home.html:468 website/html/v3-navbar.html:11
 msgid "Insurances"
 msgstr ""
 
-#: website/html/v3-home.html:468
+#: website/html/v3-home.html:476
 msgid "Add insurance"
 msgstr ""
 
-#: website/html/v3-home.html:469
+#: website/html/v3-home.html:477
 msgid "Delete insurance"
 msgstr ""
 
-#: website/html/v3-home.html:470
+#: website/html/v3-home.html:478
 msgid "Select insurance"
 msgstr ""
 
-#: website/html/v3-home.html:482 website/urls/socketio.py:77
-#: website/urls/socketio.py:226
+#: website/html/v3-home.html:490 website/urls/socketio.py:78
+#: website/urls/socketio.py:227
 msgid "Selected"
 msgstr ""
 
-#: website/html/v3-home.html:482
+#: website/html/v3-home.html:490
 msgid "Not selected"
 msgstr ""
 
 #: website/html/v3-login.html:24
 msgid "SIGN UP"
+msgstr ""
+
+#: website/html/v3-login.html:28
+msgid "First name"
+msgstr ""
+
+#: website/html/v3-login.html:31
+msgid "Last name"
+msgstr ""
+
+#: website/html/v3-login.html:37
+msgid "Compl. address"
+msgstr ""
+
+#: website/html/v3-login.html:49
+msgid "Email"
+msgstr ""
+
+#: website/html/v3-login.html:52
+msgid "Phone"
+msgstr ""
+
+#: website/html/v3-login.html:55
+msgid "Siret"
+msgstr ""
+
+#: website/html/v3-login.html:58 website/html/v3-login.html:61
+#: website/html/v3-profile.html:64 website/html/v3-profile.html:67
+msgid "Password"
 msgstr ""
 
 #: website/html/v3-login.html:64
@@ -434,87 +422,87 @@ msgstr ""
 msgid "Modify"
 msgstr ""
 
-#: website/urls/socketio.py:78
+#: website/urls/socketio.py:79
 msgid "Not Selected"
 msgstr ""
 
-#: website/urls/socketio.py:93 website/urls/socketio.py:117
-#: website/urls/socketio.py:138 website/urls/socketio.py:157
-#: website/urls/socketio.py:173 website/urls/socketio.py:189
-#: website/urls/socketio.py:205 website/urls/socketio.py:221
+#: website/urls/socketio.py:94 website/urls/socketio.py:118
+#: website/urls/socketio.py:139 website/urls/socketio.py:158
+#: website/urls/socketio.py:174 website/urls/socketio.py:190
+#: website/urls/socketio.py:206 website/urls/socketio.py:222
 msgid "Please fill in all fields !"
 msgstr ""
 
-#: website/urls/socketio.py:97
+#: website/urls/socketio.py:98
 msgid "This client no longer exists, please reload the page !"
 msgstr ""
 
-#: website/urls/socketio.py:100 website/urls/socketio.py:121
-#: website/urls/socketio.py:142
+#: website/urls/socketio.py:101 website/urls/socketio.py:122
+#: website/urls/socketio.py:143
 msgid "Impossible to add this invoice, Your session has been expired"
 msgstr ""
 
-#: website/urls/socketio.py:103
+#: website/urls/socketio.py:104
 msgid "The invoice %1 has been added successfull"
 msgstr ""
 
-#: website/urls/socketio.py:109
+#: website/urls/socketio.py:110
 msgid "Error while creation of invoice %1 !"
 msgstr ""
 
-#: website/urls/socketio.py:124
+#: website/urls/socketio.py:125
 msgid "The invoice %1 has been deleted successfull"
 msgstr ""
 
-#: website/urls/socketio.py:130
+#: website/urls/socketio.py:131
 msgid "Error while suppression of invoice %1 !"
 msgstr ""
 
-#: website/urls/socketio.py:145
+#: website/urls/socketio.py:146
 msgid "The invoice %1 has been sold successfull"
 msgstr ""
 
-#: website/urls/socketio.py:149
+#: website/urls/socketio.py:150
 msgid "Error while invoice %1 has been sold"
 msgstr ""
 
-#: website/urls/socketio.py:161
+#: website/urls/socketio.py:162
 msgid "The client %1 has been added successfull"
 msgstr ""
 
-#: website/urls/socketio.py:165
+#: website/urls/socketio.py:166
 msgid "Error while creation of client %1 !"
 msgstr ""
 
-#: website/urls/socketio.py:177
+#: website/urls/socketio.py:178
 msgid "The client %1 has been deleted!"
 msgstr ""
 
-#: website/urls/socketio.py:181
+#: website/urls/socketio.py:182
 msgid "Error while supression of client %1 !"
 msgstr ""
 
-#: website/urls/socketio.py:193
+#: website/urls/socketio.py:194
 msgid "The insurance %1 has been added successfull"
 msgstr ""
 
-#: website/urls/socketio.py:197
+#: website/urls/socketio.py:198
 msgid "Error while creation of insurance %1 !"
 msgstr ""
 
-#: website/urls/socketio.py:209
+#: website/urls/socketio.py:210
 msgid "The insurance %1 has been deleted successfull"
 msgstr ""
 
-#: website/urls/socketio.py:213
+#: website/urls/socketio.py:214
 msgid "Error while supression of insurance %1 !"
 msgstr ""
 
-#: website/urls/socketio.py:225
+#: website/urls/socketio.py:226
 msgid "The insurance %1 has been selected successfull"
 msgstr ""
 
-#: website/urls/socketio.py:229
+#: website/urls/socketio.py:230
 msgid "Error while insurance %1 has been selected"
 msgstr ""
 

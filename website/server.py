@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, mak
 from models.invoice import Invoice, InvoiceDAO
 from models.profile import Profile, ProfileDAO
 from models.color import Color
+from days.days import nb_day_between_date
 from settings.tools import get_profile_from_session, CACHE_INVOICE
 from urls.urls_invoice import get_list_invoice, convert_date, get_new_invoice, pdf_file
 from urls.urls_client import get_client_name, get_list_client, ClientDAO
@@ -148,6 +149,11 @@ def accueil():
             if invo.tax:
                 tax_total += (float(invo.total)*0.20)
 
+    date_now = now.date()
+    cp_date_now = date_now
+    cp_date_now=date_now.replace(day=31, month=12)
+    days_left = nb_day_between_date(date_now, cp_date_now)
+
     logging.warning('display v3-home.html')
 
     list_client = get_list_client(profile.id)
@@ -159,7 +165,7 @@ def accueil():
     l_invoice.reverse()
 
     return render_template(
-        'v3-home.html', convert_date=convert_date,
+        'v3-home.html', convert_date=convert_date, days_left=days_left,
         Page_title=_('Home'), invoices=l_invoice, new_invoice=get_new_invoice(),
         sold_collected=sold_collected, last_invoice=last_i, insurances=list_insurance,
         solde_no_sold=waiting_i, year=year, clients=list_client, get_client_name=get_client_name,

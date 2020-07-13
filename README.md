@@ -137,5 +137,5 @@ This project is protected by licence BSD-2 please read [license file](LICENSE)
 * ~~Multilang (Priority - HIGH to share code)~~
 * ~~Fix pdf template (Priority - HIGH to share code)~~
 * Forecast cash (AI)
-* Forecast day
+* ~~Forecast day~~
 * Chart (Graph bar & line)
