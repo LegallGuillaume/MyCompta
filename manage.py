@@ -1,6 +1,7 @@
 #!/bin/env python3
 from website.models.insurance import InsuranceDAO
 from website.models.client import ClientDAO
+from website.models.enterprise import EnterpriseDAO
 from website.models.invoice import InvoiceDAO
 from website.models.profile import ProfileDAO, Profile
 from website.models.quotation.quotation import QuotationDAO, QuotationItemDAO
@@ -63,7 +64,7 @@ if __name__ == "__main__":
     if args.init:
         open(DB_PATH, 'w').close() # create prog_db if not exist
         print(bcolors.BOLD + bcolors.HEADER + 'Starting init db ...' + bcolors.ENDC)
-        l_db = [InsuranceDAO(), InvoiceDAO(), ClientDAO(), ProfileDAO(), QuotationDAO(), QuotationItemDAO()]
+        l_db = [InsuranceDAO(), InvoiceDAO(), ClientDAO(), ProfileDAO(), QuotationDAO(), QuotationItemDAO(), EnterpriseDAO()]
         tab = 15
         for l in l_db:
             result = bcolors.OKBLUE + 'OK' + bcolors.ENDC if l.create_table() else bcolors.FAIL + 'KO' + bcolors.ENDC
@@ -89,18 +90,6 @@ if __name__ == "__main__":
         if lastname is not None:
             firstname = input_custom(bcolors.BOLD + '  Firstname:' + bcolors.ENDC)
         if firstname is not None:
-            address = input_custom(bcolors.BOLD + '  Address:' + bcolors.ENDC)
-        if address is not None:
-            comp_addr = input_custom(bcolors.BOLD + '  Complement address:' + bcolors.ENDC)
-        if comp_addr is not None:
-            city = input_custom(bcolors.BOLD + '  City:' + bcolors.ENDC)
-        if city is not None:
-            zipcode = input_custom(bcolors.BOLD + '  Zipcode:' + bcolors.ENDC)
-        if zipcode is not None:
-            country = input_custom(bcolors.BOLD + '  Country:' + bcolors.ENDC)
-        if country is not None:
-            phone = input_custom(bcolors.BOLD + '  Phone:' + bcolors.ENDC)
-        if phone is not None:
             email = input_custom(bcolors.BOLD + '  Email:' + bcolors.ENDC)
         if email is not None:
             passwd = ''
