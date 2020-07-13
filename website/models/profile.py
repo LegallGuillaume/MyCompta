@@ -84,7 +84,7 @@ class ProfileDAO(DbDAO):
                 logging.info('ProfileDAO use exist with siret')
                 return super().exist(self.where('siret', obj.siret))
         else:
-            logging.info('ProfileDAO use delete with WHERE')
+            logging.info('ProfileDAO use exist with WHERE')
             return super().exist(obj)
     def update(self, obj):
         if hasattr(obj, 'id'):
