@@ -16,13 +16,6 @@ class Profile:
         self.name = ''
         self.firstname = ''
         self.password = ''
-        self.address = ''
-        self.comp_address = ''
-        self.zipcode = ''
-        self.city = ''
-        self.country = ''
-        self.siret = ''
-        self.phone = ''
         self.email = ''
         self.created = ''
 
@@ -45,14 +38,7 @@ class ProfileDAO(DbDAO):
             'name': 'TEXT NOT NULL',
             'firstname': 'TEXT NOT NULL',
             'password': 'TEXT',
-            'address': 'TEXT',
-            'comp_address': 'TEXT',
-            'zipcode': 'TEXT',
-            'city': 'TEXT',
-            'country': 'TEXT',
-            'siret': 'TEXT UNIQUE',
-            'phone': 'TEXT',
-            'email': 'TEXT',
+            'email': 'TEXT UNIQUE',
             'created': 'TEXT'
         }
     
@@ -81,8 +67,8 @@ class ProfileDAO(DbDAO):
                 logging.info('ProfileDAO use exist with id')
                 return super().exist(self.where('id', obj.id))
             else:
-                logging.info('ProfileDAO use exist with siret')
-                return super().exist(self.where('siret', obj.siret))
+                logging.info('ProfileDAO use exist with email')
+                return super().exist(self.where('email', obj.email))
         else:
             logging.info('ProfileDAO use exist with WHERE')
             return super().exist(obj)
@@ -91,8 +77,8 @@ class ProfileDAO(DbDAO):
             logging.info('ProfileDAO use update with id')
             return super().update(obj, self.where('id', obj.id))
         else:
-            logging.info('ProfileDAO use update with siret')
-            return super().update(obj, self.where('siret', obj.siret))
+            logging.info('ProfileDAO use update with email')
+            return super().update(obj, self.where('email', obj.email))
     def update(self, obj, where):
         logging.info('ProfileDAO use update')
         return super().update(obj, where)
@@ -102,8 +88,8 @@ class ProfileDAO(DbDAO):
                 logging.info('ProfileDAO use delete with id')
                 return super().delete(self.where('id', obj.id))
             else:
-                logging.info('ProfileDAO use delete with siret')
-                return super().delete(self.where('siret', obj.siret))
+                logging.info('ProfileDAO use delete with email')
+                return super().delete(self.where('email', obj.email))
         else:
             logging.info('ProfileDAO use delete with WHERE')
             return super().delete(obj)
