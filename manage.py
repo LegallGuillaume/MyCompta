@@ -107,9 +107,7 @@ if __name__ == "__main__":
                 if password_check.rstrip() == ['exit', 'quit']:
                     password_check = None
                     break
-        if passwd is not None:
-            siret = input_custom(bcolors.BOLD + '  Siret:' + bcolors.ENDC)
-        if siret is None:                          
+        if passwd is None:                        
             print(bcolors.BOLD + bcolors.FAIL + 'Stop creating profile into db' + bcolors.ENDC)
             exit(1)
 
@@ -117,14 +115,7 @@ if __name__ == "__main__":
         profile = Profile()
         profile.name = lastname
         profile.firstname = firstname
-        profile.address = address
-        profile.comp_address = comp_addr
-        profile.city = city
-        profile.zipcode = zipcode
-        profile.country = country
-        profile.phone = phone
         profile.email = email
-        profile.siret = siret
         profile.password = passwd
         if pdao.insert(profile):
             print('Create user {}'.format(profile.name))
@@ -136,14 +127,8 @@ if __name__ == "__main__":
         profile = Profile()
         profile.name = args.demo
         profile.firstname = "demo"
-        profile.address = "Val Sec"
-        profile.comp_address = "Domaine du chateau"
-        profile.city = "Marseille"
-        profile.zipcode = "13000"
-        profile.country = "France"
-        profile.phone = "0600000000"
         profile.email = "demo@demo.fr"
-        profile.siret = "123456789101112"
+        profile.password = 'demo'
         if pdao.insert(profile):
             print('Create user {}'.format(profile.name))
         else:
