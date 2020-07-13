@@ -4,20 +4,23 @@ $(document).ready(function()
     socket = io.connect();
 
     socket.on('alert', receive_alert);
-    socket.on('invoice-name', function(data)
+    if ('/' != window.location.pathname && '/profile' != window.location.pathname)
     {
-        var form = $('#newInvoice');
-        form.find('#invoice-name').val(data['name']);
-    });
-
-    socket.on('add-invoice', add_line_table_invoice);
-    socket.on('delete-invoice', remove_line_table_invoice);
-    socket.on('bill-invoice', bill_line_table_invoice);
-    socket.on('add-client', add_card_client);
-    socket.on('delete-client', del_card_client);
-    socket.on('add-insurance', add_card_insurance);
-    socket.on('delete-insurance', del_card_insurance);
-    socket.on('sel-insurance', sel_card_insurance);
+        socket.on('invoice-name', function(data)
+        {
+            var form = $('#newInvoice');
+            form.find('#invoice-name').val(data['name']);
+        });
+    
+        socket.on('add-invoice', add_line_table_invoice);
+        socket.on('delete-invoice', remove_line_table_invoice);
+        socket.on('bill-invoice', bill_line_table_invoice);
+        socket.on('add-client', add_card_client);
+        socket.on('delete-client', del_card_client);
+        socket.on('add-insurance', add_card_insurance);
+        socket.on('delete-insurance', del_card_insurance);
+        socket.on('sel-insurance', sel_card_insurance);
+    }
 
 });
 

@@ -1,4 +1,10 @@
-{% extends 'v3.html' %}
+{% extends 'v3-navbar.html' %}
+
+{% block link %}
+<script src="{{ url_for('static', filename='js/invoice.js')}}"></script>
+<script src="{{ url_for('static', filename='js/client.js')}}"></script>
+<script src="{{ url_for('static', filename='js/insurance.js')}}"></script>
+{%endblock%}
 
 {%block home%}
 <div class="row bg-blue" id="accueil">

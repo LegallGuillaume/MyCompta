@@ -4,68 +4,88 @@
 <link href="{{ url_for('static', filename='css/login.css')}}" rel="stylesheet">
 {% endblock %}
 
+{% block script %}
+<script>
+    $(document).ready(function()
+    {
+        var error = '{{error}}';
+        if(error != null && error != '')
+            receive_alert({type: 'danger', message: error})
+    });
+</script>
+{% endblock %}
+
 {%block login%}
 
-<div class="container">
-    <h2 class="text-center" id="title">Facundo farm and Resort</h2>
-     <p class="text-center">
-        <small id="passwordHelpInline" class="text-muted"> Developer: follow me on facebook <a href="https://www.facebook.com/JheanYu"> John niro yumang</a> inspired from <a href="https://p.w3layouts.com/">https://p.w3layouts.com/</a>.</small>
-    </p>
-     <hr>
-    <div class="row">
-        <div class="col-md-5">
-             <form role="form">
-                <fieldset>							
-                    <p class="text-uppercase pull-center"> SIGN UP.</p>	
-                     <div class="form-group">
-                        <input type="text" name="username" id="username" class="form-control input-lg" placeholder="username">
-                    </div>
-
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-5">
+        <div class="card mb-3 shadow-gray border-gray" style="background-color: transparent;">
+            <div class="card-header text-uppercase text-lg font-weight-bold co-gray bg-light"><span class="fas co-brown fa-user-plus fa-2x mr-5"></span>{{_('SIGN UP')}}</div>
+            <div class="card-body text-info">
+                <form role="form" action="/register-data" method="post">
                     <div class="form-group">
-                        <input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email Address">
+                        <input type="text" class="form-control input-lg" name="profile-name" id="profile-name" placeholder="{{_('First name')}}">
                     </div>
                     <div class="form-group">
-                        <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password">
-                    </div>
-                        <div class="form-group">
-                        <input type="password" name="password2" id="password2" class="form-control input-lg" placeholder="Password2">
-                    </div>
-                    <div class="form-check">
-                        <label class="form-check-label">
-                          <input type="checkbox" class="form-check-input">
-                          By Clicking register you're agree to our policy & terms
-                        </label>
-                      </div>
-                     <div>
-                               <input type="submit" class="btn btn-lg btn-primary   value="Register">
-                     </div>
-                </fieldset>
-            </form>
-        </div>
-        
-        <div class="col-md-2">
-            <!-------null------>
-        </div>
-        
-        <div class="col-md-5">
-                  <form role="form">
-                <fieldset>							
-                    <p class="text-uppercase"> Login using your account: </p>	
-                         
-                    <div class="form-group">
-                        <input type="email" name="username" id="username" class="form-control input-lg" placeholder="username">
+                        <input type="text" class="form-control input-lg" name="profile-firstname" id="profile-firstname" placeholder="{{_('Last name')}}">
                     </div>
                     <div class="form-group">
-                        <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password">
+                        <input type="text" class="form-control input-lg" name="profile-address" id="profile-address" placeholder="{{_('Address')}}">
                     </div>
-                    <div>
-                        <input type="submit" class="btn btn-md" value="Sign In">
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" name="profile-comp_address" id="profile-comp_address" placeholder="{{_('Compl. address')}}">
                     </div>
-                         
-                 </fieldset>
-        </form>	
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" name="profile-zipcode" id="profile-zipcode" placeholder="{{_('Zip code')}}">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" name="profile-city" id="profile-city" placeholder="{{_('City')}}">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" name="profile-country" id="profile-country" placeholder="{{_('Country')}}">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control input-lg" name="profile-email" id="profile-email" placeholder="{{_('Email')}}">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" name="profile-phone" id="profile-phone" placeholder="{{_('Phone')}}">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" name="profile-siret" id="profile-siret" placeholder="{{_('Siret')}}">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control input-lg" name="profile-password" id="profile-password" placeholder="{{_('Password')}}">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control input-lg" name="profile-repassword" id="profile-repassword" placeholder="{{_('Password')}}">
+                    </div>
+                    <div class="text-right">
+                        <input type="submit" class="btn btn-outline-green co-brown" value="{{_('Register')}}">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
+    <div class="col-md-5">
+        <div class="card mb-3 shadow-gray border-gray" style="background-color: transparent;">
+            <div class="card-header text-uppercase text-lg font-weight-bold co-gray bg-light"><span class="fas co-brown fa-user-circle fa-2x mr-5"></span>{{_('Login')}}</div>
+            <div class="card-body text-info">
+                <form role="form" action="/signin" method="post">
+                    <div class="form-group">
+                        <input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password">
+                    </div>
+                    <div class="text-center">
+                        <input type="submit" class="btn btn-outline-blue" value="{{_('Sign In')}}">
+                    </div>
+                </form>	
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
 </div>
 
 {%endblock%}

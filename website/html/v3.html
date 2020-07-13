@@ -29,9 +29,6 @@ __version__ = "1.0"
   <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
   <script src="{{ url_for('static', filename='js/commun.js')}}"></script>
   <script src="{{ url_for('static', filename='vendor/chart.js/Chart.min.js')}}"></script>
-  <script src="{{ url_for('static', filename='js/invoice.js')}}"></script>
-  <script src="{{ url_for('static', filename='js/client.js')}}"></script>
-  <script src="{{ url_for('static', filename='js/insurance.js')}}"></script>
   <script src="{{ url_for('static', filename='js/flash_message.js')}}"></script>
   {% block script%} {% endblock%}
 </head>
@@ -44,29 +41,7 @@ __version__ = "1.0"
 
       <div id="content">
 
-        <nav class="navbar fixed-top navbar-expand-md bg-light-blue shadow-blue">
-            <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item"><button class="btn co-brown btn-outline-blue radius mr-2" onclick="goTo('accueil'); return false;">{{_('Home')}}</button></li>
-                    <li class="nav-item"><button class="btn co-brown btn-outline-blue radius mr-2" onclick="goTo('invoice'); return false;">{{_('Invoices')}}</button></li>
-                    <li class="nav-item"><button class="btn co-brown btn-outline-blue radius mr-2" onclick="goTo('client'); return false;">{{_('Clients')}}</button></li>
-                    <li class="nav-item"><button class="btn co-brown btn-outline-blue radius mr-2" onclick="goTo('insurance'); return false;">{{_('Insurances')}}</button></li>
-                    <li class="nav-item"><button class="btn co-brown btn-outline-blue radius">...</button></li>
-                </ul>
-            </div>
-            <div class="mx-auto order-0">
-                <a class="navbar-brand mx-auto text-shadow-light" href="/">MyCompta</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            </div>
-            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">Profilename</li>
-                </ul>
-            </div>
-        </nav>
-
+        {% block navbar%}{%endblock%}
 
         <div class="container-fluid" style="margin-top: 67px;">
             <div id="container-alert"></div>

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-07-11 01:14+0200\n"
+"POT-Creation-Date: 2020-07-13 14:10+0200\n"
 "PO-Revision-Date: 2020-06-15 21:41+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -18,247 +18,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: website/html/body.html:51 website/html/v3-home.html:5
-#: website/html/v3.html:46 website/server.py:130
+#: website/server.py:65 website/server.py:184
+msgid "Your confirmation password does not match the password you entered"
+msgstr "Les 2 mots de passe ne sont pas identique"
+
+#: website/server.py:84
+msgid "Impossible to create new user, please contact an admin !"
+msgstr "Impossible de créer un nouvelle utilisateur, veuillez contacter un admin !"
+
+#: website/server.py:99
+msgid "Email or Password incorrect !"
+msgstr "Email ou Mot de passe incorrecte !"
+
+#: website/html/v3-home.html:11 website/html/v3-navbar-direct.html:8
+#: website/html/v3-navbar.html:8 website/server.py:163
 msgid "Home"
 msgstr "Accueil"
 
-#: website/html/body.html:51 website/html/body.html:55
-#: website/html/body.html:59 website/html/body.html:63
-#: website/html/body.html:67
-msgid "(current)"
-msgstr "(actuel)"
-
-#: website/html/body.html:55 website/html/v3-home.html:70
-#: website/html/v3.html:47 website/urls/urls_invoice.py:218
-msgid "Invoices"
-msgstr "Factures"
-
-#: website/html/body.html:59 website/html/v3-home.html:137
-#: website/html/v3.html:48 website/urls/urls_client.py:63
-msgid "Clients"
-msgstr "Clients"
-
-#: website/html/body.html:63 website/html/v3-home.html:161
-#: website/html/v3.html:49 website/urls/urls_insurance.py:66
-msgid "Insurances"
-msgstr "Assurances"
-
-#: website/html/body.html:67
-msgid "Quotations"
-msgstr ""
-
-#: website/html/body.html:80
-msgid "Profile"
-msgstr ""
-
-#: website/html/body.html:89
-msgid "logout"
-msgstr ""
-
-#: website/html/client.html:117
-msgid "New Client"
-msgstr "Nouveau Client"
-
-#: website/html/client.html:125
-msgid "Name company"
-msgstr "Nom société"
-
-#: website/html/client.html:129 website/html/client.html:203
-#: website/html/login.html:112
-msgid "Address"
-msgstr "adresse"
-
-#: website/html/client.html:133 website/html/client.html:211
-msgid "Complement Address"
-msgstr "Complement adresse"
-
-#: website/html/client.html:137 website/html/client.html:219
-#: website/html/login.html:120
-msgid "Zip code"
-msgstr "Code postal"
-
-#: website/html/client.html:141 website/html/client.html:227
-#: website/html/login.html:123
-msgid "City"
-msgstr "Ville"
-
-#: website/html/client.html:145 website/html/client.html:235
-#: website/html/insurance.html:144 website/html/insurance.html:230
-#: website/html/login.html:126
-msgid "Country"
-msgstr "Pays"
-
-#: website/html/client.html:151 website/html/insurance.html:154
-#: website/html/invoice.html:178 website/html/quotation.html:126
-msgid "Cancel"
-msgstr "Annuler"
-
-#: website/html/client.html:152 website/html/insurance.html:155
-#: website/html/quotation.html:129
-msgid "Add"
-msgstr "Ajouter"
-
-#: website/html/client.html:162 website/html/insurance.html:165
-#: website/html/invoice.html:189 website/html/quotation.html:142
-msgid "Confirm !"
-msgstr "Confirmer !"
-
-#: website/html/client.html:170 website/html/home.html:119
-#: website/html/insurance.html:173 website/html/invoice.html:197
-#: website/html/quotation.html:150 website/html/v3-home.html:119
-msgid "No"
-msgstr "Non"
-
-#: website/html/client.html:171
-msgid "Yes, delete"
-msgstr "Oui, supprimer"
-
-#: website/html/home.html:15 website/html/v3-home.html:10
-msgid "INVOICE RECEIVED incl. Tax"
-msgstr "FACTURATION ENCAISSÉE TTC"
-
-#: website/html/home.html:23 website/html/v3-home.html:18
-msgid "Pending Invoice"
-msgstr "Facture en Attente"
-
-#: website/html/home.html:31 website/html/v3-home.html:26
-msgid "Billing available"
-msgstr "Facturation disponible"
-
-#: website/html/home.html:39 website/html/v3-home.html:34
-msgid "Invoice collected without Tax"
-msgstr "Facture encaissée HT"
-
-#: website/html/home.html:47 website/html/v3-home.html:42
-msgid "Last invoice"
-msgstr "Dernière facture"
-
-#: website/html/home.html:55 website/html/v3-home.html:50
-msgid "Tax collected"
-msgstr "TVA Récoltée"
-
-#: website/html/home.html:57 website/html/v3-home.html:52
-msgid "€"
-msgstr ""
-
-#: website/html/home.html:57 website/html/v3-home.html:52
-msgid "TTC"
-msgstr ""
-
-#: website/html/home.html:63 website/html/v3-home.html:58
-msgid "Invoice collected incl. Tax"
-msgstr "Facturation encaissée TTC"
-
-#: website/html/home.html:119 website/html/v3-home.html:119
-msgid "Yes"
-msgstr ""
-
-#: website/html/insurance.html:45
-msgid "List of unfilled fields"
-msgstr ""
-
-#: website/html/insurance.html:73
-msgid "Are you sure you want to take out the insurance"
-msgstr ""
-
-#: website/html/insurance.html:128
-msgid "New insurance"
-msgstr "Nouvelle assurance"
-
-#: website/html/insurance.html:136 website/html/insurance.html:214
-msgid "Name"
-msgstr "Nom de la société"
-
-#: website/html/insurance.html:140 website/html/insurance.html:206
-msgid "Type"
-msgstr "Type d'assurance"
-
-#: website/html/insurance.html:148 website/html/insurance.html:222
-msgid "Contract number"
-msgstr "n° contrat"
-
-#: website/html/insurance.html:174 website/html/invoice.html:198
-#: website/html/quotation.html:151
-msgid "Yes, deleted"
-msgstr "Oui, supprimé"
-
-#: website/html/insurance.html:243
-msgid "The insurance is not selected"
-msgstr "L'assurance n'est pas sélectionné"
-
-#: website/html/insurance.html:252
-msgid "The insurance is selected"
-msgstr "L'assurance est sélectionné"
-
-#: website/html/invoice.html:72
-msgid "And are you sure you want to take out the invoice"
-msgstr "êtes-vous sure que vouloir supprimé cette facture"
-
-#: website/html/invoice.html:128
-msgid "New Invoice"
-msgstr "Nouvelle Facture"
-
-#: website/html/invoice.html:136
-msgid "N° Invoice"
-msgstr "N° Facture"
-
-#: website/html/invoice.html:140 website/html/quotation.html:64
-msgid "Client"
-msgstr "Client"
-
-#: website/html/invoice.html:148 website/html/invoice.html:240
-msgid "Project"
-msgstr "Projet"
-
-#: website/html/invoice.html:152 website/html/invoice.html:264
-msgid "Day rate"
-msgstr "TJM"
-
-#: website/html/invoice.html:156 website/html/invoice.html:256
-msgid "Days"
-msgstr "Jours"
-
-#: website/html/invoice.html:160 website/html/invoice.html:248
-#: website/html/quotation.html:68 website/html/quotation.html:188
-msgid "Date sent"
-msgstr "Date d'envoi"
-
-#: website/html/invoice.html:164 website/html/invoice.html:272
-msgid "Date Payment"
-msgstr "Date échéance"
-
-#: website/html/invoice.html:168
-msgid "Max Delay"
-msgstr "Delai max"
-
-#: website/html/invoice.html:173
-msgid "incl. Tax"
-msgstr "TVA"
-
-#: website/html/invoice.html:179
-msgid "add"
-msgstr "ajouter"
-
-#: website/html/invoice.html:280
-msgid "Invoice of "
-msgstr "Facture de "
-
-#: website/html/invoice.html:283
-msgid "without Tax"
-msgstr "HT"
-
-#: website/html/invoice.html:283
-msgid "excl. Tax"
-msgstr "TTC exclus"
-
-#: website/html/invoice.html:293
-msgid "The client hasn't paid"
-msgstr "Le client n'a pas payé"
-
-#: website/html/invoice.html:302
-msgid "The client has paid"
-msgstr "Le client a payé"
+#: website/server.py:214
+msgid "Impossible to edit user, please contact an admin !"
+msgstr "Impossible de modifier l'utilisateur, Veuillez contacter un admin !"
 
 #: website/html/login.html:84
 msgid "sign in !"
@@ -272,31 +51,53 @@ msgstr "Connexion"
 msgid "Sign up"
 msgstr "S'enregistrer"
 
-#: website/html/login.html:104
+#: website/html/login.html:104 website/html/v3-login.html:28
 msgid "First name"
 msgstr "Nom"
 
-#: website/html/login.html:107
+#: website/html/login.html:107 website/html/v3-login.html:31
 msgid "Last name"
 msgstr "Prénom"
 
-#: website/html/login.html:115
+#: website/html/login.html:112 website/html/v3-home.html:278
+#: website/html/v3-login.html:34
+msgid "Address"
+msgstr "adresse"
+
+#: website/html/login.html:115 website/html/v3-login.html:37
 msgid "Compl. address"
 msgstr "Compl. adresse"
 
-#: website/html/login.html:131
+#: website/html/login.html:120 website/html/v3-home.html:286
+#: website/html/v3-login.html:40
+msgid "Zip code"
+msgstr "Code postal"
+
+#: website/html/login.html:123 website/html/v3-home.html:290
+#: website/html/v3-login.html:43
+msgid "City"
+msgstr "Ville"
+
+#: website/html/login.html:126 website/html/v3-home.html:294
+#: website/html/v3-home.html:386 website/html/v3-login.html:46
+msgid "Country"
+msgstr "Pays"
+
+#: website/html/login.html:131 website/html/v3-login.html:49
 msgid "Email"
 msgstr "Email"
 
-#: website/html/login.html:134
+#: website/html/login.html:134 website/html/v3-login.html:52
 msgid "Phone"
 msgstr "Téléphone"
 
-#: website/html/login.html:138
+#: website/html/login.html:138 website/html/v3-login.html:55
 msgid "Siret"
 msgstr "Siret"
 
 #: website/html/login.html:142 website/html/login.html:145
+#: website/html/v3-login.html:58 website/html/v3-login.html:61
+#: website/html/v3-profile.html:64 website/html/v3-profile.html:67
 msgid "Password"
 msgstr "Mot de passe"
 
@@ -323,6 +124,15 @@ msgstr "Fin devis"
 #: website/html/quotation.html:60
 msgid "N° Quotation"
 msgstr "N° devis"
+
+#: website/html/quotation.html:64 website/html/v3-home.html:90
+msgid "Client"
+msgstr "Client"
+
+#: website/html/quotation.html:68 website/html/quotation.html:188
+#: website/html/v3-home.html:110
+msgid "Date sent"
+msgstr "Date d'envoi"
 
 #: website/html/quotation.html:72 website/html/quotation.html:196
 msgid "Validity date"
@@ -356,6 +166,32 @@ msgstr "Effacer ligne"
 msgid "n° Tax, .."
 msgstr "n°TVA, acompte, ..."
 
+#: website/html/quotation.html:126 website/html/v3-home.html:128
+#: website/html/v3-home.html:300 website/html/v3-home.html:396
+msgid "Cancel"
+msgstr "Annuler"
+
+#: website/html/quotation.html:129 website/html/v3-home.html:129
+#: website/html/v3-home.html:301 website/html/v3-home.html:397
+msgid "Add"
+msgstr "Ajouter"
+
+#: website/html/quotation.html:142
+msgid "Confirm !"
+msgstr "Confirmer !"
+
+#: website/html/quotation.html:150 website/html/v3-home.html:156
+#: website/html/v3-home.html:184 website/html/v3-home.html:246
+#: website/html/v3-home.html:328 website/html/v3-home.html:424
+#: website/html/v3-home.html:452 website/urls/socketio.py:49
+msgid "No"
+msgstr "Non"
+
+#: website/html/quotation.html:151 website/html/v3-home.html:157
+#: website/html/v3-home.html:329 website/html/v3-home.html:425
+msgid "Yes, deleted"
+msgstr "Oui, supprimé"
+
 #: website/html/quotation.html:171
 msgid "Quotation N°"
 msgstr "Devis n°"
@@ -384,149 +220,362 @@ msgstr "ttc"
 msgid "To convert quotation to invoice"
 msgstr "Convertir devis en Facture"
 
-#: website/html/v3-home.html:73 website/html/v3-home.html:140
-#: website/html/v3-home.html:164
+#: website/html/v3-home.html:16
+msgid "INVOICE RECEIVED incl. Tax"
+msgstr "FACTURATION ENCAISSÉE TTC"
+
+#: website/html/v3-home.html:24
+msgid "Pending Invoice"
+msgstr "Facture en Attente"
+
+#: website/html/v3-home.html:32
+msgid "Billing available"
+msgstr "Facturation disponible"
+
+#: website/html/v3-home.html:40
+msgid "Invoice collected without Tax"
+msgstr "Facture encaissée HT"
+
+#: website/html/v3-home.html:48
+msgid "Last invoice"
+msgstr "Dernière facture"
+
+#: website/html/v3-home.html:56
+msgid "Tax collected"
+msgstr "TVA Récoltée"
+
+#: website/html/v3-home.html:58
+msgid "€"
+msgstr "€"
+
+#: website/html/v3-home.html:58
+msgid "TTC"
+msgstr "TTC"
+
+#: website/html/v3-home.html:64
+msgid "Invoice collected incl. Tax"
+msgstr "Facturation encaissée TTC"
+
+#: website/html/v3-home.html:78
+msgid "New Invoice"
+msgstr "Nouvelle Facture"
+
+#: website/html/v3-home.html:86 website/html/v3-home.html:146
+#: website/html/v3-home.html:174
+msgid "N° Invoice"
+msgstr "N° Facture"
+
+#: website/html/v3-home.html:98
+msgid "Project"
+msgstr "Projet"
+
+#: website/html/v3-home.html:102
+msgid "Day rate"
+msgstr "TJM"
+
+#: website/html/v3-home.html:106
+msgid "Days"
+msgstr "Jours"
+
+#: website/html/v3-home.html:114
+msgid "Date Payment"
+msgstr "Date échéance"
+
+#: website/html/v3-home.html:118
+msgid "Max Delay"
+msgstr "Delai max"
+
+#: website/html/v3-home.html:123
+msgid "incl. Tax"
+msgstr "TVA"
+
+#: website/html/v3-home.html:138 website/html/v3-home.html:201
+msgid "Delete invoice"
+msgstr "Supprimer une facture"
+
+#: website/html/v3-home.html:166 website/html/v3-home.html:202
+msgid "Bill invoice"
+msgstr "Payer une facture"
+
+#: website/html/v3-home.html:185
+msgid "Yes, Bill"
+msgstr "Oui, Payer"
+
+#: website/html/v3-home.html:192 website/html/v3-navbar.html:9
+msgid "Invoices"
+msgstr "Factures"
+
+#: website/html/v3-home.html:197 website/html/v3-home.html:341
+#: website/html/v3-home.html:465
 msgid "Manage"
 msgstr "Gérer"
 
-#: website/html/v3-home.html:174
+#: website/html/v3-home.html:200
+msgid "Add invoice"
+msgstr "Ajouter une facture"
+
+#: website/html/v3-home.html:246 website/urls/socketio.py:48
+msgid "Yes"
+msgstr "Oui"
+
+#: website/html/v3-home.html:266
+msgid "New Client"
+msgstr "Nouveau Client"
+
+#: website/html/v3-home.html:274
+msgid "Name company"
+msgstr "Nom société"
+
+#: website/html/v3-home.html:282
+msgid "Complement Address"
+msgstr "Complement adresse"
+
+#: website/html/v3-home.html:310 website/html/v3-home.html:345
+msgid "Delete client"
+msgstr "Supprimer un client"
+
+#: website/html/v3-home.html:318
+msgid "Client name"
+msgstr "Nom du client"
+
+#: website/html/v3-home.html:336 website/html/v3-navbar.html:10
+msgid "Clients"
+msgstr "Clients"
+
+#: website/html/v3-home.html:344
+msgid "Add client"
+msgstr "Ajouter un client"
+
+#: website/html/v3-home.html:370
+msgid "New insurance"
+msgstr "Nouvelle assurance"
+
+#: website/html/v3-home.html:378
+msgid "Name"
+msgstr "Nom de la société"
+
+#: website/html/v3-home.html:382
+msgid "Type"
+msgstr "Type d'assurance"
+
+#: website/html/v3-home.html:390
+msgid "Contract number"
+msgstr "n° contrat"
+
+#: website/html/v3-home.html:406
+msgid "Delete Insurance"
+msgstr "Supprimer une assurance"
+
+#: website/html/v3-home.html:414 website/html/v3-home.html:442
+msgid "Insurance name"
+msgstr "Nom de l'assurance"
+
+#: website/html/v3-home.html:434
+msgid "Selected insurance"
+msgstr "Sélectionner une assurance"
+
+#: website/html/v3-home.html:453
+msgid "Yes, Selected"
+msgstr "Oui, Sélectionner"
+
+#: website/html/v3-home.html:460 website/html/v3-navbar.html:11
+msgid "Insurances"
+msgstr "Assurances"
+
+#: website/html/v3-home.html:468
+msgid "Add insurance"
+msgstr "Ajouter une assurance"
+
+#: website/html/v3-home.html:469
+msgid "Delete insurance"
+msgstr "Supprimer une assurance"
+
+#: website/html/v3-home.html:470
+msgid "Select insurance"
+msgstr "Selectionner une assurance"
+
+#: website/html/v3-home.html:482 website/urls/socketio.py:77
+#: website/urls/socketio.py:226
 msgid "Selected"
 msgstr "Selectionné"
 
-#: website/html/v3-home.html:174
+#: website/html/v3-home.html:482
 msgid "Not selected"
 msgstr "Pas selectionné"
 
-#: website/urls/urls_client.py:22
-msgid "client_deleted"
-msgstr "client_supprimé"
+#: website/html/v3-login.html:24
+msgid "SIGN UP"
+msgstr "S'enregistrer"
 
-#: website/urls/urls_client.py:37
-msgid "The client %1 has been added successfull"
-msgstr "Le client %1 a été ajouté avec succès"
+#: website/html/v3-login.html:64
+msgid "Register"
+msgstr "S'enregistrer"
 
-#: website/urls/urls_client.py:40
-msgid "Error while creation of client %1 !"
-msgstr "Erreur lors de la création du client %1 !"
+#: website/html/v3-login.html:72
+msgid "Login"
+msgstr "Se connecter"
 
-#: website/urls/urls_client.py:46
-msgid "The client %1 has been deleted!"
-msgstr "Le client %1 a été supprimé !"
+#: website/html/v3-login.html:82
+msgid "Sign In"
+msgstr "Se connecter"
 
-#: website/urls/urls_client.py:49
-msgid "Error while supression of client %1 !"
-msgstr "Erreur lors de la suppression du client %1 !"
+#: website/html/v3-navbar-direct.html:25 website/html/v3-navbar.html:28
+msgid "Edit profile"
+msgstr "Modifier votre profile"
 
-#: website/urls/urls_insurance.py:29
-msgid "The insurance %1 has been added successfull"
-msgstr "L'assurance %1 a été ajouté avec succès"
+#: website/html/v3-navbar-direct.html:26 website/html/v3-navbar.html:29
+msgid "Logout"
+msgstr "Se déconnecter"
 
-#: website/urls/urls_insurance.py:32
-msgid "Error while creation of insurance %1 !"
-msgstr "Erreur lors de la création de l'assurance %1 !"
+#: website/html/v3-profile.html:28
+msgid "Edit user"
+msgstr "Modifier votre profile"
 
-#: website/urls/urls_insurance.py:38
-msgid "The insurance %1 has been deleted successfull"
-msgstr "L'assurance %1 a été supprimé avec succès"
+#: website/html/v3-profile.html:70
+msgid "Modify"
+msgstr "Modifier"
 
-#: website/urls/urls_insurance.py:41
-msgid "Error while supression of insurance %1 !"
-msgstr "Erreur lors de la suppression de l'assurance %1"
+#: website/urls/socketio.py:78
+msgid "Not Selected"
+msgstr "Pas sélectionné"
 
-#: website/urls/urls_invoice.py:28
+#: website/urls/socketio.py:93 website/urls/socketio.py:117
+#: website/urls/socketio.py:138 website/urls/socketio.py:157
+#: website/urls/socketio.py:173 website/urls/socketio.py:189
+#: website/urls/socketio.py:205 website/urls/socketio.py:221
+msgid "Please fill in all fields !"
+msgstr "Veuillez remplir tous les champs"
+
+#: website/urls/socketio.py:97
 msgid "This client no longer exists, please reload the page !"
 msgstr "Le client n'existe plus, veuillez recharger la page !"
 
-#: website/urls/urls_invoice.py:36 website/urls/urls_invoice.py:67
-#: website/urls/urls_invoice.py:85
+#: website/urls/socketio.py:100 website/urls/socketio.py:121
+#: website/urls/socketio.py:142
 msgid "Impossible to add this invoice, Your session has been expired"
 msgstr "Impossible d'ajouter la facture, votre session a expiré"
 
-#: website/urls/urls_invoice.py:54
+#: website/urls/socketio.py:103
 msgid "The invoice %1 has been added successfull"
 msgstr "La facture %1 a été ajouté avec succès"
 
-#: website/urls/urls_invoice.py:59
+#: website/urls/socketio.py:109
 msgid "Error while creation of invoice %1 !"
 msgstr "Erreur lors de la creation de la facture %1 !"
 
-#: website/urls/urls_invoice.py:72
+#: website/urls/socketio.py:124
 msgid "The invoice %1 has been deleted successfull"
 msgstr "La facture %1 a été supprimé avec succès"
 
-#: website/urls/urls_invoice.py:77
+#: website/urls/socketio.py:130
 msgid "Error while suppression of invoice %1 !"
 msgstr "Erreur lors de la suppression de la facture %1"
 
-#: website/urls/urls_invoice.py:95
+#: website/urls/socketio.py:145
 msgid "The invoice %1 has been sold successfull"
 msgstr "La facture %1 a été payé avec succès"
 
-#: website/urls/urls_invoice.py:97
-msgid "The invoice %1 has been reedit successfull"
-msgstr "La facture %& a été réédité avec succès"
-
-#: website/urls/urls_invoice.py:103
+#: website/urls/socketio.py:149
 msgid "Error while invoice %1 has been sold"
 msgstr "Erreur lors du paiement de la facture %1"
 
-#: website/urls/urls_invoice.py:105
-msgid "Error while reedit %1"
-msgstr "Erreur lors de la réédition de la facture %1"
+#: website/urls/socketio.py:161
+msgid "The client %1 has been added successfull"
+msgstr "Le client %1 a été ajouté avec succès"
 
-#: website/urls/urls_invoice.py:134 website/urls/urls_quotation.py:106
+#: website/urls/socketio.py:165
+msgid "Error while creation of client %1 !"
+msgstr "Erreur lors de la création du client %1 !"
+
+#: website/urls/socketio.py:177
+msgid "The client %1 has been deleted!"
+msgstr "Le client %1 a été supprimé !"
+
+#: website/urls/socketio.py:181
+msgid "Error while supression of client %1 !"
+msgstr "Erreur lors de la suppression du client %1 !"
+
+#: website/urls/socketio.py:193
+msgid "The insurance %1 has been added successfull"
+msgstr "L'assurance %1 a été ajouté avec succès"
+
+#: website/urls/socketio.py:197
+msgid "Error while creation of insurance %1 !"
+msgstr "Erreur lors de la création de l'assurance %1 !"
+
+#: website/urls/socketio.py:209
+msgid "The insurance %1 has been deleted successfull"
+msgstr "L'assurance %1 a été supprimé avec succès"
+
+#: website/urls/socketio.py:213
+msgid "Error while supression of insurance %1 !"
+msgstr "Erreur lors de la suppression de l'assurance %1"
+
+#: website/urls/socketio.py:225
+msgid "The insurance %1 has been selected successfull"
+msgstr "L'assurance %1 a été selectionné avec succès"
+
+#: website/urls/socketio.py:229
+msgid "Error while insurance %1 has been selected"
+msgstr "Erreur lors de la sélection de l'assurance %1"
+
+#: website/urls/urls_client.py:18
+msgid "client_deleted"
+msgstr "client_supprimé"
+
+#: website/urls/urls_invoice.py:119 website/urls/urls_quotation.py:106
 msgid "None"
-msgstr ""
+msgstr "Aucun"
 
-#: website/urls/urls_invoice.py:135 website/urls/urls_quotation.py:108
+#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:108
 msgid "Jan."
 msgstr "Jan."
 
-#: website/urls/urls_invoice.py:135 website/urls/urls_quotation.py:108
+#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:108
 msgid "Feb."
 msgstr "Fev."
 
-#: website/urls/urls_invoice.py:135 website/urls/urls_quotation.py:108
+#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:108
 msgid "Mar"
 msgstr "Mars"
 
-#: website/urls/urls_invoice.py:135 website/urls/urls_quotation.py:108
+#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:108
 msgid "Apr."
 msgstr "Avr."
 
-#: website/urls/urls_invoice.py:135 website/urls/urls_quotation.py:108
+#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:108
 msgid "May"
 msgstr "Mai"
 
-#: website/urls/urls_invoice.py:135 website/urls/urls_quotation.py:108
+#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:108
 msgid "Juin"
 msgstr "Juin"
 
-#: website/urls/urls_invoice.py:135 website/urls/urls_quotation.py:108
+#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:108
 msgid "Jul."
 msgstr "Jui."
 
-#: website/urls/urls_invoice.py:135 website/urls/urls_quotation.py:108
+#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:108
 msgid "Agu."
 msgstr "Aou."
 
-#: website/urls/urls_invoice.py:135 website/urls/urls_quotation.py:108
+#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:108
 msgid "Sep."
 msgstr "Sep."
 
-#: website/urls/urls_invoice.py:135 website/urls/urls_quotation.py:108
+#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:108
 msgid "Oct."
 msgstr "Oct."
 
-#: website/urls/urls_invoice.py:135 website/urls/urls_quotation.py:108
+#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:108
 msgid "Nov."
 msgstr "Nov."
 
-#: website/urls/urls_invoice.py:135 website/urls/urls_quotation.py:108
+#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:108
 msgid "Dec."
 msgstr "Dec."
 
-#: website/urls/urls_invoice.py:201 website/urls/urls_invoice.py:203
+#: website/urls/urls_invoice.py:186 website/urls/urls_invoice.py:188
 msgid "Invoice"
 msgstr "Facture"
 
@@ -553,4 +602,58 @@ msgstr "Le devis n°%1 a été supprimer avec succès"
 #: website/urls/urls_quotation.py:101
 msgid "Error while suppression of quotation n°%1 !"
 msgstr "Erreur lors de la suppression du devis n°%1 !"
+
+#~ msgid "(current)"
+#~ msgstr "(actuel)"
+
+#~ msgid "Quotations"
+#~ msgstr "Devis"
+
+#~ msgid "Profile"
+#~ msgstr "Profile"
+
+#~ msgid "logout"
+#~ msgstr "Se déconnecter"
+
+#~ msgid "Yes, delete"
+#~ msgstr "Oui, supprimer"
+
+#~ msgid "List of unfilled fields"
+#~ msgstr "Liste des champs non remplis"
+
+#~ msgid "Are you sure you want to take out the insurance"
+#~ msgstr "Etes-vous sure de vouloir supprimer cette assurance ?"
+
+#~ msgid "The insurance is not selected"
+#~ msgstr "L'assurance n'est pas sélectionné"
+
+#~ msgid "The insurance is selected"
+#~ msgstr "L'assurance est sélectionné"
+
+#~ msgid "And are you sure you want to take out the invoice"
+#~ msgstr "êtes-vous sure que vouloir supprimé cette facture"
+
+#~ msgid "add"
+#~ msgstr "ajouter"
+
+#~ msgid "Invoice of "
+#~ msgstr "Facture de "
+
+#~ msgid "without Tax"
+#~ msgstr "HT"
+
+#~ msgid "excl. Tax"
+#~ msgstr "TTC exclus"
+
+#~ msgid "The client hasn't paid"
+#~ msgstr "Le client n'a pas payé"
+
+#~ msgid "The client has paid"
+#~ msgstr "Le client a payé"
+
+#~ msgid "The invoice %1 has been reedit successfull"
+#~ msgstr "La facture %& a été réédité avec succès"
+
+#~ msgid "Error while reedit %1"
+#~ msgstr "Erreur lors de la réédition de la facture %1"
 
