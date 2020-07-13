@@ -12,6 +12,7 @@ __version__ = "1.0"
 
 class Enterprise:
     def __init__(self):
+        self.id_profile = -1
         self.name = ''
         self.slogan = ''
         self.address = ''
@@ -34,7 +35,8 @@ class EnterpriseDAO(DbDAO):
         super().__init__('enterprise', db_path=dbpath)
         self.obj_type = Enterprise
         self.table_create = {
-            'id': 'INTEGER PRIMARY KEY AUTOINCREMENT', 
+            'id': 'INTEGER PRIMARY KEY AUTOINCREMENT',
+            'id_profile': 'INT NOT NULL',
             'name': 'TEXT NOT NULL',
             'slogan': 'TEXT',
             'address': 'TEXT',
@@ -63,13 +65,17 @@ class EnterpriseDAO(DbDAO):
             logging.info('EnterpriseDAO use exist with WHERE')
             return super().exist(obj)
 
-    def update(self, obj):
-        if hasattr(obj, 'id'):
-            logging.info('EnterpriseDAO use update with id')
-            return super().update(obj, self.where('id', obj.id))
+    def update(self, obj, where=None):
+        if not where:
+            if hasattr(obj, 'id'):
+                logging.info('EnterpriseDAO use update with id')
+                return super().update(obj, self.where('id', obj.id))
+            else:
+                logging.info('EnterpriseDAO use update with siret')
+                return super().update(obj, self.where('siret', obj.siret))
         else:
-            logging.info('EnterpriseDAO use update with siret')
-            return super().update(obj, self.where('siret', obj.siret))
+            logging.info('EnterpriseDAO use update')
+            return super().update(obj, where)
 
     def delete(self, obj):
         if isinstance(obj, Enterprise):

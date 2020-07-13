@@ -72,16 +72,17 @@ class ProfileDAO(DbDAO):
         else:
             logging.info('ProfileDAO use exist with WHERE')
             return super().exist(obj)
-    def update(self, obj):
-        if hasattr(obj, 'id'):
-            logging.info('ProfileDAO use update with id')
-            return super().update(obj, self.where('id', obj.id))
+    def update(self, obj, where=None):
+        if not where:
+            if hasattr(obj, 'id'):
+                logging.info('ProfileDAO use update with id')
+                return super().update(obj, self.where('id', obj.id))
+            else:
+                logging.info('ProfileDAO use update with email')
+                return super().update(obj, self.where('email', obj.email))
         else:
-            logging.info('ProfileDAO use update with email')
-            return super().update(obj, self.where('email', obj.email))
-    def update(self, obj, where):
-        logging.info('ProfileDAO use update')
-        return super().update(obj, where)
+            logging.info('ProfileDAO use update')
+            return super().update(obj, where)
     def delete(self, obj):
         if isinstance(obj, Profile):
             if hasattr(obj, 'id'):
