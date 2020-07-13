@@ -1,18 +1,21 @@
+import logging
+import json
+import datetime
+import os
 from flask_socketio import SocketIO
 from flask import Flask
 from flask_babel import Babel, lazy_gettext as _
 
+from settings.config import SESSION_EXPIRY
 from urls.urls_client import get_client_name, add_client, remove_client
 from urls.urls_insurance import add_insurance, remove_insurance, select_insurance
 from urls.urls_invoice import get_new_invoice, add_invoice, remove_invoice, bill, convert_date
 from urls.urls_quotation import manager_quotation
-import logging
-import json
-import os
 
 website_dir = os.path.abspath(os.path.dirname(__file__) + os.path.sep + '..') + os.path.sep
 app = Flask(__name__, static_folder= website_dir + 'static' + os.path.sep, template_folder= website_dir + 'html')
 app.config['BABEL_TRANSLATION_DIRECTORIES'] = website_dir + '..' + os.path.sep + 'translations'
+app.config['PERMANENT_SESSION_LIFETIME'] =  datetime.timedelta(minutes=SESSION_EXPIRY)
 babel = Babel(app, default_locale='en')
 app.secret_key = "dsd999fsdf78zeSDez25ré(Fàç!uy23hGg¨*%H£23)"
 app.register_blueprint(manager_quotation, url_prefix="/")

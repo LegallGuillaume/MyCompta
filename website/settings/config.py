@@ -6,3 +6,5 @@ __version__ = "1.0"
 
 DB_PATH = '/Users/AG/Documents/workspace/00_website-compta/prog/prog_db'
 TAX = 20 # percent
+
+SESSION_EXPIRY = 20 # minutes

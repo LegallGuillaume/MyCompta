@@ -72,6 +72,7 @@ def register():
     pdao = ProfileDAO()
     if pdao.insert(profile):
         logging.info('add profile %s OK', profile.name)
+        session.permanent = True
         session['logged_in'] = pdao.field(pdao.where('email', profile.email), 'id')[0][0]
     else:
         logging.info('add profile %s FAILED', profile.name)
@@ -85,6 +86,7 @@ def signin_form():
     passwd = request.form['password']
     pdao = ProfileDAO()
     if pdao.check_auth(pdao.where('email', email), passwd):
+        session.permanent = True
         session['logged_in'] = str(pdao.get(pdao.where('email', email))[0].id)
         logging.warning('sign in OK, redirect to URL /home')
         return redirect('/home')
