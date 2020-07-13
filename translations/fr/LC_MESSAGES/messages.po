@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-07-13 20:31+0200\n"
+"POT-Creation-Date: 2020-07-14 00:02+0200\n"
 "PO-Revision-Date: 2020-06-15 21:41+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -18,24 +18,32 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: website/server.py:66 website/server.py:190
+#: website/server.py:66 website/server.py:227
 msgid "Your confirmation password does not match the password you entered"
 msgstr "Les 2 mots de passe ne sont pas identique"
 
-#: website/server.py:85
+#: website/server.py:78
 msgid "Impossible to create new user, please contact an admin !"
 msgstr "Impossible de créer un nouvelle utilisateur, veuillez contacter un admin !"
 
-#: website/server.py:100
+#: website/server.py:93
 msgid "Email or Password incorrect !"
 msgstr "Email ou Mot de passe incorrecte !"
 
 #: website/html/v3-home.html:11 website/html/v3-navbar-direct.html:8
-#: website/html/v3-navbar.html:8 website/server.py:169
+#: website/html/v3-navbar.html:8 website/server.py:162
 msgid "Home"
 msgstr "Accueil"
 
-#: website/server.py:220
+#: website/server.py:204
+msgid "Impossible to update enterprise, please contact an admin !"
+msgstr "Impossible de mettre à jour l'entreprise, Veuillez contacter un admin !"
+
+#: website/server.py:210
+msgid "Impossible to create new enterprise, please contact an admin !"
+msgstr "Impossible d'ajouter l'entreprise, Veuillez contacter un admin !"
+
+#: website/server.py:243
 msgid "Impossible to edit user, please contact an admin !"
 msgstr "Impossible de modifier l'utilisateur, Veuillez contacter un admin !"
 
@@ -117,7 +125,7 @@ msgstr "Confirmer !"
 #: website/html/quotation.html:150 website/html/v3-home.html:164
 #: website/html/v3-home.html:192 website/html/v3-home.html:254
 #: website/html/v3-home.html:336 website/html/v3-home.html:432
-#: website/html/v3-home.html:460 website/urls/socketio.py:50
+#: website/html/v3-home.html:460 website/urls/socketio.py:48
 msgid "No"
 msgstr "Non"
 
@@ -142,7 +150,7 @@ msgstr "HT"
 msgid "Total without tax"
 msgstr "Total HT"
 
-#: website/html/quotation.html:221 website/urls/urls_quotation.py:125
+#: website/html/quotation.html:221 website/urls/urls_quotation.py:124
 msgid "Quotation"
 msgstr "Devis"
 
@@ -153,6 +161,55 @@ msgstr "ttc"
 #: website/html/quotation.html:234
 msgid "To convert quotation to invoice"
 msgstr "Convertir devis en Facture"
+
+#: website/html/v3-enterprise.html:24
+msgid "Edit enterprise"
+msgstr "Modifier l'entreprise"
+
+#: website/html/v3-enterprise.html:30 website/html/v3-home.html:282
+msgid "Name company"
+msgstr "Nom société"
+
+#: website/html/v3-enterprise.html:33
+msgid "Slogan"
+msgstr "Slogan"
+
+#: website/html/v3-enterprise.html:36 website/html/v3-home.html:286
+msgid "Address"
+msgstr "adresse"
+
+#: website/html/v3-enterprise.html:39
+msgid "Address supplement"
+msgstr "Complément d'adresse"
+
+#: website/html/v3-enterprise.html:42
+msgid "Zipcode"
+msgstr "Code postal"
+
+#: website/html/v3-enterprise.html:45 website/html/v3-home.html:298
+msgid "City"
+msgstr "Ville"
+
+#: website/html/v3-enterprise.html:48 website/html/v3-home.html:302
+#: website/html/v3-home.html:394
+msgid "Country"
+msgstr "Pays"
+
+#: website/html/v3-enterprise.html:51 website/html/v3-login.html:30
+msgid "Email"
+msgstr "Email"
+
+#: website/html/v3-enterprise.html:54
+msgid "Phone"
+msgstr "Téléphone"
+
+#: website/html/v3-enterprise.html:57
+msgid "Siret"
+msgstr "Siret"
+
+#: website/html/v3-enterprise.html:60 website/html/v3-profile.html:45
+msgid "Modify"
+msgstr "Modifier"
 
 #: website/html/v3-home.html:16
 msgid "INVOICE RECEIVED incl. Tax"
@@ -256,7 +313,7 @@ msgstr "Gérer"
 msgid "Add invoice"
 msgstr "Ajouter une facture"
 
-#: website/html/v3-home.html:254 website/urls/socketio.py:49
+#: website/html/v3-home.html:254 website/urls/socketio.py:47
 msgid "Yes"
 msgstr "Oui"
 
@@ -264,30 +321,13 @@ msgstr "Oui"
 msgid "New Client"
 msgstr "Nouveau Client"
 
-#: website/html/v3-home.html:282
-msgid "Name company"
-msgstr "Nom société"
-
-#: website/html/v3-home.html:286 website/html/v3-login.html:34
-msgid "Address"
-msgstr "adresse"
-
 #: website/html/v3-home.html:290
 msgid "Complement Address"
 msgstr "Complement adresse"
 
-#: website/html/v3-home.html:294 website/html/v3-login.html:40
+#: website/html/v3-home.html:294
 msgid "Zip code"
 msgstr "Code postal"
-
-#: website/html/v3-home.html:298 website/html/v3-login.html:43
-msgid "City"
-msgstr "Ville"
-
-#: website/html/v3-home.html:302 website/html/v3-home.html:394
-#: website/html/v3-login.html:46
-msgid "Country"
-msgstr "Pays"
 
 #: website/html/v3-home.html:318 website/html/v3-home.html:353
 msgid "Delete client"
@@ -353,8 +393,8 @@ msgstr "Supprimer une assurance"
 msgid "Select insurance"
 msgstr "Selectionner une assurance"
 
-#: website/html/v3-home.html:490 website/urls/socketio.py:78
-#: website/urls/socketio.py:227
+#: website/html/v3-home.html:490 website/urls/socketio.py:76
+#: website/urls/socketio.py:225
 msgid "Selected"
 msgstr "Selectionné"
 
@@ -362,148 +402,132 @@ msgstr "Selectionné"
 msgid "Not selected"
 msgstr "Pas selectionné"
 
-#: website/html/v3-login.html:24
+#: website/html/v3-login.html:20
 msgid "SIGN UP"
 msgstr "S'enregistrer"
 
-#: website/html/v3-login.html:28
+#: website/html/v3-login.html:24
 msgid "First name"
 msgstr "Nom"
 
-#: website/html/v3-login.html:31
+#: website/html/v3-login.html:27
 msgid "Last name"
 msgstr "Prénom"
 
-#: website/html/v3-login.html:37
-msgid "Compl. address"
-msgstr "Compl. adresse"
-
-#: website/html/v3-login.html:49
-msgid "Email"
-msgstr "Email"
-
-#: website/html/v3-login.html:52
-msgid "Phone"
-msgstr "Téléphone"
-
-#: website/html/v3-login.html:55
-msgid "Siret"
-msgstr "Siret"
-
-#: website/html/v3-login.html:58 website/html/v3-login.html:61
-#: website/html/v3-profile.html:64 website/html/v3-profile.html:67
+#: website/html/v3-login.html:33 website/html/v3-login.html:36
+#: website/html/v3-profile.html:39 website/html/v3-profile.html:42
 msgid "Password"
 msgstr "Mot de passe"
 
-#: website/html/v3-login.html:64
+#: website/html/v3-login.html:39
 msgid "Register"
 msgstr "S'enregistrer"
 
-#: website/html/v3-login.html:72
+#: website/html/v3-login.html:47
 msgid "Login"
 msgstr "Se connecter"
 
-#: website/html/v3-login.html:82
+#: website/html/v3-login.html:57
 msgid "Sign In"
 msgstr "Se connecter"
 
 #: website/html/v3-navbar-direct.html:25 website/html/v3-navbar.html:28
-msgid "Edit profile"
-msgstr "Modifier votre profile"
+msgid "My profile"
+msgstr "Mon profile"
 
 #: website/html/v3-navbar-direct.html:26 website/html/v3-navbar.html:29
+msgid "My enterprise"
+msgstr "Mon entreprise"
+
+#: website/html/v3-navbar-direct.html:27 website/html/v3-navbar.html:30
 msgid "Logout"
 msgstr "Se déconnecter"
 
-#: website/html/v3-profile.html:28
+#: website/html/v3-profile.html:24
 msgid "Edit user"
 msgstr "Modifier votre profile"
 
-#: website/html/v3-profile.html:70
-msgid "Modify"
-msgstr "Modifier"
-
-#: website/urls/socketio.py:79
+#: website/urls/socketio.py:77
 msgid "Not Selected"
 msgstr "Pas sélectionné"
 
-#: website/urls/socketio.py:94 website/urls/socketio.py:118
-#: website/urls/socketio.py:139 website/urls/socketio.py:158
-#: website/urls/socketio.py:174 website/urls/socketio.py:190
-#: website/urls/socketio.py:206 website/urls/socketio.py:222
+#: website/urls/socketio.py:92 website/urls/socketio.py:116
+#: website/urls/socketio.py:137 website/urls/socketio.py:156
+#: website/urls/socketio.py:172 website/urls/socketio.py:188
+#: website/urls/socketio.py:204 website/urls/socketio.py:220
 msgid "Please fill in all fields !"
 msgstr "Veuillez remplir tous les champs"
 
-#: website/urls/socketio.py:98
+#: website/urls/socketio.py:96
 msgid "This client no longer exists, please reload the page !"
 msgstr "Le client n'existe plus, veuillez recharger la page !"
 
-#: website/urls/socketio.py:101 website/urls/socketio.py:122
-#: website/urls/socketio.py:143
+#: website/urls/socketio.py:99 website/urls/socketio.py:120
+#: website/urls/socketio.py:141
 msgid "Impossible to add this invoice, Your session has been expired"
 msgstr "Impossible d'ajouter la facture, votre session a expiré"
 
-#: website/urls/socketio.py:104
+#: website/urls/socketio.py:102
 msgid "The invoice %1 has been added successfull"
 msgstr "La facture %1 a été ajouté avec succès"
 
-#: website/urls/socketio.py:110
+#: website/urls/socketio.py:108
 msgid "Error while creation of invoice %1 !"
 msgstr "Erreur lors de la creation de la facture %1 !"
 
-#: website/urls/socketio.py:125
+#: website/urls/socketio.py:123
 msgid "The invoice %1 has been deleted successfull"
 msgstr "La facture %1 a été supprimé avec succès"
 
-#: website/urls/socketio.py:131
+#: website/urls/socketio.py:129
 msgid "Error while suppression of invoice %1 !"
 msgstr "Erreur lors de la suppression de la facture %1"
 
-#: website/urls/socketio.py:146
+#: website/urls/socketio.py:144
 msgid "The invoice %1 has been sold successfull"
 msgstr "La facture %1 a été payé avec succès"
 
-#: website/urls/socketio.py:150
+#: website/urls/socketio.py:148
 msgid "Error while invoice %1 has been sold"
 msgstr "Erreur lors du paiement de la facture %1"
 
-#: website/urls/socketio.py:162
+#: website/urls/socketio.py:160
 msgid "The client %1 has been added successfull"
 msgstr "Le client %1 a été ajouté avec succès"
 
-#: website/urls/socketio.py:166
+#: website/urls/socketio.py:164
 msgid "Error while creation of client %1 !"
 msgstr "Erreur lors de la création du client %1 !"
 
-#: website/urls/socketio.py:178
+#: website/urls/socketio.py:176
 msgid "The client %1 has been deleted!"
 msgstr "Le client %1 a été supprimé !"
 
-#: website/urls/socketio.py:182
+#: website/urls/socketio.py:180
 msgid "Error while supression of client %1 !"
 msgstr "Erreur lors de la suppression du client %1 !"
 
-#: website/urls/socketio.py:194
+#: website/urls/socketio.py:192
 msgid "The insurance %1 has been added successfull"
 msgstr "L'assurance %1 a été ajouté avec succès"
 
-#: website/urls/socketio.py:198
+#: website/urls/socketio.py:196
 msgid "Error while creation of insurance %1 !"
 msgstr "Erreur lors de la création de l'assurance %1 !"
 
-#: website/urls/socketio.py:210
+#: website/urls/socketio.py:208
 msgid "The insurance %1 has been deleted successfull"
 msgstr "L'assurance %1 a été supprimé avec succès"
 
-#: website/urls/socketio.py:214
+#: website/urls/socketio.py:212
 msgid "Error while supression of insurance %1 !"
 msgstr "Erreur lors de la suppression de l'assurance %1"
 
-#: website/urls/socketio.py:226
+#: website/urls/socketio.py:224
 msgid "The insurance %1 has been selected successfull"
 msgstr "L'assurance %1 a été selectionné avec succès"
 
-#: website/urls/socketio.py:230
+#: website/urls/socketio.py:228
 msgid "Error while insurance %1 has been selected"
 msgstr "Erreur lors de la sélection de l'assurance %1"
 
@@ -511,55 +535,55 @@ msgstr "Erreur lors de la sélection de l'assurance %1"
 msgid "client_deleted"
 msgstr "client_supprimé"
 
-#: website/urls/urls_invoice.py:119 website/urls/urls_quotation.py:106
+#: website/urls/urls_invoice.py:119 website/urls/urls_quotation.py:105
 msgid "None"
 msgstr "Aucun"
 
-#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:108
+#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:107
 msgid "Jan."
 msgstr "Jan."
 
-#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:108
+#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:107
 msgid "Feb."
 msgstr "Fev."
 
-#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:108
+#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:107
 msgid "Mar"
 msgstr "Mars"
 
-#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:108
+#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:107
 msgid "Apr."
 msgstr "Avr."
 
-#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:108
+#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:107
 msgid "May"
 msgstr "Mai"
 
-#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:108
+#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:107
 msgid "Juin"
 msgstr "Juin"
 
-#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:108
+#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:107
 msgid "Jul."
 msgstr "Jui."
 
-#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:108
+#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:107
 msgid "Agu."
 msgstr "Aou."
 
-#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:108
+#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:107
 msgid "Sep."
 msgstr "Sep."
 
-#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:108
+#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:107
 msgid "Oct."
 msgstr "Oct."
 
-#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:108
+#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:107
 msgid "Nov."
 msgstr "Nov."
 
-#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:108
+#: website/urls/urls_invoice.py:120 website/urls/urls_quotation.py:107
 msgid "Dec."
 msgstr "Dec."
 
@@ -567,27 +591,27 @@ msgstr "Dec."
 msgid "Invoice"
 msgstr "Facture"
 
-#: website/urls/urls_quotation.py:25
+#: website/urls/urls_quotation.py:24
 msgid "Impossible to add Quotation, Your session has been expired"
 msgstr "Impossible d'ajouter un devis, votre session a expiré"
 
-#: website/urls/urls_quotation.py:33
+#: website/urls/urls_quotation.py:32
 msgid "Impossible to add Quotation, the number of quotation is ever used"
 msgstr "Impossible d'ajouter un devis, le numéro du devis est déjà utilisé"
 
-#: website/urls/urls_quotation.py:75 website/urls/urls_quotation.py:88
+#: website/urls/urls_quotation.py:74 website/urls/urls_quotation.py:87
 msgid "Impossible to add quotation n°%1"
 msgstr "Impossible d'ajouter le devis n°%1"
 
-#: website/urls/urls_quotation.py:91
+#: website/urls/urls_quotation.py:90
 msgid "The quotation n°%1 has been added successfull"
 msgstr "Le devis n°%1 a été ajouter avec succès"
 
-#: website/urls/urls_quotation.py:98
+#: website/urls/urls_quotation.py:97
 msgid "The quotation n°%1 has been deleted successfull"
 msgstr "Le devis n°%1 a été supprimer avec succès"
 
-#: website/urls/urls_quotation.py:101
+#: website/urls/urls_quotation.py:100
 msgid "Error while suppression of quotation n°%1 !"
 msgstr "Erreur lors de la suppression du devis n°%1 !"
 
@@ -656,4 +680,10 @@ msgstr "Erreur lors de la suppression du devis n°%1 !"
 
 #~ msgid "Register Account"
 #~ msgstr "S'enregistrer"
+
+#~ msgid "Compl. address"
+#~ msgstr "Compl. adresse"
+
+#~ msgid "Edit profile"
+#~ msgstr "Modifier votre profile"
 
