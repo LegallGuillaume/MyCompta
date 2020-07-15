@@ -1,5 +1,6 @@
 import os
 import logging
+import random
 from models.client import ClientDAO, Client
 from models.db import DbDAO, DB
 from models.insurance import InsuranceDAO, Insurance
@@ -113,7 +114,7 @@ class Test:
         self.enterprise.zipcode = '13132'
         self.enterprise.email = 'TEST1@TEST2.TEST3'
         self.enterprise.country = 'FRANCE'
-        self.enterprise.siret = '0292029102'
+        self.enterprise.siret = '0292029102' + str(random.randint(0,100))
         self.enterprise.phone = '0439403920'
         self.enterprise.city = 'MARSEILLE'
 
