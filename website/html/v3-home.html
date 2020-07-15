@@ -27,6 +27,7 @@
             </div>
         </div>
     </div>
+    {% if profile.autoentrepreneur %}
     <div class="col-3">
         <div class="card mb-3 shadow-gray border-gray" style="max-width: 18rem; background-color: transparent;">
             <div class="card-header text-uppercase text-xs font-weight-bold co-gray bg-light">{{_('Billing available')}} {{year}}</div>
@@ -35,6 +36,7 @@
             </div>
         </div>
     </div>
+    {% endif %}
     <div class="col-3">
         <div class="card mb-3 shadow-gray border-gray" style="max-width: 18rem; background-color: transparent;">
             <div class="card-header text-uppercase text-xs font-weight-bold co-gray bg-light">{{_('Invoice collected without Tax')}} (2019-20XX)</div>

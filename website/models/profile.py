@@ -17,6 +17,7 @@ class Profile:
         self.firstname = ''
         self.password = ''
         self.email = ''
+        self.autoentrepreneur = False
         self.created = ''
 
     def __str__(self):
@@ -39,6 +40,7 @@ class ProfileDAO(DbDAO):
             'firstname': 'TEXT NOT NULL',
             'password': 'TEXT',
             'email': 'TEXT UNIQUE',
+            'autoentrepreneur': 'BOOLEAN',
             'created': 'TEXT'
         }
     

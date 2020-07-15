@@ -69,6 +69,7 @@ def register():
     profile.firstname = form['profile-firstname']
     profile.email = form['profile-email']
     profile.password = form['profile-password']
+    profile.autoentrepreneur = ('profile-autoentrepreneur' in form)
     pdao = ProfileDAO()
     if pdao.insert(profile):
         logging.info('add profile %s OK', profile.name)
@@ -236,6 +237,7 @@ def profile_edit():
             profile.email = form['profile-email']
         if form['profile-password']:
             profile.password = form['profile-password']
+        profile.autoentrepreneur = ('profile-autoentrepreneur' in form)
         pdao = ProfileDAO()
         id_profile = profile.id
         if pdao.update(profile, pdao.where('id', id_profile)):
