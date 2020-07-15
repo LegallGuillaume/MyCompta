@@ -200,6 +200,7 @@ class ProfileTestCase(unittest.TestCase):
         self.profile.firstname = 'TEST 4'
         self.profile.email = 'TEST1@TEST2.TEST3'
         self.profile.password = 'CECIESTUNTEST'
+        self.profile.autoentrepreneur = True
     def test_profile_obj(self):
         self.assertIsNotNone(self.pdao, msg="Impossible to instance ProfileDAO")
         self.assertTrue(self.pdao.create_table(), msg="Impossible to create profile table in db")
@@ -213,6 +214,7 @@ class ProfileTestCase(unittest.TestCase):
         self.assertEqual(self.profile.email, prfl.email, msg="Profile get, has no same attribute 'email'")
         self.assertEqual(self.profile.name, prfl.name, msg="Profile get, has no same attribute 'name'")
         self.assertEqual(self.profile.password, prfl.password, msg="Profile get, has no same attribute 'password'")
+        self.assertEqual(self.profile.autoentrepreneur, prfl.autoentrepreneur, msg="Profile get, has no same attribute 'autoentrepreneur'")
         self.assertTrue(hasattr(prfl, 'id'), msg="Profile get, has no attribute 'id'")
         prfl.password = '12131'
         self.assertTrue(self.pdao.update(prfl))

@@ -85,6 +85,7 @@ class Test:
         self.profile.name = 'TEST 3'
         self.profile.firstname = 'TEST 4'
         self.profile.password = 'CECIESTUNTEST'
+        self.profile.autoentrepreneur = False
 
         inspdao = self.pdao.insert(self.profile)
         print(bcolors.HEADER + 'insert profile ?> ' + bcolors.ENDC, bcolors.OKGREEN + 'OK' if inspdao else bcolors.FAIL + "KO", bcolors.ENDC)
