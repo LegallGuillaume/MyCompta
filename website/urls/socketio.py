@@ -13,8 +13,12 @@ from urls.urls_invoice import get_new_invoice, add_invoice, remove_invoice, bill
 from urls.urls_quotation import manager_quotation
 
 website_dir = os.path.abspath(os.path.dirname(__file__) + os.path.sep + '..') + os.path.sep
-app = Flask(__name__, static_folder= website_dir + 'static' + os.path.sep, template_folder= website_dir + 'html')
-app.config['BABEL_TRANSLATION_DIRECTORIES'] = website_dir + '..' + os.path.sep + 'translations'
+static_dir = os.path.abspath(website_dir + 'static')
+template_dir = os.path.abspath(website_dir + 'html')
+translation_dir = os.path.abspath(website_dir + '..' + os.path.sep + 'translations')
+
+app = Flask(__name__, static_folder=static_dir, template_folder=template_dir)
+app.config['BABEL_TRANSLATION_DIRECTORIES'] = translation_dir
 app.config['PERMANENT_SESSION_LIFETIME'] =  datetime.timedelta(minutes=SESSION_EXPIRY)
 babel = Babel(app, default_locale='en')
 app.secret_key = "dsd999fsdf78zeSDez25ré(Fàç!uy23hGg¨*%H£23)"

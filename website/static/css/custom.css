@@ -12,3 +12,23 @@ html
 {
     border: none;
 }
+
+.text-xs
+{
+    font-size: x-small;
+}
+
+.text-md
+{
+    font-size: medium;
+}
+
+.text-lg
+{
+    font-size: large;
+}
+
+.text-xl
+{
+    font-size: x-large;
+}
