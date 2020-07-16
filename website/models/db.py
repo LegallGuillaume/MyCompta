@@ -181,7 +181,6 @@ class DbDAO:
             del obj.table_create
         except:
             logging.warning('DbDAO __contruct_obj cannot del some default attribute')
-            pass
         # set new attr
         for index, col in enumerate(cols_name):
             setattr(obj, col, result[index])
@@ -211,7 +210,7 @@ class DbDAO:
             raise Exception('Not object found with : ' + where)
         cols_name = list(map(lambda x: x[0], cursor.description))
         results = list(cursor.fetchall())
-        list_obj = list()
+        list_obj = []
         for result in results:
             list_obj.append(self.__construct_obj(cols_name, result, where))
         return list_obj

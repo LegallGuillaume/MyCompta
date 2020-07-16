@@ -31,7 +31,7 @@ class Quotation:
         if not isinstance(item, QuotationItem):
             return
         if not hasattr(self, 'list_item'):
-            self.list_item = list()
+            self.list_item = []
         item.id_quotation = self.id
         new_price = (item.quantity*item.unit_price)
         if not item.reduction:
@@ -78,7 +78,7 @@ class QuotationDAO(DbDAO):
         return obj
 
     def insert(self, obj):
-        list_item = list()
+        list_item = []
         if hasattr(obj, 'list_item'):
             list_item = obj.list_item
             del obj.list_item

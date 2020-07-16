@@ -144,9 +144,8 @@ def accueil():
                     tax_collected_last_year += (float(invo.total)*(1+(TAX/100)))
                 else:
                     tax_collected_last_year += float(invo.total)
-        if invo.sold:
-            if invo.tax:
-                tax_total += (float(invo.total)*0.20)
+        if invo.sold and invo.tax:
+            tax_total += (float(invo.total)*0.20)
 
     date_now = now.date()
     cp_date_now = date_now

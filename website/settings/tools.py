@@ -8,7 +8,7 @@ __website__ = "www.gyca.fr"
 __license__ = "BSD-2"
 __version__ = "1.0"
 
-CACHE_INVOICE = dict()
+CACHE_INVOICE = {}
 
 def get_profile_from_session():
     st_id = session['logged_in']

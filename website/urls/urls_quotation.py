@@ -51,8 +51,8 @@ def add_quotation(form):
     didao = QuotationItemDAO()
     success = True
     nb_items = int(len(lines) / 3)
-    list_quotation_item = list()
-    for i in range(0,nb_items):
+    list_quotation_item = []
+    for i in range(nb_items):
         quotationItem = QuotationItem()
         quotationItem.description = lines[(i*3)+0][1]
         quotationItem.quantity_text = lines[(i*3)+1][1]
@@ -70,25 +70,26 @@ def add_quotation(form):
         if tax:
             quotation_obj.tax_price += ((quotationItem.quantity*quotationItem.unit_price)*20/100)
 
-    if not ddao.insert(quotation_obj):
+    if ddao.insert(quotation_obj):
+        logging.info('add quotation %s OK', n_quotation)
+
+    else:
         logging.info('add quotation %s FAILED', n_quotation)
         flash(_("Impossible to add quotation n°%1").replace('%1', n_quotation), 'danger')
         return
-    else:
-        logging.info('add quotation %s OK', n_quotation)
-    
     for quotationItem in list_quotation_item:
         quotationItem.id_quotation = quotation_obj.id
         success &= didao.insert(quotationItem)
 
-    if not success:
+    if success:
+        logging.info('add quotation item %s OK', n_quotation)
+        flash(_("The quotation n°%1 has been added successfull").replace('%1', n_quotation), 'success')
+
+    else:
         logging.warning('add quotation item %s FAILED', n_quotation)
         didao.delete(didao.where('id_quotation', n_quotation))  
         ddao.delete(ddao.where('id', n_quotation))   
         flash(_("Impossible to add quotation n°%1").replace('%1', n_quotation), 'danger')
-    else:
-        logging.info('add quotation item %s OK', n_quotation)
-        flash(_("The quotation n°%1 has been added successfull").replace('%1', n_quotation), 'success')
 
 def remove_quotation(n_quotation):
     ddao = QuotationDAO()
